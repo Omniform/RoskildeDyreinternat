@@ -26,7 +26,7 @@ namespace LibDyreInternat
             Date = date;
             Activity = activity;
             Author = author;
-            
+
             idNext++;
         }
         public override string ToString()
