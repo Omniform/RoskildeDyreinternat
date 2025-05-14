@@ -11,7 +11,7 @@ public class Activity
     public DateOnly Date { get; private set; }
     public TimeOnly StartTime { get; private set; }
     public TimeOnly EndTime { get; private set; }
-    private List<Person>? Members { get; set; } = null;
+    public List<Person>? Members { get; private set; } = null;
     public Person Coordinator { get; private set; }
 
     public Activity(string name, DateOnly date, TimeOnly startTime, TimeOnly endTime, Person coordinator)
