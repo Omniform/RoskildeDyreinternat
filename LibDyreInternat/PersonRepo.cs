@@ -10,10 +10,10 @@ namespace LibDyreInternat
     {
         public static List<Person> AllPerson { get; private set; } = new List<Person>()
             {
-                new Person("Toke", 01-01-01, "Holte", "12345678", "Toke@toke.toke"),
-                new Person("Esti",  18-05-97, "Jyllinge", "93801615", "estibrusse18@gmail.com"),
-                new Person("Lars", 01-01-01,  "Husum", "45678912", "LarsLars@larslars.lars"),
-                new Person("Stefan", 01-01-01, "Denmark", "65465456", "stefan@stefan.dk")
+                new Person("Toke", 01-01-01, "Holte", "12345678", "Toke@toke.toke", Person.Acceslevel.admin),
+                new Person("Esti",  18-05-97, "Jyllinge", "93801615", "estibrusse18@gmail.com", Person.Acceslevel.kunde),
+                new Person("Lars", 01-01-01,  "Husum", "45678912", "LarsLars@larslars.lars", Person.Acceslevel.admin),
+                new Person("Stefan", 01-01-01, "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
             };
 
         private static List<Person> filteredPerson = new List<Person>();
@@ -45,13 +45,13 @@ namespace LibDyreInternat
             }
             if (filteredPerson == null || filteredPerson.Count <= 0)
             {
-                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen medlemmer med det angivne navn";
+                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne navn";
                 throw new NoSearhResultException(msg);
             }
             return filteredPerson;
         }
 
-        public static Person? FindPersonById(int Id)
+        public static Person? GetById(int Id)
         {
             Person? person = null;
             foreach (Person p in AllPerson)
@@ -63,7 +63,7 @@ namespace LibDyreInternat
             }
             if (person == null)
             {
-                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen medlemmer med det angivne ID";
+                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne ID";
                 throw new NoSearhResultException(msg);
             }
             return person;
