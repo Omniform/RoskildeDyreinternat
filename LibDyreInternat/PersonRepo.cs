@@ -11,9 +11,9 @@ namespace LibDyreInternat
         public static List<Person> AllPerson { get; private set; } = new List<Person>()
             {
                 new Person("Toke", 01-01-01, "Holte", "12345678", "Toke@toke.toke", Person.Acceslevel.admin),
-                new Person("Esti",  18-05-97, "Jyllinge", "93801615", "estibrusse18@gmail.com", Person.Acceslevel.medlem),
+                new Person("Esti",  18-05-97, "Jyllinge", "93801615", "estibrusse18@gmail.com", Person.Acceslevel.kunde),
                 new Person("Lars", 01-01-01,  "Husum", "45678912", "LarsLars@larslars.lars", Person.Acceslevel.admin),
-                new Person("Stefan", 01-01-01, "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.admin)
+                new Person("Stefan", 01-01-01, "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
             };
 
         private static List<Person> filteredPerson = new List<Person>();
