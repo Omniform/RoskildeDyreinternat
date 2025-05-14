@@ -11,8 +11,7 @@ namespace LibDyreInternat
     {
         public static List<Blog> AllBlogs { get; private set; } = new List<Blog>()
         {
-            new Blog("Bob did go for an walk", 565656, 01-01-01, Activity, "The trip to the woods was enjoyable, Bob marked every tree along the way."),
-            new Blog("Blub the fish did go for an swim", 465465, 01-01-01, Activity, "Blub the fish a brave little fish went for a swim and proudly discovered the same rock at least ten times.")
+            new Blog("Tokes blog", 1, new DateTime(), new Activity("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), new Person("Toke", 201102,"Æblemadevej 1", "24613612", "Tokedit11@gmail.com", Person.Acceslevel.admin)),"Tokes Blog", "Toke")
         };
 
         public static void AddBlog(Blog blog) { AllBlogs.Add(blog); }
