@@ -26,10 +26,10 @@ public class CustomDictionary<TKey, TValue>
     }
 
     public TValue GetValueAt(int index)
-    {
+{
         return m_list.ElementAt(index).Value;
     }
-
+    
     public List<KeyValuePair<TKey, TValue>> ToList()
     {
         return m_list;
