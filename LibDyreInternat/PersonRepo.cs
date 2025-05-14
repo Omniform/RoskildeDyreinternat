@@ -51,7 +51,7 @@ namespace LibDyreInternat
             return filteredPerson;
         }
 
-        public static Person? FindPersonById(int Id)
+        public static Person? GetById(int Id)
         {
             Person? person = null;
             foreach (Person p in AllPerson)
