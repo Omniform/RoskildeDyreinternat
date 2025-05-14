@@ -16,24 +16,22 @@ namespace LibDyreInternat
         public string Description {get; set;}
         public DateTime Date {get; set;}
         public Activity Activity {get; set;}
-        // public Author person {get; set;}
-        // public Person person {get; set;}
+        public string Author {get; set;}
 
-        public Blog(string title, int id, DateTime date, Activity activity, string description, //Author person, Person person) 
+        public Blog(string title, int id, DateTime date, Activity activity, string description, string author) 
         {
             Id = id;
             Title = title;
             Description = description;
             Date = date;
             Activity = activity;
-            // Author = person;
-            // Person person;
-
+            Author = author;
+            
             idNext++;
         }
         public override string ToString()
         {
-            return $"ID: {Id}\nTitle: {Title}\nDescription";
+            return $"ID: {Id}\nTitle: {Title}\nDescription: {Description}\nDate: {Date}\nActivity: {Activity}\nAuthor: {Author}";
         }
     }
 }
