@@ -20,7 +20,8 @@ namespace LibDyreInternat
         public enum Acceslevel
         {
             admin = 1,
-            medlem
+            medlem,
+            kunde
         }
 
         public Person(string name, int birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
@@ -44,6 +45,9 @@ namespace LibDyreInternat
                     break;
                 case Acceslevel.medlem:
                     personAcceslevel = "Medlem";
+                    break;
+                case Acceslevel.kunde:
+                    personAcceslevel = "Kunde";
                     break;
             }
 
