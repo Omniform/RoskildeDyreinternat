@@ -19,7 +19,7 @@ namespace LibDyreInternat
         // public Author person {get; set;}
         // public Person person {get; set;}
 
-        public Blog(string name, int id, DateTime date, Activity activity, string description, //Author person, Person person) 
+        public Blog(string name, int id, DateTime date, Activity activity, string description) //Author person, Person person) 
         {
             Id = id;
             Name = name;

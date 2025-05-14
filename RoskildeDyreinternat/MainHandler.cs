@@ -77,30 +77,30 @@ namespace RoskildeDyreinternat
                     int id = int.Parse(Console.ReadLine());
                     Console.WriteLine("Indtast navnet på Dyrlægen");
                     string nameDoctor = Console.ReadLine();
-                    MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(id), nameDoctor);
+                    //MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(id), nameDoctor);
                     break;
                 case "2":
                     Console.WriteLine("Hvilken log vil du ændre? (Indtast dens ID)");
-                    MedicalLog medicalLogRef = MedicalLogRepo.GetById(int.Parse(Console.ReadLine());
+                    //MedicalLog medicalLogRef = MedicalLogRepo.GetById(int.Parse(Console.ReadLine());
                     Console.WriteLine("Hvad vil du gerne ændre?");
                     Console.WriteLine("1: Beskrivelse\n2: Tidspunkt\n3: Dyret\n4: Dyrlægens Navn");
                     switch (Console.ReadLine())
                     {
                         case "1":
                             Console.WriteLine("Indtast ny beskrivelse");
-                            medicalLogRef.Description = Console.ReadLine();
+                            //medicalLogRef.Description = Console.ReadLine();
                             break;
                         case "2":
                             Console.WriteLine("Indtast nyt tidspunkt");
-                            medicalLogRef.DateTime = DateTime.ParseExact(Console.ReadLine(), "dd - MM - yyyy HH: mm", null);
+                            //medicalLogRef.DateTime = DateTime.ParseExact(Console.ReadLine(), "dd - MM - yyyy HH: mm", null);
                             break;
                         case "3":
                             Console.WriteLine("Indtast ID på det nyt dyr");
-                            medicalLogRef.Animal = AnimalRepo.GetById(Console.ReadLine());
+                            //medicalLogRef.Animal = AnimalRepo.GetById(Console.ReadLine());
                             break;
                         case "4":
                             Console.WriteLine("Indtast nyt navn");
-                            medicalLogRef.NameOfDoctor = Console.ReadLine();
+                            //medicalLogRef.NameOfDoctor = Console.ReadLine();
                             break;
                         
                     }

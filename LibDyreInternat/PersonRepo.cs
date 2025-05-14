@@ -46,7 +46,7 @@ namespace LibDyreInternat
             if (filteredPerson == null || filteredPerson.Count <= 0)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne navn";
-                throw new NoSearhResultException(msg);
+                //throw new NoSearhResultException(msg);
             }
             return filteredPerson;
         }
@@ -64,7 +64,7 @@ namespace LibDyreInternat
             if (person == null)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne ID";
-                throw new NoSearhResultException(msg);
+                //throw new NoSearhResultException(msg);
             }
             return person;
         }
