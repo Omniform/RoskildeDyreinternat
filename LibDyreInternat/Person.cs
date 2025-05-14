@@ -15,8 +15,15 @@ namespace LibDyreInternat
         public string Address { get; set; }
         public string TelephoneNumber { get; set; }
         public string Email { get; set; }
+        public Acceslevel PersonAccesLevel { get; set; }
 
-        public Person(string name, int birthday, string address, string telephoneNumber, string email)
+        public enum Acceslevel
+        {
+            admin = 1,
+            medlem
+        }
+
+        public Person(string name, int birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
             Name = name;
@@ -24,11 +31,24 @@ namespace LibDyreInternat
             Address = address;
             TelephoneNumber = telephoneNumber;
             Email = email;
+            PersonAccesLevel = personAccesLevel;
         }
 
-        public override string ToString() 
+        public override string ToString()
         {
-            return $"ID: {Id}\nName: {Name}\nMember Id: {Id}\nBirthday: {Birthday} \nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}";
+            string personAcceslevel = "";
+            switch (PersonAccesLevel)
+            {
+                case Acceslevel.admin:
+                    personAcceslevel = "Admin";
+                    break;
+                case Acceslevel.medlem:
+                    personAcceslevel = "Medlem";
+                    break;
+            }
+
+
+            return $"ID: {Id}\nName: {Name}\nPerson Id: {Id}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
         }
     }
 }
