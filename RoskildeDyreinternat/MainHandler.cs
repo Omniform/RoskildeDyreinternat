@@ -3,120 +3,125 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RoskildeDyreinternat
 {
     public class MainHandler
     {
+        private static CustomDictionary<string, string> m_dictionary = new CustomDictionary<string, string>();
+
+
+        private bool m_run = true;
+
+
+
         public MainHandler()
         {
 
-            Console.WriteLine("Velkommen til Roskilde Dyreinternats side");
-            Console.WriteLine("For at bruge programmet bruger du tal for at vælge mulighederne.");
-            while (true) 
+
+            while (m_run)
             {
-                Console.WriteLine("1: Tilføj\n2: Ændr\n3: Slet\n4: Se\n5: Book\n6: Luk");
-                switch (Console.ReadLine())
+                Console.WriteLine("Indtast en kommando (eller 'exit' for at afslutte):\n------------");
+                string? input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                    continue;
+
+                if (input.ToLower() == "hjælp")
                 {
-                    case "1":
-                        ValueEvent("1");
+                    Console.WriteLine("Indtast en af følgend\n------------\nSe\nTilfoj\nRediger\nFjern\n------------\nEfterfulgt af følgende\n------------\nBåd\nMedlem\nBegivenhed\nBlog\nBooking\n------------");
+                    continue;
+                }
+
+                if (input.ToLower() == "exit")
+                {
+                    m_run = false;
+                    break;
+                }
+                FindKeyValuePair(input);
+                FindKey();
+            }
+            //FindKeyValuePair(Console.ReadLine());
+            //FindKey();
+        }
+
+        public static Person JSonRead(string filePath)
+        {
+            string text = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<Person>(text);
+        }
+
+        public void FindKey()
+        {
+            foreach (var keyValuePair in m_dictionary.ToList())
+            {
+                switch (keyValuePair.Key.ToLower())
+                {
+                    case "se":
+                        ValueEventHandler.KeyList(keyValuePair.Value);
                         break;
-                    case "2":
-                        ValueEvent("2");
+                    case "tilfoj":
+                        ValueEventHandler.KeyNew(keyValuePair.Value);
                         break;
-                    case "3":
-                        ValueEvent("3");
+                    case "rediger":
+                        ValueEventHandler.KeyEdit(keyValuePair.Value);
                         break;
-                    case "4":
-                        ValueEvent("4");
+                    case "fjern":
+                        ValueEventHandler.KeyDelete(keyValuePair.Value);
                         break;
-                    case "5":
-                        ValueEvent("5");
-                        break;
-                    case "6":
-                        ValueEvent("6");
+                    case "hjælp":
                         break;
                 }
             }
-            
+
+
+            m_dictionary.ToList().Clear();
         }
 
-        private void ValueEvent(string firstInputResult)
+        public void FindKeyValuePair(string input)
         {
-            Console.WriteLine($"Hvad vil du gerne {firstInputResult}");
-            Console.WriteLine("1: Dyr\n2: Person\n3: Aktivitet\n4: Blog\n5: Lægejournal\n6: Booking");
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-                case "5":
-                    MedicalJournalEvent(firstInputResult);
-                    break;
-                case "6":
-                    break;
-            }
-        }
+            int keyStart = 0;
+            int keyEnd = 0;
+            int valueStart = 0;
+            int valueEnd = 0;
+            string key = "";
+            string value = "";
+            bool checkForValue = false;
 
-        private void MedicalJournalEvent(string firstInputResult)
-        {
-            switch (firstInputResult)
+            for (int i = 0; i < input.Count(); i++)
             {
-                case "1":
-                    Console.WriteLine("Indtast beskrivelse"); 
-                    string description = Console.ReadLine();
-                    Console.WriteLine("Indtast tidspunkt i dette format: dd-MM-åååå HH:mm");
-                    DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "dd - MM - yyyy HH: mm", null);
-                    Console.WriteLine("Intast dyrets ID");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Indtast navnet på Dyrlægen");
-                    string nameDoctor = Console.ReadLine();
-                    //MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(id), nameDoctor);
-                    break;
-                case "2":
-                    Console.WriteLine("Hvilken log vil du ændre? (Indtast dens ID)");
-                    //MedicalLog medicalLogRef = MedicalLogRepo.GetById(int.Parse(Console.ReadLine());
-                    Console.WriteLine("Hvad vil du gerne ændre?");
-                    Console.WriteLine("1: Beskrivelse\n2: Tidspunkt\n3: Dyret\n4: Dyrlægens Navn");
-                    switch (Console.ReadLine())
+                if (input.ElementAt(i) != ' ' && checkForValue == false)
+                {
+                    keyStart = i;
+                    keyEnd = input.IndexOf(" ", keyStart);
+
+                    if (keyEnd == -1)
                     {
-                        case "1":
-                            Console.WriteLine("Indtast ny beskrivelse");
-                            //medicalLogRef.Description = Console.ReadLine();
-                            break;
-                        case "2":
-                            Console.WriteLine("Indtast nyt tidspunkt");
-                            //medicalLogRef.DateTime = DateTime.ParseExact(Console.ReadLine(), "dd - MM - yyyy HH: mm", null);
-                            break;
-                        case "3":
-                            Console.WriteLine("Indtast ID på det nyt dyr");
-                            //medicalLogRef.Animal = AnimalRepo.GetById(Console.ReadLine());
-                            break;
-                        case "4":
-                            Console.WriteLine("Indtast nyt navn");
-                            //medicalLogRef.NameOfDoctor = Console.ReadLine();
-                            break;
-                        
+                        break;
                     }
-                    break;
-                case "3":
-                    ValueEvent("3");
-                    break;
-                case "4":
-                    ValueEvent("4");
-                    break;
-                case "5":
-                    ValueEvent("5");
-                    break;
-                case "6":
-                    ValueEvent("6");
-                    break;
+
+                    key = input.Substring(keyStart, keyEnd - keyStart);
+                    checkForValue = true;
+                    i = keyEnd;
+                }
+
+                if (input.ElementAt(i) != ' ' && checkForValue == true)
+                {
+                    valueStart = i;
+                    valueEnd = input.IndexOf(" ", valueStart);
+
+                    if (valueEnd == -1)
+                    {
+                        valueEnd = input.Count();
+                    }
+
+                    value = input.Substring(valueStart, valueEnd - valueStart);
+                    checkForValue = false;
+                    i = valueEnd;
+                    m_dictionary.Add(key, value);
+                }
             }
         }
     }
