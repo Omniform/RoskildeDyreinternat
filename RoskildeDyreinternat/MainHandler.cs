@@ -57,21 +57,21 @@ namespace RoskildeDyreinternat
         {
             foreach (var keyValuePair in m_dictionary.ToList())
             {
-                switch (keyValuePair.Key.ToLower())
+                switch (keyValuePair.Value.ToLower())
                 {
-                    case "se":
-                        ValueEventHandler.KeyList(keyValuePair.Value);
+                    case "dyr":
+                        ValueEventHandler.ValueAnimal(keyValuePair.Key);
                         break;
-                    case "tilfoj":
-                        ValueEventHandler.KeyNew(keyValuePair.Value);
+                    case "lægelog":
+                        ValueEventHandler.ValueMedicalLog(keyValuePair.Key);
                         break;
-                    case "rediger":
-                        ValueEventHandler.KeyEdit(keyValuePair.Value);
+                    case "person":
+                        ValueEventHandler.ValuePerson(keyValuePair.Key);
                         break;
-                    case "fjern":
-                        ValueEventHandler.KeyDelete(keyValuePair.Value);
+                    case "aktivitet":
+                        ValueEventHandler.ValueActivity(keyValuePair.Key);
                         break;
-                    case "hjælp":
+                    case "blog":
                         break;
                 }
             }
