@@ -298,7 +298,7 @@ public static class ValueEventHandler
         string nameOfDoctor = Console.ReadLine();
 
 
-        MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetAnimalById(selectedId), nameOfDoctor);
+        MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(selectedId), nameOfDoctor);
     }
 
     private static void RemoveMedicalLog()
