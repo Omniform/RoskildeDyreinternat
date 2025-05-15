@@ -20,7 +20,7 @@ namespace LibDyreInternat
             {
                 if (!EmailValidFormat(value))
                 {
-                    throw new ArgumentException("Email er ikke valid");
+                    throw new ArgumentException("E-mail er ikke valid");
                 }
                 m_email = value;
             }
@@ -59,15 +59,19 @@ namespace LibDyreInternat
                 case "com":
                     TLDAccept = true;
                     break;
+
                 case "dk":
                     TLDAccept = true;
                     break;
+
                 case "edu":
                     TLDAccept = true;
                     break;
+
                 case "org":
                     TLDAccept = true;
                     break;
+
                 case "gov":
                     TLDAccept = true;
                     break;
@@ -88,15 +92,17 @@ namespace LibDyreInternat
                 case Acceslevel.admin:
                     personAcceslevel = "Admin";
                     break;
+
                 case Acceslevel.medlem:
                     personAcceslevel = "Medlem";
                     break;
+
                 case Acceslevel.kunde:
                     personAcceslevel = "Kunde";
                     break;
             }
 
-            return $"ID: {Id}\nPerson Id: {Id}\nName: {Name}\nBirthday: {Birthday}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
+            return $"ID: {Id}\nPerson Id: {Id}\nNavn: {Name}\nFødselsdag: {Birthday}\nAdresse: {Address}\nTelefonnummer: {TelephoneNumber}\nE-mail: {Email}\nBrugerens adgangsniveau: {personAcceslevel}\n";
         }
     }
 }

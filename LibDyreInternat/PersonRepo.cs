@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LibDyreInternat.Person;
 
 namespace LibDyreInternat
 {
@@ -81,6 +82,25 @@ namespace LibDyreInternat
                 s += p.ToString() + "\n";
             }
             return s;
+        }
+
+        // Change (Update) a person's info by ID.
+        public static bool ChangeInfo(int Id, string newName, string newBirthday, string newAddress, string newTelephoneNumber, string newEmail, Acceslevel newPersonAccesLevel)
+        {
+            foreach (Person person in AllPersons)
+            {
+                if (person.Id.Equals(Id))
+                {
+                    person.Name = newName;
+                    person.Birthday = newBirthday;
+                    person.Address = newAddress;
+                    person.TelephoneNumber = newTelephoneNumber;
+                    person.Email = newEmail;
+                    person.PersonAccesLevel = newPersonAccesLevel;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

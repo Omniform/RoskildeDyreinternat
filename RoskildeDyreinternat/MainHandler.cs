@@ -72,10 +72,10 @@ namespace RoskildeDyreinternat
                         ValueEventHandler.ValueActivity(keyValuePair.Key);
                         break;
                     case "blog":
+                        ValueEventHandler.ValueBlog(keyValuePair.Key);
                         break;
                 }
             }
-
 
             m_dictionary.ToList().Clear();
         }

@@ -11,10 +11,13 @@ namespace LibDyreInternat
     {
         public static List<Blog> AllBlogs { get; private set; } = new List<Blog>()
         {
-            new Blog("Tokes blog", 1, new DateTime(), new Activity("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), new Person("Toke", "201102","Æblemadevej 1", "24613612", "Tokedit11@gmail.com", Person.Acceslevel.admin)),"Tokes Blog", "Bob")
+            new Blog("Tokes blog", 1, new DateTime(), new Activity("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), PersonRepo.FilterPersonByName("Toke").ElementAt(0)),"Tokes Blog", "Bob"),
+            new Blog("Esti's blog", 2, new DateTime(), new Activity("Esti's aktivitet", new DateOnly (2018, 05, 18), new TimeOnly(18,00), new TimeOnly(19,00), PersonRepo.FilterPersonByName("Esti").ElementAt(0)),"Esti's Blog", "Rover")
         };
 
-        public static void AddBlog(Blog blog) { AllBlogs.Add(blog); }
+        private static List<Blog> filteredBlog = new List<Blog>();
+
+        public static void AddBlog(Blog blog) {AllBlogs.Add(blog); }
 
         public static bool Delete(int id)
         {
@@ -26,6 +29,52 @@ namespace LibDyreInternat
                 }
             }
             return false;
+        }
+
+        public static List<Blog> FilterBlogByTitel(string Title)
+        {
+            filteredBlog.Clear();
+            foreach (Blog b in AllBlogs)
+            {
+                if (b.Title.ToLower().Equals(Title.ToLower()))
+                {
+                    filteredBlog.Add(b);
+                }
+            }
+            if (filteredBlog == null || filteredBlog.Count <= 0)
+            {
+                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne title";
+                //throw new NoSearhResultException(msg);
+            }
+            return filteredBlog;
+        }
+
+        public static Blog? GetById(int Id)
+        {
+            Blog? blog = null;
+            foreach (Blog b in AllBlogs)
+            {
+                if (b.Id.Equals(Id))
+                {
+                    return blog = b;
+                }
+            }
+            if (blog == null)
+            {
+                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne ID";
+                //throw new NoSearhResultException(msg);
+            }
+            return blog;
+        }
+
+        public static string ReturnListAsString(List<Blog> blog)
+        {
+            string s = "";
+            foreach (Blog b in blog)
+            {
+                s += b.ToString() + "\n";
+            }
+            return s;
         }
     }
 }

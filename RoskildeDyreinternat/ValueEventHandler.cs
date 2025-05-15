@@ -145,14 +145,30 @@ public static class ValueEventHandler
             {
                 person = PersonRepo.GetById(Int32.Parse(input));
                 m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil ændr denne person? (ja/nej) ");
+                Console.WriteLine("\nEr du sikker på at du vil ændr denne person? (ja/nej)");
                 Console.WriteLine("\n" + person);
                 input = Console.ReadLine();
                 switch (input)
                 {
                     case "ja":
-                        PersonRepo.Delete(person.Id);
-                        CreateNewPerson();
+                        Console.WriteLine("Navn");
+                        string newName = Console.ReadLine();
+
+                        Console.WriteLine("Fødselsdag");
+                        string newBirthday = Console.ReadLine();
+
+                        Console.WriteLine("Adresse");
+                        string newAddress = Console.ReadLine();
+
+                        Console.WriteLine("Telefonnummer");
+                        string newTelephoneNumber = Console.ReadLine();
+
+                        Console.WriteLine("E-mail");
+                        string newEmail = Console.ReadLine();
+
+                        //Console.WriteLine("Brugerens adgangsniveau");
+                        //string Acceslevel = Console.ReadLine();
+
                         Console.WriteLine("Person er ændret");
                         break;
 
@@ -188,14 +204,131 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
-                break;
-            case "tilføj":
-                break;
-            case "fjern":
-                break;
-            case "ændr":
+                Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
                 break;
 
+            case "tilføj":
+                CreateNewBlog();
+                break;
+
+            case "fjern":
+                DeleteBlog();
+                break;
+
+            case "ændr":
+                ChangeBlog();
+                break;
+        }
+    }
+
+    private static void CreateNewBlog()
+    {
+        Console.WriteLine("Title");
+        string Title = Console.ReadLine();
+
+        Console.WriteLine("Beskrivelse");
+        string Description = Console.ReadLine();
+
+        DateTime Date = DateTime.Now;
+        Console.WriteLine("Dato er sat til "+ Date.ToString());
+
+        //Console.WriteLine("Activity");
+        //Activity Activity = ActivityRepo.FilterActivityByName(Console.Readline()).ElementAt(0);
+        //Activity Activity = 
+
+        Console.WriteLine("Forfatter");
+        string Author = Console.ReadLine();
+    }
+
+    private static void DeleteBlog()
+    {
+        Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
+        Console.WriteLine("Hvilken blog vil du slette? Intast blog ID");
+        m_eventSuccess = false;
+        Blog blog = null;
+        while (!m_eventSuccess)
+        {
+            string input = Console.ReadLine();
+            if (input == "fortryd")
+            {
+                break;
+            }
+            try
+            {
+                blog = BlogRepo.GetById(Int32.Parse(input));
+                m_eventSuccess = true;
+                Console.WriteLine("\nEr du sikker på at du vil slette denne blog? (ja/nej) ");
+                Console.WriteLine("\n" + blog);
+                input = Console.ReadLine();
+                switch (input)
+                {
+                    case "ja":
+                        BlogRepo.Delete(blog.Id);
+                        Console.WriteLine("Blog er fjernet");
+                        break;
+
+                    case "nej":
+                        break;
+                }
+            }
+            catch (NoSearhResultException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("prov igen, eller skriv fortryd");
+            }
+        }
+    }
+
+    private static void ChangeBlog()
+    {
+        Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
+        Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
+        m_eventSuccess = false;
+        Blog blog = null;
+        while (!m_eventSuccess)
+        {
+            string input = Console.ReadLine();
+            if (input == "fortryd")
+            {
+                break;
+            }
+            try
+            {
+                blog = BlogRepo.GetById(Int32.Parse(input));
+                m_eventSuccess = true;
+                Console.WriteLine("\nEr du sikker på at du vil ændr denne blog? (ja/nej)");
+                Console.WriteLine("\n" + blog);
+                input = Console.ReadLine();
+                switch (input)
+                {
+                    case "ja":
+                        Console.WriteLine("Title");
+                        string newTitle = Console.ReadLine();
+
+                        Console.WriteLine("Description");
+                        string newDescription = Console.ReadLine();
+
+                        Console.WriteLine("Date");
+                        DateTime newDate = DateTime.Now;
+
+                        //Console.WriteLine("Activity");
+                        //Activity newActivity = 
+
+                        Console.WriteLine("Author");
+                        string newAuthor = Console.ReadLine();
+
+                        Console.WriteLine("Blog er ændret");
+                        break;
+
+                    case "nej":
+                        break;
+                }
+            }
+            catch (NoSearhResultException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("prov igen, eller skriv fortryd");
+            }
         }
     }
 }
