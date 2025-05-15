@@ -1,92 +1,90 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-namespace LibDyreInternat;
 
-public class Activity
+namespace LibDyreInternat
 {
-    static private int ID { get; set; }
-    public int Id { get; private set; }
-    public string Name { get; set; }
-    public DateOnly Date { get; private set; }
-    public TimeOnly StartTime { get; private set; }
-    public TimeOnly EndTime { get; private set; }
-    public List<Person>? Members { get; private set; } = null;
-    public Person Coordinator { get; private set; }
-
-    public Activity(string name, DateOnly date, TimeOnly startTime, TimeOnly endTime, Person coordinator)
+    public class Activity
     {
-        Id = ++ID;
-        Name = name;
-        Date = date;
-        StartTime = startTime;
-        EndTime = endTime;
-        if (PersonExist(coordinator))
+        static private int ID { get; set; }
+        public int Id { get; private set; }
+        public string Name { get; set; }
+        public DateOnly Date { get; private set; }
+        public TimeOnly StartTime { get; private set; }
+        public TimeOnly EndTime { get; private set; }
+        public List<Person>? Members { get; private set; } = null;
+        private Person m_coordinator;
+        public Person Coordinator { get { return m_coordinator; }
+            set 
+            { 
+                if (PersonExist(value))
+                {
+                    m_coordinator = value;
+                }
+                else
+                {
+                    PersonNotFound();
+                }
+            }
+        }
+
+        public Activity(string name, DateOnly date, TimeOnly startTime, TimeOnly endTime, Person coordinator)
         {
+            Id = ++ID;
+            Name = name;
+            Date = date;
+            StartTime = startTime;
+            EndTime = endTime;
             Coordinator = coordinator;
         }
-        else
+
+        public void ChangeDateAndTime(DateOnly date, TimeOnly startTime, TimeOnly endTime)
         {
+            Date = date;
+            StartTime = startTime;
+            EndTime = endTime;
+        }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinator {Coordinator}";
+        }
+
+        public void AddMember(Person member)
+        {
+            if (PersonExist(member))
+            {
+                Members.Add(member);
+                return;
+            }
             PersonNotFound();
         }
-    }
 
-    public void ChangeDateAndTime(DateOnly date, TimeOnly startTime, TimeOnly endTime)
-    {
-        Date = date;
-        StartTime = startTime;
-        EndTime = endTime;
-    }
-
-    public override string ToString()
-    {
-        return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinator {Coordinator}";
-    }
-
-    public void ChangeCoordinator(Person coordinator)
-    {
-        if (PersonExist(coordinator))
+        public void RemoveMember(Person person)
         {
-            Coordinator = coordinator;
-            return;
-        }
-        PersonNotFound();
-    }
+            if (Members == null)
+            {
+                throw new NullReferenceException("Der er ikke nogle medlemmer i aktiviteten");
+            }
 
-    public void AddMember(Person member)
-    {
-        if(PersonExist(member))
-        {
-            Members.Add(member);
-            return;
-        }
-        PersonNotFound();
-    }
-
-    public void RemoveMember(Person person)
-    {
-        if (Members == null)
-        {
-            throw new NullReferenceException("Der er ikke nogle medlemmer i aktiviteten");
+            if (!Members.Remove(person))
+            {
+                Console.WriteLine("Personen er ikke en del af aktiviteten");
+            }
         }
 
-        if (!Members.Remove(person))
+        private bool PersonExist(Person person)
         {
-            Console.WriteLine("Personen er ikke en del af aktiviteten");
+            if (PersonRepo.AllPersons.Contains(person))
+            {
+                return true;
+            }
+            return false;
         }
-    }
 
-    private bool PersonExist(Person person)
-    {
-        if (PersonRepo.AllPersons.Contains(person))
+        private void PersonNotFound()
         {
-            return true;
+            throw new TargetException("Person ikke fundet");
         }
-        return false;
-    }
-
-    private void PersonNotFound()
-    {
-        throw new TargetException("Person ikke fundet");
     }
 }

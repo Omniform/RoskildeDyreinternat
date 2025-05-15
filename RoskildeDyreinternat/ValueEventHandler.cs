@@ -8,9 +8,6 @@ using System.Threading.Channels;
 using System.Xml.Linq;
 using static LibDyreInternat.Person;
 
-
-
-
 public static class ValueEventHandler
 {
 
