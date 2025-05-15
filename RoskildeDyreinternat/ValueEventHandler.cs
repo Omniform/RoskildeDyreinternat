@@ -66,6 +66,7 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
+                Console.WriteLine(ActivityRepo.ReturnListAsString());
                 break;
             case "tilføj":
                 break;
