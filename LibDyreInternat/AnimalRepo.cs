@@ -42,17 +42,15 @@ namespace LibDyreInternat
             return $"{s}";
         }
 
-        private static void RemoveAnimal(int Id)
+        public static void RemoveAnimal(int Id)
         {
-            foreach (Animal animal in animalRepo)
+            foreach (Animal a in animalRepo)
             {
-                if ()
+                if (a.Id == Id)
                 {
-
+                    animalRepo.Remove(a);
                 }
             }
-
-
         }
 
         public static string AllToString()
