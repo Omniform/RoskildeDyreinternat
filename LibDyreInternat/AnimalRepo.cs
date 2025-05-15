@@ -18,6 +18,43 @@ namespace LibDyreInternat
             animalRepo.Add(new Dog(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, sex));
         }
 
+        public static void AddCat(string race, bool isChildFriendly, string foodPrefrences, int chipNumber, string name, int birthYear, int weight, Sex sex)
+        {
+            animalRepo.Add(new Cat(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, sex));
+        }
+
+        public static void AddFish(string species, string maintainence, string name, int birthYear, int weight, Sex sex)
+        {
+            animalRepo.Add(new Fish(species, maintainence, name, birthYear, weight, sex));
+        }
+
+        public static string GetAnimalById(int Id)
+        {
+            string s = "";
+            foreach (Animal animal in animalRepo)
+            {
+                if (animal.Id == Id)
+                {
+                    s = animal.ToString();
+                }
+            }
+
+            return $"{s}";
+        }
+
+        private static void RemoveAnimal(int Id)
+        {
+            foreach (Animal animal in animalRepo)
+            {
+                if ()
+                {
+
+                }
+            }
+
+
+        }
+
         public static string AllToString()
         {
             string s = "";
@@ -25,5 +62,7 @@ namespace LibDyreInternat
             return s + "\n";
         }
 
+
+    
     }
 }
