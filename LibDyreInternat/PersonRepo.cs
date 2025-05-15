@@ -11,15 +11,15 @@ namespace LibDyreInternat
         // Add an new person in list.
         public static List<Person> AllPersons { get; private set; } = new List<Person>()
             {
-                new Person("Toke", 01-01-01, "Holte", "12345678", "Toke@toke.toke", Person.Acceslevel.admin),
-                new Person("Esti",  18-05-97, "Jyllinge", "93801615", "estibrusse18@gmail.com", Person.Acceslevel.kunde),
-                new Person("Lars", 01-01-01,  "Husum", "45678912", "LarsLars@larslars.lars", Person.Acceslevel.admin),
-                new Person("Stefan", 01-01-01, "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
+                new Person("Toke", "01-01-01", "Holte", "12345678", "Toke@toke.toke", Person.Acceslevel.admin),
+                new Person("Esti",  "18-05-97", "Jyllinge", "6556145", "esti@gmail.com", Person.Acceslevel.kunde),
+                new Person("Lars", "01-01-01",  "Husum", "45678912", "LarsLars@larslars.lars", Person.Acceslevel.admin),
+                new Person("Stefan", "01-01-01", "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
             };
 
         private static List<Person> filteredPerson = new List<Person>();
 
-        public static void AddPerson(Person person) { AllPersons.Add(person); }
+        public static void ReturnListAsString(Person person) { AllPersons.Add(person); }
 
         // Delete (Remove) an id from person.
         public static bool Delete(int id)
