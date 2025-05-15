@@ -1,6 +1,8 @@
 using LibDyreInternat;
 using Library;
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
@@ -8,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Xml.Linq;
 using static LibDyreInternat.Person;
+
 
 public static class ValueEventHandler
 {
@@ -28,7 +31,7 @@ public static class ValueEventHandler
                     case "hund":
                         Console.WriteLine(AnimalRepo.DogsToString());
                         break;
-                    case "cat":
+                    case "kat":
                         Console.WriteLine(AnimalRepo.CatsToString());
                         break;
                     case "fisk":
@@ -69,12 +72,24 @@ public static class ValueEventHandler
                 }
                 break;
             case "ændr":
-
+                Console.WriteLine("Hvilket dyr vl du ændre");
+                dyr = Console.ReadLine();
+                switch (dyr.ToLower())
+                {
+                    case "hund":
+                        ValueEventHandler.UpdateDog();
+                        break;
+                    case "kat":
+                        ValueEventHandler.UpdateCat();
+                        break;
+                    case "fisk":
+                        ValueEventHandler.UpdateFish();
+                        break;
+                }
                 break;
-
         }
     }
-    #region AddDog
+    #region AddMethods
     private static void AddDog()
     {
         Console.WriteLine("Navn");
@@ -103,7 +118,7 @@ public static class ValueEventHandler
             default:
                 throw new ArgumentException($"Unknown sex value: {sex}");
         }
-        
+
         Console.WriteLine("Race");
         string Race = Console.ReadLine();
 
@@ -125,11 +140,11 @@ public static class ValueEventHandler
             Friendly = false;
         }
 
-        AnimalRepo.AddDog(Race,Friendly,FoodPrefrences,ChipNumber,Name,BirthYear,Weight, s);
-            
+        AnimalRepo.AddDog(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
+
     }
-    #endregion
-    #region AddCat
+
+
     private static void AddCat()
     {
         Console.WriteLine("Navn");
@@ -183,8 +198,8 @@ public static class ValueEventHandler
         AnimalRepo.AddCat(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
 
     }
-    #endregion
-    #region AddFish
+
+
     private static void AddFish()
     {
         Console.WriteLine("Navn");
@@ -197,17 +212,17 @@ public static class ValueEventHandler
         int Weight = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-        string sex = Console.ReadLine();
+        string sex = Console.ReadLine().ToLower();
         Sex s;
         switch (sex)
         {
-            case "Han":
+            case "han":
                 s = Sex.male;
                 break;
-            case "Hun":
+            case "hun":
                 s = Sex.female;
                 break;
-            case "Tvekønnet":
+            case "tvekønnet":
                 s = Sex.hermaphrodite;
                 break;
             default:
@@ -217,17 +232,17 @@ public static class ValueEventHandler
         Console.WriteLine("Art");
         string Species = Console.ReadLine();
 
-        Console.WriteLine("Foder præferencer");
-        string FoodPrefrences = Console.ReadLine();
+        Console.WriteLine("Vedligeholdelse");
+        string Maintainence = Console.ReadLine();
 
-   
 
-        AnimalRepo.AddFish(Species, FoodPrefrences, Name, BirthYear, Weight, s);
+
+        AnimalRepo.AddFish(Species, Maintainence, Name, BirthYear, Weight, s);
 
     }
 
     #endregion
-    #region RemoveDog
+    #region RemoveMethods
     private static void RemoveDog()
     {
         Console.WriteLine("Hvilken hund vil du fjerne indtast (Id)\n\n");
@@ -239,8 +254,8 @@ public static class ValueEventHandler
             tempDog = (Dog)AnimalRepo.GetById(id);
         }
     }
-    #endregion
-    #region RemoveCat
+
+
     private static void RemoveCat()
     {
         Console.WriteLine("Hvilken  vil du fjerne indtast (Id)\n\n");
@@ -252,8 +267,7 @@ public static class ValueEventHandler
             tempCat = (Cat)AnimalRepo.GetById(id);
         }
     }
-    #endregion
-    #region RemoveFish
+
     private static void RemoveFish()
     {
         Console.WriteLine("Hvilken fisk vil du fjerne indtast (Id)\n\n");
@@ -266,12 +280,194 @@ public static class ValueEventHandler
         }
     }
     #endregion
+    #region UpdateMethods
+    private static void UpdateDog()
+    {
+        Console.WriteLine("Hvilken hund vil du ændre indtast (Id)");
+        Console.WriteLine(AnimalRepo.DogsToString());
+        int hId = int.Parse(Console.ReadLine());
+        Dog tempDog;
+        if (AnimalRepo.GetById(hId) is Dog)
+        {
+            tempDog = (Dog)AnimalRepo.GetById(hId);
+            Console.WriteLine("Vælge hvad du vil ændre");
+            Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig");
+            string prop = Console.ReadLine();
+            switch (prop.ToLower())
+            {
+                case "navn":
+                    Console.WriteLine("Nuværende Navn:");
+                    Console.WriteLine(tempDog.Name);
+                    Console.WriteLine("Indtast nyt navn");
+                    string newName = Console.ReadLine();
+                    tempDog.Name = newName;
+                    break;
+                case "foder præference":
+                    Console.WriteLine("Nuværende Foder:");
+                    Console.WriteLine(tempDog.FoodPrefrences);
+                    Console.WriteLine("Indtast nye Foder Infomation");
+                    string newFoodInfo = Console.ReadLine();
+                    tempDog.FoodPrefrences = newFoodInfo;
+                    break;
+                case "chipnummer":
+                    Console.WriteLine("Nuværende Chip nummer:");
+                    Console.WriteLine(tempDog.ChipNumber);
+                    Console.WriteLine("Indtast nyt chip nummer");
+                    int newChipNumber = int.Parse(Console.ReadLine());
+                    tempDog.ChipNumber = newChipNumber;
+                    break;
+                case "Fødselsår":
+                    Console.WriteLine("Nuværende Fødselsår:");
+                    Console.WriteLine(tempDog.BirthYear);
+                    Console.WriteLine("Indtast nyt fødselsår");
+                    int newBirthYear = int.Parse(Console.ReadLine());
+                    tempDog.BirthYear = newBirthYear;
+                    break;
+                case "vægt":
+                    Console.WriteLine("Gamle Vægt:");
+                    Console.WriteLine(tempDog.Weight);
+                    Console.WriteLine("Indtast nuværende vægt");
+                    int newWeight = int.Parse(Console.ReadLine());
+                    tempDog.Weight = newWeight;
+                    break;
+                case "børnevenlig":
+                    Console.WriteLine("Børnevenlig");
+                    Console.WriteLine(tempDog.IsChildFriendly);
+                    Console.WriteLine("Børnevenlig Ja/Nej");
+                    string input = Console.ReadLine().ToLower();
+                    if (input == "ja")
+                    {
+                        tempDog.IsChildFriendly = true;
+                    }
+                    else
+                    {
+                        tempDog.IsChildFriendly = false;
+                    }
+                    break;
+            }
+        }
+        // der skal laves noget try catch her
+        else Console.WriteLine("Ingen hund med dette id eksistere");
+    }
+
+    private static void UpdateCat()
+    {
+        Console.WriteLine("Hvilken kat vil du ændre indtast (Id)");
+        Console.WriteLine(AnimalRepo.CatsToString());
+        int cId = int.Parse(Console.ReadLine());
+        Cat tempCat;
+        if (AnimalRepo.GetById(cId) is Cat)
+        {
+            tempCat = (Cat)AnimalRepo.GetById(cId);
+            Console.WriteLine("Vælge hvad du vil ændre");
+            Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig");
+            string prop = Console.ReadLine();
+            switch (prop.ToLower())
+            {
+                case "navn":
+                    Console.WriteLine("Nuværende Navn:");
+                    Console.WriteLine(tempCat.Name);
+                    Console.WriteLine("Indtast nyt navn");
+                    string newName = Console.ReadLine();
+                    tempCat.Name = newName;
+                    break;
+                case "foder præference":
+                    Console.WriteLine("Nuværende Foder:");
+                    Console.WriteLine(tempCat.FoodPrefrences);
+                    Console.WriteLine("Indtast nye Foder Infomation");
+                    string newFoodInfo = Console.ReadLine();
+                    tempCat.FoodPrefrences = newFoodInfo;
+                    break;
+                case "chipnummer":
+                    Console.WriteLine("Nuværende Chip nummer:");
+                    Console.WriteLine(tempCat.ChipNumber);
+                    Console.WriteLine("Indtast nyt chip nummer");
+                    int newChipNumber = int.Parse(Console.ReadLine());
+                    tempCat.ChipNumber = newChipNumber;
+                    break;
+                case "Fødselsår":
+                    Console.WriteLine("Nuværende Fødselsår:");
+                    Console.WriteLine(tempCat.BirthYear);
+                    Console.WriteLine("Indtast nyt fødselsår");
+                    int newBirthYear = int.Parse(Console.ReadLine());
+                    tempCat.BirthYear = newBirthYear;
+                    break;
+                case "vægt":
+                    Console.WriteLine("Gamle Vægt:");
+                    Console.WriteLine(tempCat.Weight);
+                    Console.WriteLine("Indtast nuværende vægt");
+                    int newWeight = int.Parse(Console.ReadLine());
+                    tempCat.Weight = newWeight;
+                    break;
+                case "børnevenlig":
+                    Console.WriteLine("Børnevenlig");
+                    Console.WriteLine(tempCat.IsChildFriendly);
+                    Console.WriteLine("Børnevenlig Ja/Nej");
+                    string input = Console.ReadLine().ToLower();
+                    if (input == "ja")
+                    {
+                        tempCat.IsChildFriendly = true;
+                    }
+                    else
+                    {
+                        tempCat.IsChildFriendly = false;
+                    }
+                    break;
+            }
+        }
+    }
+    private static void UpdateFish()
+    {
+        Console.WriteLine("Hvilken fisk vil du ændre indtast (Id)");
+        Console.WriteLine(AnimalRepo.FishToString());
+        int fId = int.Parse(Console.ReadLine());
+        Fish tempFish;
+        if (AnimalRepo.GetById(fId) is Fish)
+        {
+            tempFish = (Fish)AnimalRepo.GetById(fId);
+            Console.WriteLine("Vælge hvad du vil ændre");
+            Console.WriteLine("Navn\nFødselsår\nVedligeholdelse\nVægt");
+            string prop = Console.ReadLine();
+            switch (prop.ToLower())
+            {
+                case "navn":
+                    Console.WriteLine("Nuværende Navn:");
+                    Console.WriteLine(tempFish.Name);
+                    Console.WriteLine("Indtast nyt navn");
+                    string newName = Console.ReadLine();
+                    tempFish.Name = newName;
+                    break;
+                case "fødselsår":
+                    Console.WriteLine("Fødselsår:");
+                    Console.WriteLine(tempFish.BirthYear);
+                    Console.WriteLine("Indtast nyt fødselsår");
+                    int newBirthYear = int.Parse(Console.ReadLine());
+                    tempFish.BirthYear = newBirthYear;
+                    break;
+                case "vedligeholdelse":
+                    Console.WriteLine("Vedligeholdelse:");
+                    Console.WriteLine(tempFish.Maintainence);
+                    Console.WriteLine("Indtast Maintainence");
+                    string newMaintainence = Console.ReadLine();
+                    tempFish.Maintainence = newMaintainence;
+                    break;
+                case "Vægt":
+                    Console.WriteLine("Gamle vægt:");
+                    Console.WriteLine(tempFish.Weight);
+                    Console.WriteLine("Indtast nuværende vægt");
+                    int newWeight = int.Parse(Console.ReadLine());
+                    tempFish.Weight = newWeight;
+                    break;
+            }
+        }
+    }
+    #endregion
     public static void ValueMedicalLog(string key)
     {
         switch (key)
         {
             case "se":
-                Console.WriteLine(MedicalLogRepo.AllToString()); 
+                Console.WriteLine(MedicalLogRepo.AllToString());
                 break;
             case "tilfoj":
                 AddMedicalLog();
