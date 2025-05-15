@@ -11,7 +11,7 @@ namespace LibDyreInternat
         private static int idNext = 1;
         public int Id { get; private set; }
         public string Name { get; set; }
-        public int Birthday { get; set; }
+        public string Birthday { get; set; }
         public string Address { get; set; }
         public string TelephoneNumber { get; set; }
         private string m_email;
@@ -35,7 +35,7 @@ namespace LibDyreInternat
         }
 
         // construktor.
-        public Person(string name, int birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
+        public Person(string name, string birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
             Name = name;
@@ -96,7 +96,7 @@ namespace LibDyreInternat
                     break;
             }
 
-            return $"ID: {Id}\nName: {Name}\nPerson Id: {Id}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
+            return $"ID: {Id}\nPerson Id: {Id}\nName: {Name}\nBirthday: {Birthday}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
         }
     }
 }
