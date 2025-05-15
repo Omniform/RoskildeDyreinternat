@@ -11,10 +11,20 @@ namespace LibDyreInternat
         private static int idNext = 1;
         public int Id { get; private set; }
         public string Name { get; set; }
-        public int Birthday { get; set; }
+        public string Birthday { get; set; }
         public string Address { get; set; }
         public string TelephoneNumber { get; set; }
-        public string Email { get; set; }
+        private string m_email;
+        public string Email { get { return m_email; } 
+            set
+            {
+                if (!EmailValidFormat(value))
+                {
+                    throw new ArgumentException("Email er ikke valid");
+                }
+                m_email = value;
+            }
+        }
         public Acceslevel PersonAccesLevel { get; set; }
 
         public enum Acceslevel
@@ -25,7 +35,7 @@ namespace LibDyreInternat
         }
 
         // construktor.
-        public Person(string name, int birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
+        public Person(string name, string birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
             Name = name;
@@ -34,6 +44,40 @@ namespace LibDyreInternat
             TelephoneNumber = telephoneNumber;
             Email = email;
             PersonAccesLevel = personAccesLevel;
+        }
+
+        private bool EmailValidFormat(string email)
+        {
+            // TLD (Top-Level Domain)
+            bool TLDAccept = false;
+            int atSign = email.IndexOf('@');
+            int dotSign = email.IndexOf('.', atSign);
+            string TLD = email.Substring(dotSign + 1);
+
+            switch (TLD)
+            {
+                case "com":
+                    TLDAccept = true;
+                    break;
+                case "dk":
+                    TLDAccept = true;
+                    break;
+                case "edu":
+                    TLDAccept = true;
+                    break;
+                case "org":
+                    TLDAccept = true;
+                    break;
+                case "gov":
+                    TLDAccept = true;
+                    break;
+            }
+
+            if (atSign == -1 || dotSign == -1 || TLDAccept == false)
+            {
+                return false;
+            }
+            return true;
         }
 
         public override string ToString()
@@ -52,7 +96,7 @@ namespace LibDyreInternat
                     break;
             }
 
-            return $"ID: {Id}\nName: {Name}\nPerson Id: {Id}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
+            return $"ID: {Id}\nPerson Id: {Id}\nName: {Name}\nBirthday: {Birthday}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
         }
     }
 }
