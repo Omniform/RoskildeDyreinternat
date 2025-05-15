@@ -62,7 +62,7 @@ namespace LibDyreInternat
         public static string AllToString()
         {
             string s = "";
-            foreach (Animal animal in animalRepo) { s += animalRepo.ToString() + "\n"; }
+            foreach (Animal animal in animalRepo) { s += animal.ToString() + "\n"; }
             return s + "\n";
         }
 
