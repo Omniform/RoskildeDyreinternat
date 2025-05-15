@@ -28,18 +28,22 @@ namespace LibDyreInternat
             animalRepo.Add(new Fish(species, maintainence, name, birthYear, weight, sex));
         }
 
-        public static string GetAnimalById(int Id)
+        public static Animal GetAnimalById(int Id)
         {
             string s = "";
+            Animal animal1 = null;
             foreach (Animal animal in animalRepo)
             {
                 if (animal.Id == Id)
                 {
                     s = animal.ToString();
+                    animal1 = animal;
+                   
                 }
             }
+            return animal1;
 
-            return $"{s}";
+            //return $"{s}";
         }
 
         public static void RemoveAnimal(int Id)

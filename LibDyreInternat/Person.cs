@@ -24,6 +24,7 @@ namespace LibDyreInternat
             kunde
         }
 
+        // construktor.
         public Person(string name, int birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
@@ -50,7 +51,6 @@ namespace LibDyreInternat
                     personAcceslevel = "Kunde";
                     break;
             }
-
 
             return $"ID: {Id}\nName: {Name}\nPerson Id: {Id}\nAdresse: {Address}\nTelephone number: {TelephoneNumber}\nEmail: {Email}\nPerson niveau: {personAcceslevel}\n";
         }

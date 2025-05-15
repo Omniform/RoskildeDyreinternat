@@ -8,13 +8,17 @@ namespace RoskildeDyreinternat
     {
         static void Main(string[] args)
         {
-            Dog dog1 = new Dog("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
+            AnimalRepo.AddDog("bulldog", true, "everything", 123456, "bent", 2020, 55, Sex.male);
+            MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00),AnimalRepo.GetAnimalById(1),"Gert");
+            //Dog dog1 = new Dog("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
 
-            Cat cat1 = new Cat("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
+            //Cat cat1 = new Cat("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
 
-            Fish fish1 = new Fish("Golden Retriver", "nem at vedligeholde", "Bobby", 2024, 25, Sex.hermaphrodite);
+            //Fish fish1 = new Fish("Golden Retriver", "nem at vedligeholde", "Bobby", 2024, 25, Sex.hermaphrodite);
 
-            Console.WriteLine(fish1);
+            //Console.WriteLine(fish1);
+
+            MainHandler handler = new MainHandler();
 
            
         }

@@ -12,171 +12,87 @@ using System.Xml.Linq;
 public static class ValueEventHandler
 {
 
-    private static bool m_eventSuccess = false; 
-    
+    private static bool m_eventSuccess = false;
 
-    public static void KeyList(string value)
+
+    public static void ValueAnimal(string key)
     {
-        switch (value)
+        switch (key)
         {
-            case "dyr":
-                //Console.WriteLine(AnimalRepo.AllToString());
+            case "se":
                 break;
-            case "person":
-                //Console.WriteLine(PersonRepo.AllToString());
+            case "tilføj":
                 break;
-            case "blog":
-                //Console.WriteLine(BlogRepo.AllToString());
+            case "fjern":
                 break;
-            case "aktivitet":
-                //Console.WriteLine(ActivityRepo.AllToString());
+            case "ændr":
                 break;
-            case "booking":
-                //Console.WriteLine(BookingRepo.AllToString());
-                break;
+
         }
     }
 
-    public static void KeyEdit(string value)
+    public static void ValueMedicalLog(string key)
     {
-        switch (value.ToLower())
+        switch (key)
         {
-            case "dyr":
-                while (!m_eventSuccess)
-                {
-                    try
-                    {
-                        //AnimalRepo.Edit();
-                    }
-                    catch (TargetException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    catch (ArgumentException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        break;
-                    }
-                }
-                m_eventSuccess = false;
+            case "se":
+                Console.WriteLine(MedicalLogRepo.AllToString()); 
                 break;
-            case "person":
+            case "tilføj":
                 break;
-            case "blog":
+            case "fjern":
                 break;
-            case "aktivitet":
+            case "ændr":
                 break;
-            case "booking":
-                break;
+
         }
     }
 
-    public static void KeyNew(string value)
+    public static void ValuePerson(string key)
     {
-        switch (value.ToLower())
+        switch (key)
         {
-            case "dyr":
-                CreateNewBoat();
+            case "se":
                 break;
-            case "person":
-                //CreateNewPerson();
+            case "tilføj":
                 break;
-            case "blog":
-                CreateNewBlog();
+            case "fjern":
                 break;
-            case "aktivitet":
-                //CreateNewActivity();
+            case "ændr":
                 break;
-            case "booking":
-                CreateNewBooking();
-                break;
+
         }
     }
 
-    // Takes the boats and changes one value, input is taken from the console
-    
-
-    private static void CreateNewBoat()
+    public static void ValueActivity(string key)
     {
-        
-    }
-    private static void CreateNewMember()
-    {
-        
-    }
-    private static void CreateNewEvent()
-    {
-        
-
-    }
-    private static void CreateNewBlog()
-    {
-        
-    }
-    private static void CreateNewBooking()
-    {
-        
-    }
-
-    public static void KeyDelete(string value)
-    {
-        switch (value.ToLower())
+        switch (key)
         {
-            case "dyr":
-                
+            case "se":
+                break;
+            case "tilføj":
+                break;
+            case "fjern":
+                break;
+            case "ændr":
                 break;
 
-            case "person":
-                
-                break;
-
-            case "aktivitet":
-               
-                break;
-
-            case "blog":
-                
-                break;
-            case "booking":
-                
-                break;
         }
     }
-    private static void RemoveBlog()
+    public static void ValueBlog(string key)
     {
-        Console.WriteLine(BlogRepo.AllToString(BlogRepo.AllBlogs) + "\n");
-        Console.WriteLine("Hvilken blog vil du slette? Intast bloggens ID");
-        m_eventSuccess = false;
-        Blog blog = null;
-        while (!m_eventSuccess)
+        switch (key)
         {
-            string input = Console.ReadLine();
-            if (input == "fortryd")
-            {
+            case "se":
                 break;
-            }
-            try
-            {
-                blog = BlogRepo.GetBlogById(Int32.Parse(input));
-                m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil slette denne blog? (ja/nej) ");
-                Console.WriteLine("\n" + blog);
-                input = Console.ReadLine();
-                switch (input)
-                {
-                    case "ja":
-                        BlogRepo.DeleteBlog(blog.Id);
-                        Console.WriteLine("Bloggen er fjernet");
-                        break;
-                    case "nej":
-                        break;
-                }
-            }
-            catch (NoSearhResultException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
-            }
-        }
+            case "tilføj":
+                break;
+            case "fjern":
+                break;
+            case "ændr":
+                break;
 
+        }
     }
+}
+ 
