@@ -48,11 +48,9 @@ public class Activity
         if (PersonExist(coordinator))
         {
             Coordinator = coordinator;
+            return;
         }
-        else
-        {
-            PersonNotFound();
-        }
+        PersonNotFound();
     }
 
     public void AddMember(Person member)
@@ -60,24 +58,27 @@ public class Activity
         if(PersonExist(member))
         {
             Members.Add(member);
+            return;
         }
-        else
-        {
-            PersonNotFound();
-        }
+        PersonNotFound();
     }
 
     public void RemoveMember(Person person)
     {
+        if (Members == null)
+        {
+            throw new NullReferenceException("Der er ikke nogle medlemmer i aktiviteten");
+        }
+
         if (!Members.Remove(person))
         {
-            Console.WriteLine("The person was not a part of the activity");
+            Console.WriteLine("Personen er ikke en del af aktiviteten");
         }
     }
 
     private bool PersonExist(Person person)
     {
-        if (PersonRepo.AllPerson.Contains(person))
+        if (PersonRepo.AllPersons.Contains(person))
         {
             return true;
         }
@@ -86,6 +87,6 @@ public class Activity
 
     private void PersonNotFound()
     {
-        throw new TargetException("Person not found");
+        throw new TargetException("Person ikke fundet");
     }
 }
