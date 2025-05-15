@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,24 @@ namespace LibDyreInternat
         public static void Add(string description, DateTime dateTime, Animal animal, string nameOfDoctor)
         {
             medicalLogs.Add(new(description, dateTime, animal, nameOfDoctor));
+        }
+        public static void Remove(MedicalLog medicalLog)
+        {
+            medicalLogs.Remove(medicalLog);
+        }
+        public static MedicalLog? GetById(int id)
+        {
+            MedicalLog? medicalLog = null;
+            foreach (MedicalLog mLog in medicalLogs)
+            {
+                if (mLog.ID == id) medicalLog = mLog;
+            }
+            if (medicalLog == null)
+            {
+                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen lægelogs med det angivne ID";
+                throw new NoSearhResultException(msg);
+            }
+            return medicalLog;
         }
         public static string AllToString()
         {
