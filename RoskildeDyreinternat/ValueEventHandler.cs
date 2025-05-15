@@ -89,7 +89,7 @@ public static class ValueEventHandler
                 break;
         }
     }
-    #region AddMethods
+    #region Animal AddMethods
     private static void AddDog()
     {
         Console.WriteLine("Navn");
@@ -242,7 +242,7 @@ public static class ValueEventHandler
     }
 
     #endregion
-    #region RemoveMethods
+    #region Animal RemoveMethods
     private static void RemoveDog()
     {
         Console.WriteLine("Hvilken hund vil du fjerne indtast (Id)\n\n");
@@ -280,7 +280,7 @@ public static class ValueEventHandler
         }
     }
     #endregion
-    #region UpdateMethods
+    #region Animal UpdateMethods
     private static void UpdateDog()
     {
         Console.WriteLine("Hvilken hund vil du ændre indtast (Id)");
@@ -488,11 +488,6 @@ public static class ValueEventHandler
         int selectedId = int.Parse(Console.ReadLine());
         Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
         string description = Console.ReadLine();
-        Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");
-        DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy HH:mm", null);
-        Console.WriteLine("Hvem har foretaget undersogelsen?");
-        string nameOfDoctor = Console.ReadLine();
-
 
         MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(selectedId), nameOfDoctor);
     }
@@ -713,7 +708,6 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
-                Console.WriteLine(ActivityRepo.ReturnListAsString());
                 break;
             case "tilføj":
                 break;
