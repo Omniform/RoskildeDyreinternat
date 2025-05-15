@@ -38,7 +38,7 @@ namespace LibDyreInternat
                 {
                     s = animal.ToString();
                     animal1 = animal;
-                   
+
                 }
             }
             return animal1;
@@ -99,8 +99,9 @@ namespace LibDyreInternat
                 {
                     s += animal.ToString() + "\n";
                 }
-            } 
+            }
             return s + "\n";
         }
+        
     }
 }
