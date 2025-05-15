@@ -15,7 +15,7 @@ namespace LibDyreInternat
         public string Title { get; set;}
         public string Description {get; set;}
         public DateTime Date {get; set;}
-        public Activity Activity {get; set;}
+        public Activity? Activity {get; set;} = null;
         public string Author {get; set;}
 
         public Blog(string title, int id, DateTime date, Activity activity, string description, string author) 
