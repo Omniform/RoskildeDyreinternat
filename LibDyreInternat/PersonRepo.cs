@@ -8,6 +8,7 @@ namespace LibDyreInternat
 {
     public static class PersonRepo
     {
+        // Add an new person in list.
         public static List<Person> AllPersons { get; private set; } = new List<Person>()
             {
                 new Person("Toke", 01-01-01, "Holte", "12345678", "Toke@toke.toke", Person.Acceslevel.admin),
@@ -20,6 +21,7 @@ namespace LibDyreInternat
 
         public static void AddPerson(Person person) { AllPersons.Add(person); }
 
+        // Delete (Remove) an id from person.
         public static bool Delete(int id)
         {
             foreach (Person p in AllPersons)
@@ -32,6 +34,7 @@ namespace LibDyreInternat
             return false;
         }
 
+        // filter an person by name in list.
         public static List<Person> FilterPersonByName(string Name)
         {
             filteredPerson.Clear();
@@ -40,7 +43,6 @@ namespace LibDyreInternat
                 if (p.Name.ToLower().Equals(Name.ToLower()))
                 {
                     filteredPerson.Add(p);
-
                 }
             }
             if (filteredPerson == null || filteredPerson.Count <= 0)
@@ -51,6 +53,7 @@ namespace LibDyreInternat
             return filteredPerson;
         }
 
+        // find id in person.
         public static Person? GetById(int Id)
         {
             Person? person = null;
@@ -69,6 +72,7 @@ namespace LibDyreInternat
             return person;
         }
 
+        //vreturn list from person as an string.
         public static string ReturnListAsString(List<Person> person)
         {
             string s = "";
