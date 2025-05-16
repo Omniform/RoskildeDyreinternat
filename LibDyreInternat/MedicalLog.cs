@@ -26,7 +26,7 @@ namespace LibDyreInternat
         }
         public override string ToString()
         {
-            return $"Hvem: {Animal.Name}\nDato: {DateTime.Date}, tidspunkt: {DateTime.Hour}.{DateTime.Minute}\nDyrlæge: {NameOfDoctor}\nBeskrivelse: {Description}\n";
+            return $"ID: {ID}\nHvem: {Animal.Name}\nDato: {DateTime.Date}, tidspunkt: {DateTime.Hour}.{DateTime.Minute}\nDyrlæge: {NameOfDoctor}\nBeskrivelse: {Description}\n";
         }
     }
 }

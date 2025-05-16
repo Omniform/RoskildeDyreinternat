@@ -35,7 +35,7 @@ namespace LibDyreInternat
                     sex = "Tvekønnet";
                     break;
             }
-            return $"Navn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nRace: {Race}\nBørnevenlig: {((IsChildFriendly) ? "Ja" : "Nej")}\nFoder: {FoodPrefrences}\nChipnummer: {ChipNumber}";
+            return $"ID: {Id}\nNavn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nRace: {Race}\nBørnevenlig: {((IsChildFriendly) ? "Ja" : "Nej")}\nFoder: {FoodPrefrences}\nChipnummer: {ChipNumber}";
 
         }
     }

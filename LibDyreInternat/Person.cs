@@ -18,9 +18,21 @@ namespace LibDyreInternat
         public string Email { get { return m_email; } 
             set
             {
+                if (value.Last() == ' ')
+                {
+                    for (int i = value.Count() - 1; i > 0; i--)
+                    {
+                        if (value.ElementAt(i) != ' ')
+                        {
+                            value = value.Remove(i + 1);
+                            break;
+                        }
+                    }
+                }
                 if (!EmailValidFormat(value))
                 {
-                    throw new ArgumentException("E-mail er ikke valid");
+                    Console.WriteLine(value);
+                    throw new FormatException("Email er ikke valid");
                 }
                 m_email = value;
             }

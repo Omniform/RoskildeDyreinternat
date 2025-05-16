@@ -62,7 +62,7 @@ namespace RoskildeDyreinternat
                     case "dyr":
                         ValueEventHandler.ValueAnimal(keyValuePair.Key);
                         break;
-                    case "lægelog":
+                    case "log":
                         ValueEventHandler.ValueMedicalLog(keyValuePair.Key);
                         break;
                     case "person":
