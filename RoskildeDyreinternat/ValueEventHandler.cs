@@ -93,13 +93,13 @@ public static class ValueEventHandler
     private static void AddDog()
     {
         Console.WriteLine("Navn");
-        string Name = Console.ReadLine();
+        string name = Console.ReadLine();
 
         Console.WriteLine("Fødselsår");
-        int BirthYear = int.Parse(Console.ReadLine());
+        int birthYear = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Weight");
-        int Weight = int.Parse(Console.ReadLine());
+        int weight = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
         string sex = Console.ReadLine();
@@ -120,27 +120,27 @@ public static class ValueEventHandler
         }
 
         Console.WriteLine("Race");
-        string Race = Console.ReadLine();
+        string race = Console.ReadLine();
 
         Console.WriteLine("Foder præferencer");
-        string FoodPrefrences = Console.ReadLine();
+        string foodPrefrences = Console.ReadLine();
 
         Console.WriteLine("Chipnummer");
-        int ChipNumber = int.Parse(Console.ReadLine());
+        int chipNumber = int.Parse(Console.ReadLine());
 
         Console.WriteLine("");
-        string IsChildFriendly = Console.ReadLine();
-        bool Friendly;
-        if (IsChildFriendly == "Ja")
+        string isChildFriendly = Console.ReadLine();
+        bool friendly;
+        if (isChildFriendly == "Ja")
         {
-            Friendly = true;
+            friendly = true;
         }
         else
         {
-            Friendly = false;
+            friendly = false;
         }
 
-        AnimalRepo.AddDog(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
+        AnimalRepo.AddDog(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s);
 
     }
 
@@ -148,13 +148,13 @@ public static class ValueEventHandler
     private static void AddCat()
     {
         Console.WriteLine("Navn");
-        string Name = Console.ReadLine();
+        string name = Console.ReadLine();
 
         Console.WriteLine("Fødselsår");
-        int BirthYear = int.Parse(Console.ReadLine());
+        int birthYear = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Weight");
-        int Weight = int.Parse(Console.ReadLine());
+        int weight = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
         string sex = Console.ReadLine();
@@ -175,27 +175,27 @@ public static class ValueEventHandler
         }
 
         Console.WriteLine("Race");
-        string Race = Console.ReadLine();
+        string race = Console.ReadLine();
 
         Console.WriteLine("Foder præferencer");
-        string FoodPrefrences = Console.ReadLine();
+        string foodPrefrences = Console.ReadLine();
 
         Console.WriteLine("Chipnummer");
-        int ChipNumber = int.Parse(Console.ReadLine());
+        int chipNumber = int.Parse(Console.ReadLine());
 
         Console.WriteLine("");
-        string IsChildFriendly = Console.ReadLine();
-        bool Friendly;
-        if (IsChildFriendly == "Ja")
+        string isChildFriendly = Console.ReadLine();
+        bool friendly;
+        if (isChildFriendly == "Ja")
         {
-            Friendly = true;
+            friendly = true;
         }
         else
         {
-            Friendly = false;
+            friendly = false;
         }
 
-        AnimalRepo.AddCat(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
+        AnimalRepo.AddCat(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s);
 
     }
 
@@ -203,133 +203,38 @@ public static class ValueEventHandler
     private static void AddFish()
     {
         Console.WriteLine("Navn");
-        string Name = Console.ReadLine();
+        string name = Console.ReadLine();
 
         Console.WriteLine("Fødselsår");
-        int BirthYear = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Weight");
-        int Weight = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-        string sex = Console.ReadLine().ToLower();
-        Sex s;
-        switch (sex)
-        {
-            case "han":
-                s = Sex.male;
-                break;
-            case "hun":
-                s = Sex.female;
-                break;
-            case "tvekønnet":
-                s = Sex.hermaphrodite;
-                break;
-            default:
-                throw new ArgumentException($"Unknown sex value: {sex}");
-        }
-
-        AnimalRepo.AddDog(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
-
-    }
-
-
-    private static void AddCat()
-    {
-        Console.WriteLine("Navn");
-        string Name = Console.ReadLine();
-
-        Console.WriteLine("Fødselsår");
-        int BirthYear = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Weight");
-        int Weight = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-        string sex = Console.ReadLine();
-        Sex s;
-        switch (sex)
-        {
-            case "Han":
-                s = Sex.male;
-                break;
-            case "Hun":
-                s = Sex.female;
-                break;
-            case "Tvekønnet":
-                s = Sex.hermaphrodite;
-                break;
-            default:
-                throw new ArgumentException($"Unknown sex value: {sex}");
-        }
-
-        Console.WriteLine("Race");
-        string Race = Console.ReadLine();
-
-        Console.WriteLine("Foder præferencer");
-        string FoodPrefrences = Console.ReadLine();
-
-        Console.WriteLine("Chipnummer");
-        int ChipNumber = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("");
-        string IsChildFriendly = Console.ReadLine();
-        bool Friendly;
-        if (IsChildFriendly == "Ja")
-        {
-            Friendly = true;
-        }
-        else
-        {
-            Friendly = false;
-        }
-
-        AnimalRepo.AddCat(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
-
-    }
-
-
-    private static void AddFish()
-    {
-        Console.WriteLine("Navn");
-        string Name = Console.ReadLine();
-
-        Console.WriteLine("Fødselsår");
-        int BirthYear = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Weight");
-        int Weight = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-        string sex = Console.ReadLine().ToLower();
-        Sex s;
-        switch (sex)
-        {
-            case "han":
-                s = Sex.male;
-                break;
-            case "hun":
-                s = Sex.female;
-                break;
-            case "tvekønnet":
-                s = Sex.hermaphrodite;
-                break;
-            default:
-                throw new ArgumentException($"Unknown sex value: {sex}");
-        }
-
-        Console.WriteLine("Art");
-        string Species = Console.ReadLine();
+        int birthYear = int.Parse(Console.ReadLine());
 
         Console.WriteLine("Vedligeholdelse");
-        string Maintainence = Console.ReadLine();
+        string maintainence = Console.ReadLine();
 
+        Console.WriteLine("Weight");
+        int weight = int.Parse(Console.ReadLine());
 
+        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
+        string sex = Console.ReadLine().ToLower();
+        Sex s;
+        switch (sex)
+        {
+            case "han":
+                s = Sex.male;
+                break;
+            case "hun":
+                s = Sex.female;
+                break;
+            case "tvekønnet":
+                s = Sex.hermaphrodite;
+                break;
+            default:
+                throw new ArgumentException($"Unknown sex value: {sex}");
+        }
 
-        AnimalRepo.AddFish(Species, Maintainence, Name, BirthYear, Weight, s);
+        AnimalRepo.AddFish(name, maintainence, birthYear, weight, s);
 
     }
-
     #endregion
     #region Animal RemoveMethods
     private static void RemoveDog()
@@ -379,7 +284,7 @@ public static class ValueEventHandler
         if (AnimalRepo.GetById(hId) is Dog)
         {
             tempDog = (Dog)AnimalRepo.GetById(hId);
-            Console.WriteLine("Vælge hvad du vil ændre");
+            Console.WriteLine("Hvad du vil ændre?");
             Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig");
             string prop = Console.ReadLine();
             switch (prop.ToLower())
@@ -394,12 +299,12 @@ public static class ValueEventHandler
                 case "foder præference":
                     Console.WriteLine("Nuværende Foder:");
                     Console.WriteLine(tempDog.FoodPrefrences);
-                    Console.WriteLine("Indtast nye Foder Infomation");
+                    Console.WriteLine("Indtast ny foder Infomation");
                     string newFoodInfo = Console.ReadLine();
                     tempDog.FoodPrefrences = newFoodInfo;
                     break;
                 case "chipnummer":
-                    Console.WriteLine("Nuværende Chip nummer:");
+                    Console.WriteLine("Nuværende chip nummer:");
                     Console.WriteLine(tempDog.ChipNumber);
                     Console.WriteLine("Indtast nyt chip nummer");
                     int newChipNumber = int.Parse(Console.ReadLine());
