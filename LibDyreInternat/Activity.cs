@@ -28,7 +28,7 @@ namespace LibDyreInternat
             }
         }
 
-        public Activity(string name, DateOnly date, TimeOnly startTime, TimeOnly endTime, Person coordinator)
+        public Activity(in string name, in DateOnly date, in TimeOnly startTime, in TimeOnly endTime, in Person coordinator)
         {
             Id = ++ID;
             Name = name;
@@ -38,7 +38,7 @@ namespace LibDyreInternat
             Coordinator = coordinator;
         }
 
-        public void ChangeDateAndTime(DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        public void ChangeDateAndTime(in DateOnly date, in TimeOnly startTime, in TimeOnly endTime)
         {
             Date = date;
             StartTime = startTime;
@@ -50,7 +50,7 @@ namespace LibDyreInternat
             return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinator {Coordinator}";
         }
 
-        public void AddMember(Person member)
+        public void AddMember(in Person member)
         {
             if (PersonExist(member))
             {
@@ -60,7 +60,7 @@ namespace LibDyreInternat
             PersonNotFound();
         }
 
-        public void RemoveMember(Person person)
+        public void RemoveMember(in Person person)
         {
             if (Members == null)
             {
@@ -73,7 +73,7 @@ namespace LibDyreInternat
             }
         }
 
-        private bool PersonExist(Person person)
+        private bool PersonExist(in Person person)
         {
             if (PersonRepo.AllPersons.Contains(person))
             {
