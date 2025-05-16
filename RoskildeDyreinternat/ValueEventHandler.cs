@@ -599,7 +599,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangePerson();
+                UpdateInfo();
                 break;
         }
     }
@@ -664,7 +664,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangePerson()
+    private static void UpdateInfo()
     {
         Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
         Console.WriteLine("Hvilken person vil du ændr? Intast persons ID");

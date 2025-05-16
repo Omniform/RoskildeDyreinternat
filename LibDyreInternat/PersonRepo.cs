@@ -85,7 +85,7 @@ namespace LibDyreInternat
         }
 
         // Change (Update) a person's info by ID.
-        public static bool ChangeInfo(int Id, string newName, string newBirthday, string newAddress, string newTelephoneNumber, string newEmail, Acceslevel newPersonAccesLevel)
+        public static bool UpdateInfo(int Id, string newName, string newBirthday, string newAddress, string newTelephoneNumber, string newEmail, Acceslevel newPersonAccesLevel)
         {
             foreach (Person person in AllPersons)
             {

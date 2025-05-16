@@ -45,8 +45,7 @@ namespace LibDyreInternat
             medlem,
             kunde
         }
-
-        // construktor.
+        
         public Person(string name, string birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
