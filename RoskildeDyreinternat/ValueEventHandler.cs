@@ -599,7 +599,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangePerson();
+                UpdateInfo();
                 break;
         }
     }
@@ -664,7 +664,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangePerson()
+    private static void UpdateInfo()
     {
         Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
         Console.WriteLine("Hvilken person vil du ændr? Intast persons ID");
@@ -755,7 +755,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangeBlog();
+                UpdateBlog();
                 break;
         }
     }
@@ -818,7 +818,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangeBlog()
+    private static void UpdateBlog()
     {
         Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
         Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
