@@ -564,10 +564,10 @@ public static class ValueEventHandler
                 MedicalLogEventHandler.Add();
                 break;
             case "fjern":
-                RemoveMedicalLog();
+                MedicalLogEventHandler.Remove();
                 break;
             case "ændr":
-                UpdateMedicalLog();
+                MedicalLogEventHandler.Update();
                 break;
         }
     }
