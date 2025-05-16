@@ -45,13 +45,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.AddDog();
+                        AddDog();
                         break;
                     case "cat":
-                        ValueEventHandler.AddCat();
+                        AddCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.AddFish();
+                        AddFish();
                         break;
                 }
                 break;
@@ -61,13 +61,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.RemoveDog();
+                        RemoveDog();
                         break;
                     case "cat":
-                        ValueEventHandler.RemoveCat();
+                        RemoveCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.RemoveFish();
+                        RemoveFish();
                         break;
                 }
                 break;
@@ -77,13 +77,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.UpdateDog();
+                        UpdateDog();
                         break;
                     case "kat":
-                        ValueEventHandler.UpdateCat();
+                        UpdateCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.UpdateFish();
+                        UpdateFish();
                         break;
                 }
                 break;
@@ -457,6 +457,7 @@ public static class ValueEventHandler
         }
     }
     #endregion
+    #region MedicalLogHandler
     public static void ValueMedicalLog(string key)
     {
         switch (key)
@@ -541,9 +542,10 @@ public static class ValueEventHandler
         MedicalLog medicalLog = null;
         Console.WriteLine(MedicalLogRepo.AllToString());
         Console.WriteLine("Hvilken log vil du ændre? (Indtast ID)");
+        string input = Console.ReadLine();
         while (!m_eventSuccess)
         {
-            string input = Console.ReadLine();
+            
             if (input == "fortryd")
             {
                 break;
@@ -551,22 +553,54 @@ public static class ValueEventHandler
             try
             {
                 medicalLog = MedicalLogRepo.GetById(int.Parse(input));
-                m_eventSuccess = true;
-                Console.WriteLine("\nHvad vil du gerne ændre i denne log? (ja/nej) ");
+
+                
                 Console.WriteLine("\n" + medicalLog);
-                input = Console.ReadLine();
-                switch (input)
+                while (!m_eventSuccess)
                 {
-                    case "hvem":
-                        break;
-                    case "dato":
-                        break;
-                    case "tidspunkt":
-                        break;
-                    case "dyrlæge":
-                        break;
-                    case "beskrivelse":
-                        break;
+                    Console.WriteLine("\nHvad vil du gerne ændre?");
+                    input = Console.ReadLine();
+                    switch (input)
+                    {
+                        case "dyr":
+                            Console.WriteLine(AnimalRepo.AllToString() +
+                                "\nHvilket er det nye dyr du vil tilknytte loggen?");
+                            Console.WriteLine();
+                            break;
+                        case "dato":
+                            Console.WriteLine("Hvad vil du ændre datoen og tiden til? (dd-MM-ÅÅÅÅ HH:mm)");
+                            break;
+                        case "læge":
+                            Console.WriteLine("Hvad er navnet på den nye dyrlæge du vil tilknytte?");
+                            break;
+                        case "beskrivelse":
+                            Console.WriteLine("Indtast ned nye beskrivelse");
+                            break;
+                    }
+                    
+                    string inputChange = Console.ReadLine();
+                    try
+                    {
+                        MedicalLogRepo.Update(medicalLog, input, inputChange);
+
+                        Console.WriteLine("Vil du ændre andet?");
+                        string inputConfirm = Console.ReadLine();
+                        if (inputConfirm.ToLower() == "nej")
+                        {
+                            m_eventSuccess = true;
+                        }
+                        else if (input.ToLower() == "ja")
+                        {
+                            break;
+                        }
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("prov igen, eller skriv fortryd");
+                    }
+                    
+                    
                 }
             }
             catch (NoSearhResultException ex)
@@ -581,7 +615,7 @@ public static class ValueEventHandler
             }
         }
     }
-
+    #endregion
     public static void ValuePerson(string key)
     {
         switch (key)
@@ -740,8 +774,10 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
+                Console.WriteLine(ActivityRepo.ReturnListAsString());
                 break;
             case "tilføj":
+                AddActivity();
                 break;
             case "fjern":
                 break;
@@ -750,6 +786,7 @@ public static class ValueEventHandler
 
         }
     }
+
     public static void ValueBlog(string key)
     {
         switch (key)
@@ -781,11 +818,11 @@ public static class ValueEventHandler
         string Description = Console.ReadLine();
 
         DateTime Date = DateTime.Now;
-        Console.WriteLine("Dato er sat til "+ Date.ToString());
+        Console.WriteLine("Dato er sat til " + Date.ToString());
 
         Console.WriteLine("Activity");
         Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
-        
+
 
         Console.WriteLine("Forfatter");
         string Author = Console.ReadLine();
@@ -905,6 +942,10 @@ public static class ValueEventHandler
         }
     }
 
+    private static void AddActivity()
+    {
+        Console.WriteLine("Navn");
+    }
 
 }
  

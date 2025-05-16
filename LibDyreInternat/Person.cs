@@ -45,8 +45,8 @@ namespace LibDyreInternat
             medlem,
             kunde
         }
-        
-        public Person(string name, string birthday, string address, string telephoneNumber, string email, Acceslevel personAccesLevel)
+
+        public Person(in string name, in string birthday, in string address, in string telephoneNumber, in string email, Acceslevel personAccesLevel)
         {
             Id = idNext++;
             Name = name;
@@ -57,7 +57,7 @@ namespace LibDyreInternat
             PersonAccesLevel = personAccesLevel;
         }
 
-        private bool EmailValidFormat(string email)
+        private bool EmailValidFormat(in string email)
         {
             // TLD (Top-Level Domain)
             bool TLDAccept = false;
