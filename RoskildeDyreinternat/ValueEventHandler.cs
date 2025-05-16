@@ -2,10 +2,12 @@ using LibDyreInternat;
 using Library;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Xml.Linq;
@@ -874,6 +876,31 @@ public static class ValueEventHandler
     private static void AddActivity()
     {
         Console.WriteLine("Navn");
+        string name = FormattingService.RemoveSpaces(Console.ReadLine());
+
+        Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
+        DateOnly date = DateOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
+        TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
+        TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Vælg koordinator ved deres id");
+        int id = int.Parse(Console.ReadLine());
+        Person? coordinator = null;
+        foreach (var person in PersonRepo.AllPersons)
+        {
+            if (person.Id == id)
+            {
+                coordinator = person;
+            }
+        }
+        if (coordinator == null)
+        {
+            
+        }
     }
 
 }
