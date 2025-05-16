@@ -45,13 +45,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.AddDog();
+                        AddDog();
                         break;
                     case "cat":
-                        ValueEventHandler.AddCat();
+                        AddCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.AddFish();
+                        AddFish();
                         break;
                 }
                 break;
@@ -61,13 +61,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.RemoveDog();
+                        RemoveDog();
                         break;
                     case "cat":
-                        ValueEventHandler.RemoveCat();
+                        RemoveCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.RemoveFish();
+                        RemoveFish();
                         break;
                 }
                 break;
@@ -77,13 +77,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.UpdateDog();
+                        UpdateDog();
                         break;
                     case "kat":
-                        ValueEventHandler.UpdateCat();
+                        UpdateCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.UpdateFish();
+                        UpdateFish();
                         break;
                 }
                 break;
@@ -283,10 +283,9 @@ public static class ValueEventHandler
         Console.WriteLine("Hvilken hund vil du ændre indtast (Id)");
         Console.WriteLine(AnimalRepo.DogsToString());
         int hId = int.Parse(Console.ReadLine());
-        Dog tempDog;
-        if (AnimalRepo.GetById(hId) is Dog)
+        Dog tempDog = (Dog)AnimalRepo.GetById(hId);
+        if (tempDog is Dog)
         {
-            tempDog = (Dog)AnimalRepo.GetById(hId);
             Console.WriteLine("Hvad du vil ændre?");
             Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig");
             string prop = Console.ReadLine();
@@ -634,7 +633,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangePerson();
+                UpdateInfo();
                 break;
         }
     }
@@ -699,7 +698,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangePerson()
+    private static void UpdateInfo()
     {
         Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
         Console.WriteLine("Hvilken person vil du ændr? Intast persons ID");
@@ -760,8 +759,10 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
+                Console.WriteLine(ActivityRepo.ReturnListAsString());
                 break;
             case "tilføj":
+                AddActivity();
                 break;
             case "fjern":
                 break;
@@ -770,6 +771,7 @@ public static class ValueEventHandler
 
         }
     }
+
     public static void ValueBlog(string key)
     {
         switch (key)
@@ -787,7 +789,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangeBlog();
+                UpdateBlog();
                 break;
         }
     }
@@ -801,11 +803,11 @@ public static class ValueEventHandler
         string Description = Console.ReadLine();
 
         DateTime Date = DateTime.Now;
-        Console.WriteLine("Dato er sat til "+ Date.ToString());
+        Console.WriteLine("Dato er sat til " + Date.ToString());
 
         Console.WriteLine("Activity");
         Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
-        
+
 
         Console.WriteLine("Forfatter");
         string Author = Console.ReadLine();
@@ -850,7 +852,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangeBlog()
+    private static void UpdateBlog()
     {
         Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
         Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
@@ -903,6 +905,10 @@ public static class ValueEventHandler
         }
     }
 
+    private static void AddActivity()
+    {
+        Console.WriteLine("Navn");
+    }
 
 }
  

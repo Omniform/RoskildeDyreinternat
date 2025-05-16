@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LibDyreInternat.Person;
 
 namespace LibDyreInternat
 {
@@ -75,6 +76,23 @@ namespace LibDyreInternat
                 s += b.ToString() + "\n";
             }
             return s;
+        }
+
+        public static bool UpdateBlog(int Id, string newTitle, string newDescription, DateTime newDate, string newAuthor, Activity newActivity)
+        {
+            foreach (Blog blog in AllBlogs)
+            {
+                if (blog.Id.Equals(Id))
+                {
+                    blog.Title = newTitle;
+                    blog.Description = newDescription;
+                    blog.Date = newDate;
+                    blog.Author = newAuthor;
+                    blog.Activity = newActivity;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
