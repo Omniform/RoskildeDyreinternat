@@ -205,6 +205,9 @@ public static class ValueEventHandler
         Console.WriteLine("Navn");
         string name = Console.ReadLine();
 
+        Console.WriteLine("Art");
+        string species = Console.ReadLine();
+
         Console.WriteLine("Fødselsår");
         int birthYear = int.Parse(Console.ReadLine());
 
@@ -232,7 +235,7 @@ public static class ValueEventHandler
                 throw new ArgumentException($"Unknown sex value: {sex}");
         }
 
-        AnimalRepo.AddFish(name, maintainence, birthYear, weight, s);
+        AnimalRepo.AddFish(name, species, maintainence, birthYear, weight, s);
 
     }
     #endregion
@@ -482,6 +485,11 @@ public static class ValueEventHandler
         int selectedId = int.Parse(Console.ReadLine());
         Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
         string description = Console.ReadLine();
+        Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");
+        DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy HH:mm", null);
+        Console.WriteLine("Hvem har foretaget undersogelsen?");
+        string nameOfDoctor = Console.ReadLine();
+
 
         MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(selectedId), nameOfDoctor);
     }
