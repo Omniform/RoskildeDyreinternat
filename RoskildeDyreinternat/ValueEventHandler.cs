@@ -466,7 +466,8 @@ public static class ValueEventHandler
                 Console.WriteLine(MedicalLogRepo.AllToString());
                 break;
             case "tilfoj":
-                AddMedicalLog();
+                //AddMedicalLog();
+                MedicalLogEventHandler.Add();
                 break;
             case "fjern":
                 RemoveMedicalLog();
@@ -477,144 +478,6 @@ public static class ValueEventHandler
         }
     }
 
-    private static void AddMedicalLog()
-    {
-        Console.WriteLine("Hvilket dye vil du tilføje en log til?");
-        Console.WriteLine(AnimalRepo.AllToString());
-        Console.WriteLine("Indtast dyrets ID");
-        int selectedId = int.Parse(Console.ReadLine());
-        Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
-        string description = Console.ReadLine();
-        Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");
-        DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy HH:mm", null);
-        Console.WriteLine("Hvem har foretaget undersogelsen?");
-        string nameOfDoctor = Console.ReadLine();
-
-
-        MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(selectedId), nameOfDoctor);
-    }
-
-    private static void RemoveMedicalLog()
-    {
-        m_eventSuccess = false;
-        MedicalLog medicalLog = null;
-        Console.WriteLine(MedicalLogRepo.AllToString());
-        Console.WriteLine("Hvilken log vil du fjerne? (Indtast ID)");
-        while (!m_eventSuccess)
-        {
-            string input = Console.ReadLine();
-            if (input == "fortryd")
-            {
-                break;
-            }
-            try
-            {
-                medicalLog = MedicalLogRepo.GetById(int.Parse(input));
-                m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil slette denne log? (ja/nej) ");
-                Console.WriteLine("\n" + medicalLog);
-                input = Console.ReadLine();
-                switch (input)
-                {
-                    case "ja":
-                        MedicalLogRepo.Remove(medicalLog);
-                        Console.WriteLine("Loggen er fjernet");
-                        break;
-                    case "nej":
-                        break;
-                }
-            }
-            catch (NoSearchResultException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
-            }
-            catch (FormatException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
-            }
-        }
-    }
-    private static void UpdateMedicalLog()
-    {
-        m_eventSuccess = false;
-        MedicalLog medicalLog = null;
-        Console.WriteLine(MedicalLogRepo.AllToString());
-        Console.WriteLine("Hvilken log vil du ændre? (Indtast ID)");
-        string input = Console.ReadLine();
-        while (!m_eventSuccess)
-        {
-            
-            if (input == "fortryd")
-            {
-                break;
-            }
-            try
-            {
-                medicalLog = MedicalLogRepo.GetById(int.Parse(input));
-
-                
-                Console.WriteLine("\n" + medicalLog);
-                while (!m_eventSuccess)
-                {
-                    Console.WriteLine("\nHvad vil du gerne ændre?");
-                    input = Console.ReadLine();
-                    switch (input)
-                    {
-                        case "dyr":
-                            Console.WriteLine(AnimalRepo.AllToString() +
-                                "\nHvilket er det nye dyr du vil tilknytte loggen?");
-                            Console.WriteLine();
-                            break;
-                        case "dato":
-                            Console.WriteLine("Hvad vil du ændre datoen og tiden til? (dd-MM-ÅÅÅÅ HH:mm)");
-                            break;
-                        case "læge":
-                            Console.WriteLine("Hvad er navnet på den nye dyrlæge du vil tilknytte?");
-                            break;
-                        case "beskrivelse":
-                            Console.WriteLine("Indtast ned nye beskrivelse");
-                            break;
-                    }
-                    
-                    string inputChange = Console.ReadLine();
-                    try
-                    {
-                        MedicalLogRepo.Update(medicalLog, input, inputChange);
-
-                        Console.WriteLine("Vil du ændre andet?");
-                        string inputConfirm = Console.ReadLine();
-                        if (inputConfirm.ToLower() == "nej")
-                        {
-                            m_eventSuccess = true;
-                        }
-                        else if (input.ToLower() == "ja")
-                        {
-                            break;
-                        }
-                    }
-                    catch (FormatException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine("prov igen, eller skriv fortryd");
-                    }
-                    
-                    
-                }
-            }
-            catch (NoSearchResultException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
-            }
-            catch (FormatException ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
-            }
-        }
-    }
     #endregion
     public static void ValuePerson(string key)
     {
