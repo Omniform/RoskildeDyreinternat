@@ -1,11 +1,11 @@
 namespace LibDyreInternat
 {
-    public static class ActivityRepo
+    public static class EventRepo
     {
-        public static List<Activity> AllActivities { get; private set; } = new List<Activity>();
-        private static List<Activity> filteredActivities = new List<Activity>();
+        public static List<Event> AllActivities { get; private set; } = new List<Event>();
+        private static List<Event> filteredActivities = new List<Event>();
 
-        public static void Add(Activity activity)
+        public static void Add(Event activity)
         {
             AllActivities.Add(activity);
         }
@@ -23,9 +23,9 @@ namespace LibDyreInternat
             return false;
         }
 
-        public static Activity? GetById(int id)
+        public static Event? GetById(int id)
         {
-            foreach (Activity activity in AllActivities)
+            foreach (Event activity in AllActivities)
             {
                 if (activity.Id == id)
                 {
@@ -39,16 +39,16 @@ namespace LibDyreInternat
         {
             string s = "";
 
-            foreach (Activity activity in AllActivities)
+            foreach (Event activity in AllActivities)
             {
                 s += activity.ToString() + "\n";
             }
             return s;
         }
 
-        public static List<Activity> FilterActivitiesByName(string name)
+        public static List<Event> FilterActivitiesByName(string name)
         {
-            foreach (Activity activity in AllActivities)
+            foreach (Event activity in AllActivities)
             {
                 if (activity.Name.ToLower().Contains(name.ToLower()))
                 {

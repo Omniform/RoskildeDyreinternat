@@ -547,7 +547,7 @@ public static class ValueEventHandler
         string input = Console.ReadLine();
         while (!m_eventSuccess)
         {
-            
+
             if (input == "fortryd")
             {
                 break;
@@ -556,7 +556,7 @@ public static class ValueEventHandler
             {
                 medicalLog = MedicalLogRepo.GetById(int.Parse(input));
 
-                
+
                 Console.WriteLine("\n" + medicalLog);
                 while (!m_eventSuccess)
                 {
@@ -579,7 +579,7 @@ public static class ValueEventHandler
                             Console.WriteLine("Indtast ned nye beskrivelse");
                             break;
                     }
-                    
+
                     string inputChange = Console.ReadLine();
                     try
                     {
@@ -601,8 +601,8 @@ public static class ValueEventHandler
                         Console.WriteLine(ex.Message);
                         Console.WriteLine("prov igen, eller skriv fortryd");
                     }
-                    
-                    
+
+
                 }
             }
             catch (NoSearchResultException ex)
@@ -771,17 +771,18 @@ public static class ValueEventHandler
         }
     }
 
-    public static void ValueActivity(string key)
+    public static void ValueEvent(string key)
     {
         switch (key)
         {
             case "se":
-                Console.WriteLine(ActivityRepo.ReturnListAsString());
+                Console.WriteLine(EventRepo.ReturnListAsString());
                 break;
             case "tilføj":
-                AddActivity();
+                AddEvent();
                 break;
             case "fjern":
+                RemoveEvent();
                 break;
             case "ændr":
                 break;
@@ -823,7 +824,7 @@ public static class ValueEventHandler
         Console.WriteLine("Dato er sat til " + Date.ToString());
 
         Console.WriteLine("Activity");
-        Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
+        Event Activity = EventRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
 
 
         Console.WriteLine("Forfatter");
@@ -944,7 +945,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void AddActivity()
+    private static void AddEvent()
     {
         Console.WriteLine("Navn");
         string name = FormattingService.RemoveSpaces(Console.ReadLine());
@@ -959,19 +960,35 @@ public static class ValueEventHandler
         TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
 
         Console.WriteLine("Vælg koordinator ved deres id");
+        bool personFound = false;
         int id = int.Parse(Console.ReadLine());
         Person? coordinator = null;
-        foreach (var person in PersonRepo.AllPersons)
+        while (!personFound)
         {
-            if (person.Id == id)
+            foreach (var person in PersonRepo.AllPersons)
             {
-                coordinator = person;
+                if (person.Id == id)
+                {
+                    coordinator = person;
+                    personFound = true;
+                }
+            }
+            if (coordinator == null)
+            {
+                Console.WriteLine("Ingen person med dette id");
             }
         }
-        if (coordinator == null)
-        {
-            
-        }
+        EventRepo.Add(new Event(name, date, startTime, endTime, coordinator));
+
+        Console.WriteLine("Person er blevet tilføjet");
+    }
+
+	public static void RemoveEvent()
+	{
+		Console.WriteLine("Vælg id på aktivitet");
+		int id = int.Parse(Console.ReadLine());
+		EventRepo.Remove(id);
+		Console.WriteLine("Aktivitet er fjernet");
     }
 
 }
