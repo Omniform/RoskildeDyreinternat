@@ -283,10 +283,9 @@ public static class ValueEventHandler
         Console.WriteLine("Hvilken hund vil du ændre indtast (Id)");
         Console.WriteLine(AnimalRepo.DogsToString());
         int hId = int.Parse(Console.ReadLine());
-        Dog tempDog;
-        if (AnimalRepo.GetById(hId) is Dog)
+        Dog tempDog = (Dog)AnimalRepo.GetById(hId);
+        if (tempDog is Dog)
         {
-            tempDog = (Dog)AnimalRepo.GetById(hId);
             Console.WriteLine("Hvad du vil ændre?");
             Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig");
             string prop = Console.ReadLine();
