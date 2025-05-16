@@ -856,9 +856,9 @@ public static class ValueEventHandler
         DateTime Date = DateTime.Now;
         Console.WriteLine("Dato er sat til "+ Date.ToString());
 
-        //Console.WriteLine("Activity");
-        //Activity Activity = ActivityRepo.FilterActivityByName(Console.Readline()).ElementAt(0);
-        //Activity Activity = 
+        Console.WriteLine("Activity");
+        Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
+        
 
         Console.WriteLine("Forfatter");
         string Author = Console.ReadLine();
