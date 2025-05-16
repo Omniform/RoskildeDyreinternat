@@ -144,7 +144,6 @@ public static class ValueEventHandler
 
     }
 
-
     private static void AddCat()
     {
         Console.WriteLine("Navn");
@@ -476,6 +475,7 @@ public static class ValueEventHandler
                 break;
         }
     }
+
     private static void AddMedicalLog()
     {
         Console.WriteLine("Hvilket dye vil du tilføje en log til?");
@@ -667,9 +667,10 @@ public static class ValueEventHandler
     private static void UpdateInfo()
     {
         Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
-        Console.WriteLine("Hvilken person vil du ændr? Intast persons ID");
+        Console.WriteLine("Hvilken person vil du ændre? Indtast persons ID");
         m_eventSuccess = false;
         Person person = null;
+
         while (!m_eventSuccess)
         {
             string input = Console.ReadLine();
@@ -681,41 +682,55 @@ public static class ValueEventHandler
             {
                 person = PersonRepo.GetById(Int32.Parse(input));
                 m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil ændr denne person? (ja/nej)");
+                Console.WriteLine("\nEr du sikker på at du vil ændre denne person? (ja/nej)");
                 Console.WriteLine("\n" + person);
                 input = Console.ReadLine();
-                switch (input)
+
+                if (input == "ja")
                 {
-                    case "ja":
-                        Console.WriteLine("Navn");
-                        string newName = Console.ReadLine();
+                    Console.WriteLine("Hvilken egenskab vil du ændre?");
+                    Console.WriteLine("1 - Navn\n2 - Fødselsdag\n3 - Adresse\n4 - Telefonnummer\n5 - E-mail");
+                    string choice = Console.ReadLine();
 
-                        Console.WriteLine("Fødselsdag");
-                        string newBirthday = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("Nyt Navn:");
+                            person.Name = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Adresse");
-                        string newAddress = Console.ReadLine();
+                        case "2":
+                            Console.WriteLine("Ny Fødselsdag (DD-MM-YYYY):");
+                            person.Birthday = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Telefonnummer");
-                        string newTelephoneNumber = Console.ReadLine();
+                        case "3":
+                            Console.WriteLine("Ny Adresse:");
+                            person.Address = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("E-mail");
-                        string newEmail = Console.ReadLine();
+                        case "4":
+                            Console.WriteLine("Nyt Telefonnummer:");
+                            person.TelephoneNumber = Console.ReadLine();
+                            break;
 
-                        //Console.WriteLine("Brugerens adgangsniveau");
-                        //string Acceslevel = Console.ReadLine();
+                        case "5":
+                            Console.WriteLine("Ny E-mail:");
+                            person.Email = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Person er ændret");
-                        break;
+                        default:
+                            Console.WriteLine("Ugyldigt valg, prøv igen.");
+                            break;
+                    }
 
-                    case "nej":
-                        break;
+                    Console.WriteLine("Person er ændret!");
                 }
             }
             catch (NoSearhResultException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
+                Console.WriteLine("Prøv igen, eller skriv fortryd");
             }
         }
     }
@@ -818,9 +833,10 @@ public static class ValueEventHandler
     private static void UpdateBlog()
     {
         Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
-        Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
+        Console.WriteLine("Hvilken blog vil du ændre? Indtast blog ID");
         m_eventSuccess = false;
         Blog blog = null;
+
         while (!m_eventSuccess)
         {
             string input = Console.ReadLine();
@@ -832,38 +848,59 @@ public static class ValueEventHandler
             {
                 blog = BlogRepo.GetById(Int32.Parse(input));
                 m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil ændr denne blog? (ja/nej)");
+                Console.WriteLine("\nEr du sikker på at du vil ændre denne blog? (ja/nej)");
                 Console.WriteLine("\n" + blog);
                 input = Console.ReadLine();
-                switch (input)
+
+                if (input == "ja")
                 {
-                    case "ja":
-                        Console.WriteLine("Title");
-                        string newTitle = Console.ReadLine();
+                    Console.WriteLine("Hvilken egenskab vil du ændre?");
+                    Console.WriteLine("1 - Title\n2 - Description\n3 - Date\n4 - Author");
+                    string choice = Console.ReadLine();
 
-                        Console.WriteLine("Description");
-                        string newDescription = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("Ny Title:");
+                            blog.Title = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Date");
-                        DateTime newDate = DateTime.Now;
+                        case "2":
+                            Console.WriteLine("Ny Description:");
+                            blog.Description = Console.ReadLine();
+                            break;
 
-                        //Console.WriteLine("Activity");
-                        //Activity newActivity = 
+                        case "3":
+                            Console.WriteLine("Indtast en dato og tidspunkt (dd-MM-yyyy HH:mm):");
+                            string inputDateTime = Console.ReadLine();
 
-                        Console.WriteLine("Author");
-                        string newAuthor = Console.ReadLine();
+                            if (DateTime.TryParseExact(inputDateTime, "dd-MM-yyyy HH:mm", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDateTime))
+                            {
+                                Console.WriteLine("Gemmer dato og tid: " + parsedDateTime.ToString("dd-MM-yyyy HH:mm"));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ugyldigt format. Prøv igen.");
+                            }
+                            break;
 
-                        Console.WriteLine("Blog er ændret");
-                        break;
+                        case "4":
+                            Console.WriteLine("Ny Author:");
+                            blog.Author = Console.ReadLine();
+                            break;
 
-                    case "nej":
-                        break;
+                        default:
+                            Console.WriteLine("Ugyldigt valg, prøv igen.");
+                            break;
+                    }
+
+                    Console.WriteLine("Blog er ændret!");
                 }
             }
             catch (NoSearhResultException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
+                Console.WriteLine("Prøv igen, eller skriv fortryd");
             }
         }
     }
