@@ -8,6 +8,79 @@ namespace LibDyreInternat
 {
     public class AnimalEventHandler :IEventHandler
     {
+        public static void Add()
+        {
+            string animal = "";
+            Console.WriteLine("Hvilket dyr vil du tilføje\n");
+            animal = Console.ReadLine();
+            switch (animal.ToLower())
+            {
+                case "hund":
+                    AddDog();
+                    break;
+                case "cat":
+                    AddCat();
+                    break;
+                case "fisk":
+                    AddFish();
+                    break;
+            }
+        }
+        public static void Remove()
+        {
+            string animal = "";
+            Console.WriteLine("Hvilket dyr vil du fjerne\n");
+            animal = Console.ReadLine();
+            switch (animal.ToLower())
+            {
+                case "hund":
+                    RemoveDog();
+                    break;
+                case "cat":
+                    RemoveCat();
+                    break;
+                case "fisk":
+                    RemoveFish();
+                    break;
+            }
+        }
+        public static void Update()
+        {
+            string animal = "";
+            Console.WriteLine("Hvilket dyr vil du ændre\n");
+            animal = Console.ReadLine();
+            switch (animal.ToLower())
+            {
+                case "hund":
+                    UpdateDog();
+                    break;
+                case "kat":
+                    UpdateCat();
+                    break;
+                case "fisk":
+                    UpdateFish();
+                    break;
+            }
+        }
+        public static void Display()
+        {
+            string animal = "";
+            Console.WriteLine("Hvilke dyr vil de se\n");
+            animal = Console.ReadLine();
+            switch (animal.ToLower())
+            {
+                case "hund":
+                    Console.WriteLine(AnimalRepo.DogsToString());
+                    break;
+                case "kat":
+                    Console.WriteLine(AnimalRepo.CatsToString());
+                    break;
+                case "fisk":
+                    Console.WriteLine(AnimalRepo.FishToString());
+                    break;
+            }
+        }
+
         #region Animal AddMethods
         private static void AddDog()
         {
