@@ -229,6 +229,95 @@ public static class ValueEventHandler
                 throw new ArgumentException($"Unknown sex value: {sex}");
         }
 
+        AnimalRepo.AddDog(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
+
+    }
+
+
+    private static void AddCat()
+    {
+        Console.WriteLine("Navn");
+        string Name = Console.ReadLine();
+
+        Console.WriteLine("Fødselsår");
+        int BirthYear = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Weight");
+        int Weight = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
+        string sex = Console.ReadLine();
+        Sex s;
+        switch (sex)
+        {
+            case "Han":
+                s = Sex.male;
+                break;
+            case "Hun":
+                s = Sex.female;
+                break;
+            case "Tvekønnet":
+                s = Sex.hermaphrodite;
+                break;
+            default:
+                throw new ArgumentException($"Unknown sex value: {sex}");
+        }
+
+        Console.WriteLine("Race");
+        string Race = Console.ReadLine();
+
+        Console.WriteLine("Foder præferencer");
+        string FoodPrefrences = Console.ReadLine();
+
+        Console.WriteLine("Chipnummer");
+        int ChipNumber = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("");
+        string IsChildFriendly = Console.ReadLine();
+        bool Friendly;
+        if (IsChildFriendly == "Ja")
+        {
+            Friendly = true;
+        }
+        else
+        {
+            Friendly = false;
+        }
+
+        AnimalRepo.AddCat(Race, Friendly, FoodPrefrences, ChipNumber, Name, BirthYear, Weight, s);
+
+    }
+
+
+    private static void AddFish()
+    {
+        Console.WriteLine("Navn");
+        string Name = Console.ReadLine();
+
+        Console.WriteLine("Fødselsår");
+        int BirthYear = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Weight");
+        int Weight = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
+        string sex = Console.ReadLine().ToLower();
+        Sex s;
+        switch (sex)
+        {
+            case "han":
+                s = Sex.male;
+                break;
+            case "hun":
+                s = Sex.female;
+                break;
+            case "tvekønnet":
+                s = Sex.hermaphrodite;
+                break;
+            default:
+                throw new ArgumentException($"Unknown sex value: {sex}");
+        }
+
         Console.WriteLine("Art");
         string Species = Console.ReadLine();
 
