@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibDyreInternat
 {
-    public static class MedicalLogRepo 
+    public static class MedicalLogRepo
     {
         public static List<MedicalLog> medicalLogs = new List<MedicalLog>();
         public static void Add(string description, DateTime dateTime, Animal animal, string nameOfDoctor)

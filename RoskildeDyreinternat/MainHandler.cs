@@ -76,7 +76,7 @@ namespace RoskildeDyreinternat
                         ValueEventHandler.ValuePerson(keyValuePair.Key);
                         break;
                     case "aktivitet":
-                        ValueEventHandler.ValueActivity(keyValuePair.Key);
+                        ValueEventHandler.ValueEvent(keyValuePair.Key);
                         break;
                     case "blog":
                         ValueEventHandler.ValueBlog(keyValuePair.Key);

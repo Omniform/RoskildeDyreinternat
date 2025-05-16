@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace LibDyreInternat
 {
-    public class Activity
+    public class Event
     {
         static private int ID { get; set; }
         public int Id { get; private set; }
@@ -16,7 +16,7 @@ namespace LibDyreInternat
         private Person m_coordinator;
         public Person Coordinator { get { return m_coordinator; }
             set 
-            { 
+            {
                 if (PersonExist(value))
                 {
                     m_coordinator = value;
@@ -28,7 +28,7 @@ namespace LibDyreInternat
             }
         }
 
-        public Activity(in string name, in DateOnly date, in TimeOnly startTime, in TimeOnly endTime, in Person coordinator)
+        public Event(in string name, in DateOnly date, in TimeOnly startTime, in TimeOnly endTime, in Person coordinator)
         {
             Id = ++ID;
             Name = name;

@@ -12,8 +12,8 @@ namespace LibDyreInternat
     {
         public static List<Blog> AllBlogs { get; private set; } = new List<Blog>()
         {
-            new Blog("Tokes blog", 1, new DateTime(), new Activity("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), PersonRepo.FilterPersonByName("Toke").ElementAt(0)),"Tokes Blog", "Bob"),
-            new Blog("Esti's blog", 2, new DateTime(), new Activity("Esti's aktivitet", new DateOnly (2018, 05, 18), new TimeOnly(18,00), new TimeOnly(19,00), PersonRepo.FilterPersonByName("Esti").ElementAt(0)),"Esti's Blog", "Rover")
+            new Blog("Tokes blog", 1, new DateTime(), new Event("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), PersonRepo.FilterPersonByName("Toke").ElementAt(0)),"Tokes Blog", "Bob"),
+            new Blog("Esti's blog", 2, new DateTime(), new Event("Esti's aktivitet", new DateOnly (2018, 05, 18), new TimeOnly(18,00), new TimeOnly(19,00), PersonRepo.FilterPersonByName("Esti").ElementAt(0)),"Esti's Blog", "Rover")
         };
 
         private static List<Blog> filteredBlog = new List<Blog>();
@@ -78,7 +78,7 @@ namespace LibDyreInternat
             return s;
         }
 
-        public static bool UpdateBlog(int Id, string newTitle, string newDescription, DateTime newDate, string newAuthor, Activity newActivity)
+        public static bool UpdateBlog(int Id, string newTitle, string newDescription, DateTime newDate, string newAuthor, Event newActivity)
         {
             foreach (Blog blog in AllBlogs)
             {
