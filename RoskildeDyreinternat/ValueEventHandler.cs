@@ -524,7 +524,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -603,7 +603,7 @@ public static class ValueEventHandler
                     
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -690,7 +690,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -746,7 +746,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -844,7 +844,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -897,7 +897,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");

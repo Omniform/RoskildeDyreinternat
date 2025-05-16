@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class NoSearhResultException : Exception
+    public class NoSearchResultException : Exception
     {
-        public NoSearhResultException(string msg)
+        public NoSearchResultException(string msg)
         : base(msg)
         {
             

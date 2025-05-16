@@ -29,7 +29,7 @@ namespace LibDyreInternat
             if (medicalLog == null)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen lægelogs med det angivne ID";
-                throw new NoSearhResultException(msg);
+                throw new NoSearchResultException(msg);
             }
             return medicalLog;
         }
