@@ -2,10 +2,12 @@ using LibDyreInternat;
 using Library;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Xml.Linq;
@@ -45,13 +47,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.AddDog();
+                        AddDog();
                         break;
                     case "cat":
-                        ValueEventHandler.AddCat();
+                        AddCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.AddFish();
+                        AddFish();
                         break;
                 }
                 break;
@@ -61,13 +63,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.RemoveDog();
+                        RemoveDog();
                         break;
                     case "cat":
-                        ValueEventHandler.RemoveCat();
+                        RemoveCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.RemoveFish();
+                        RemoveFish();
                         break;
                 }
                 break;
@@ -77,13 +79,13 @@ public static class ValueEventHandler
                 switch (dyr.ToLower())
                 {
                     case "hund":
-                        ValueEventHandler.UpdateDog();
+                        UpdateDog();
                         break;
                     case "kat":
-                        ValueEventHandler.UpdateCat();
+                        UpdateCat();
                         break;
                     case "fisk":
-                        ValueEventHandler.UpdateFish();
+                        UpdateFish();
                         break;
                 }
                 break;
@@ -143,7 +145,6 @@ public static class ValueEventHandler
         AnimalRepo.AddDog(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s);
 
     }
-
 
     private static void AddCat()
     {
@@ -550,6 +551,7 @@ public static class ValueEventHandler
     }
 
     #endregion
+    #region MedicalLogHandler
     public static void ValueMedicalLog(string key)
     {
         switch (key)
@@ -568,6 +570,7 @@ public static class ValueEventHandler
                 break;
         }
     }
+
     private static void AddMedicalLog()
     {
         Console.WriteLine("Hvilket dye vil du tilføje en log til?");
@@ -615,7 +618,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -633,9 +636,10 @@ public static class ValueEventHandler
         MedicalLog medicalLog = null;
         Console.WriteLine(MedicalLogRepo.AllToString());
         Console.WriteLine("Hvilken log vil du ændre? (Indtast ID)");
+        string input = Console.ReadLine();
         while (!m_eventSuccess)
         {
-            string input = Console.ReadLine();
+            
             if (input == "fortryd")
             {
                 break;
@@ -643,25 +647,57 @@ public static class ValueEventHandler
             try
             {
                 medicalLog = MedicalLogRepo.GetById(int.Parse(input));
-                m_eventSuccess = true;
-                Console.WriteLine("\nHvad vil du gerne ændre i denne log? (ja/nej) ");
+
+                
                 Console.WriteLine("\n" + medicalLog);
-                input = Console.ReadLine();
-                switch (input)
+                while (!m_eventSuccess)
                 {
-                    case "hvem":
-                        break;
-                    case "dato":
-                        break;
-                    case "tidspunkt":
-                        break;
-                    case "dyrlæge":
-                        break;
-                    case "beskrivelse":
-                        break;
+                    Console.WriteLine("\nHvad vil du gerne ændre?");
+                    input = Console.ReadLine();
+                    switch (input)
+                    {
+                        case "dyr":
+                            Console.WriteLine(AnimalRepo.AllToString() +
+                                "\nHvilket er det nye dyr du vil tilknytte loggen?");
+                            Console.WriteLine();
+                            break;
+                        case "dato":
+                            Console.WriteLine("Hvad vil du ændre datoen og tiden til? (dd-MM-ÅÅÅÅ HH:mm)");
+                            break;
+                        case "læge":
+                            Console.WriteLine("Hvad er navnet på den nye dyrlæge du vil tilknytte?");
+                            break;
+                        case "beskrivelse":
+                            Console.WriteLine("Indtast ned nye beskrivelse");
+                            break;
+                    }
+                    
+                    string inputChange = Console.ReadLine();
+                    try
+                    {
+                        MedicalLogRepo.Update(medicalLog, input, inputChange);
+
+                        Console.WriteLine("Vil du ændre andet?");
+                        string inputConfirm = Console.ReadLine();
+                        if (inputConfirm.ToLower() == "nej")
+                        {
+                            m_eventSuccess = true;
+                        }
+                        else if (input.ToLower() == "ja")
+                        {
+                            break;
+                        }
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("prov igen, eller skriv fortryd");
+                    }
+                    
+                    
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -673,7 +709,7 @@ public static class ValueEventHandler
             }
         }
     }
-
+    #endregion
     public static void ValuePerson(string key)
     {
         switch (key)
@@ -691,7 +727,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangePerson();
+                UpdateInfo();
                 break;
         }
     }
@@ -748,7 +784,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -756,12 +792,13 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangePerson()
+    private static void UpdateInfo()
     {
         Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
-        Console.WriteLine("Hvilken person vil du ændr? Intast persons ID");
+        Console.WriteLine("Hvilken person vil du ændre? Indtast persons ID");
         m_eventSuccess = false;
         Person person = null;
+
         while (!m_eventSuccess)
         {
             string input = Console.ReadLine();
@@ -773,41 +810,55 @@ public static class ValueEventHandler
             {
                 person = PersonRepo.GetById(Int32.Parse(input));
                 m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil ændr denne person? (ja/nej)");
+                Console.WriteLine("\nEr du sikker på at du vil ændre denne person? (ja/nej)");
                 Console.WriteLine("\n" + person);
                 input = Console.ReadLine();
-                switch (input)
+
+                if (input == "ja")
                 {
-                    case "ja":
-                        Console.WriteLine("Navn");
-                        string newName = Console.ReadLine();
+                    Console.WriteLine("Hvilken egenskab vil du ændre?");
+                    Console.WriteLine("1 - Navn\n2 - Fødselsdag\n3 - Adresse\n4 - Telefonnummer\n5 - E-mail");
+                    string choice = Console.ReadLine();
 
-                        Console.WriteLine("Fødselsdag");
-                        string newBirthday = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("Nyt Navn:");
+                            person.Name = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Adresse");
-                        string newAddress = Console.ReadLine();
+                        case "2":
+                            Console.WriteLine("Ny Fødselsdag (DD-MM-YYYY):");
+                            person.Birthday = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Telefonnummer");
-                        string newTelephoneNumber = Console.ReadLine();
+                        case "3":
+                            Console.WriteLine("Ny Adresse:");
+                            person.Address = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("E-mail");
-                        string newEmail = Console.ReadLine();
+                        case "4":
+                            Console.WriteLine("Nyt Telefonnummer:");
+                            person.TelephoneNumber = Console.ReadLine();
+                            break;
 
-                        //Console.WriteLine("Brugerens adgangsniveau");
-                        //string Acceslevel = Console.ReadLine();
+                        case "5":
+                            Console.WriteLine("Ny E-mail:");
+                            person.Email = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Person er ændret");
-                        break;
+                        default:
+                            Console.WriteLine("Ugyldigt valg, prøv igen.");
+                            break;
+                    }
 
-                    case "nej":
-                        break;
+                    Console.WriteLine("Person er ændret!");
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
+                Console.WriteLine("Prøv igen, eller skriv fortryd");
             }
         }
     }
@@ -817,8 +868,10 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
+                Console.WriteLine(ActivityRepo.ReturnListAsString());
                 break;
             case "tilføj":
+                AddActivity();
                 break;
             case "fjern":
                 break;
@@ -827,6 +880,7 @@ public static class ValueEventHandler
 
         }
     }
+
     public static void ValueBlog(string key)
     {
         switch (key)
@@ -844,7 +898,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangeBlog();
+                UpdateBlog();
                 break;
         }
     }
@@ -858,11 +912,11 @@ public static class ValueEventHandler
         string Description = Console.ReadLine();
 
         DateTime Date = DateTime.Now;
-        Console.WriteLine("Dato er sat til "+ Date.ToString());
+        Console.WriteLine("Dato er sat til " + Date.ToString());
 
         Console.WriteLine("Activity");
         Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
-        
+
 
         Console.WriteLine("Forfatter");
         string Author = Console.ReadLine();
@@ -899,7 +953,7 @@ public static class ValueEventHandler
                         break;
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("prov igen, eller skriv fortryd");
@@ -907,12 +961,13 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangeBlog()
+    private static void UpdateBlog()
     {
         Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
-        Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
+        Console.WriteLine("Hvilken blog vil du ændre? Indtast blog ID");
         m_eventSuccess = false;
         Blog blog = null;
+
         while (!m_eventSuccess)
         {
             string input = Console.ReadLine();
@@ -924,42 +979,92 @@ public static class ValueEventHandler
             {
                 blog = BlogRepo.GetById(Int32.Parse(input));
                 m_eventSuccess = true;
-                Console.WriteLine("\nEr du sikker på at du vil ændr denne blog? (ja/nej)");
+                Console.WriteLine("\nEr du sikker på at du vil ændre denne blog? (ja/nej)");
                 Console.WriteLine("\n" + blog);
                 input = Console.ReadLine();
-                switch (input)
+
+                if (input == "ja")
                 {
-                    case "ja":
-                        Console.WriteLine("Title");
-                        string newTitle = Console.ReadLine();
+                    Console.WriteLine("Hvilken egenskab vil du ændre?");
+                    Console.WriteLine("1 - Title\n2 - Description\n3 - Date\n4 - Author");
+                    string choice = Console.ReadLine();
 
-                        Console.WriteLine("Description");
-                        string newDescription = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("Ny Title:");
+                            blog.Title = Console.ReadLine();
+                            break;
 
-                        Console.WriteLine("Date");
-                        DateTime newDate = DateTime.Now;
+                        case "2":
+                            Console.WriteLine("Ny Description:");
+                            blog.Description = Console.ReadLine();
+                            break;
 
-                        //Console.WriteLine("Activity");
-                        //Activity newActivity = 
+                        case "3":
+                            Console.WriteLine("Indtast en dato og tidspunkt (dd-MM-yyyy HH:mm):");
+                            string inputDateTime = Console.ReadLine();
 
-                        Console.WriteLine("Author");
-                        string newAuthor = Console.ReadLine();
+                            if (DateTime.TryParseExact(inputDateTime, "dd-MM-yyyy HH:mm", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDateTime))
+                            {
+                                Console.WriteLine("Gemmer dato og tid: " + parsedDateTime.ToString("dd-MM-yyyy HH:mm"));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ugyldigt format. Prøv igen.");
+                            }
+                            break;
 
-                        Console.WriteLine("Blog er ændret");
-                        break;
+                        case "4":
+                            Console.WriteLine("Ny Author:");
+                            blog.Author = Console.ReadLine();
+                            break;
 
-                    case "nej":
-                        break;
+                        default:
+                            Console.WriteLine("Ugyldigt valg, prøv igen.");
+                            break;
+                    }
+
+                    Console.WriteLine("Blog er ændret!");
                 }
             }
-            catch (NoSearhResultException ex)
+            catch (NoSearchResultException ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("prov igen, eller skriv fortryd");
+                Console.WriteLine("Prøv igen, eller skriv fortryd");
             }
         }
     }
 
+    private static void AddActivity()
+    {
+        Console.WriteLine("Navn");
+        string name = FormattingService.RemoveSpaces(Console.ReadLine());
+
+        Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
+        DateOnly date = DateOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
+        TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
+        TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
+
+        Console.WriteLine("Vælg koordinator ved deres id");
+        int id = int.Parse(Console.ReadLine());
+        Person? coordinator = null;
+        foreach (var person in PersonRepo.AllPersons)
+        {
+            if (person.Id == id)
+            {
+                coordinator = person;
+            }
+        }
+        if (coordinator == null)
+        {
+            
+        }
+    }
 
 }
  

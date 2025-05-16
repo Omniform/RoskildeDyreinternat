@@ -5,7 +5,6 @@ public class CustomDictionary<TKey, TValue>
     private List<KeyValuePair<TKey, TValue>> m_list = new List<KeyValuePair<TKey, TValue>>();
     public CustomDictionary()
     {
-        
     }
 
     // Add key value pair
@@ -26,12 +25,20 @@ public class CustomDictionary<TKey, TValue>
     }
 
     public TValue GetValueAt(int index)
-{
+    {
         return m_list.ElementAt(index).Value;
     }
-    
+
     public List<KeyValuePair<TKey, TValue>> ToList()
     {
         return m_list;
+    }
+
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+    {
+        foreach (var keyValuePair in m_list)
+        {
+            yield return keyValuePair;
+        }
     }
 }

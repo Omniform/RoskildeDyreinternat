@@ -62,7 +62,7 @@ namespace RoskildeDyreinternat
 
         public void FindKey()
         {
-            foreach (var keyValuePair in m_dictionary.ToList())
+            foreach (var keyValuePair in m_dictionary)
             {
                 switch (keyValuePair.Value.ToLower())
                 {
