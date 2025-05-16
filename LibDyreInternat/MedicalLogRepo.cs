@@ -29,9 +29,29 @@ namespace LibDyreInternat
             if (medicalLog == null)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen lægelogs med det angivne ID";
-                throw new NoSearhResultException(msg);
+                throw new NoSearchResultException(msg);
             }
             return medicalLog;
+        }
+        public static void Update(MedicalLog medicalLog, string infoToChange, string change)
+        {
+            switch (infoToChange.ToLower())
+            {
+                case "beskrivelse":
+                    medicalLog.Description = change;
+                    break;
+                case "dyr":
+                    medicalLog.Animal = AnimalRepo.GetById(int.Parse(change));
+                    break;
+                case "dato":
+                    medicalLog.DateTime = DateTime.Parse(change);
+                    break;
+                case "læge":
+                    medicalLog.NameOfDoctor = change;
+                    break;
+                default:
+                    break;
+            }
         }
         public static string AllToString()
         {
