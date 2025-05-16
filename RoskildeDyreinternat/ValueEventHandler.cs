@@ -752,7 +752,7 @@ public static class ValueEventHandler
                 break;
 
             case "ændr":
-                ChangeBlog();
+                UpdateBlog();
                 break;
         }
     }
@@ -815,7 +815,7 @@ public static class ValueEventHandler
         }
     }
 
-    private static void ChangeBlog()
+    private static void UpdateBlog()
     {
         Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
         Console.WriteLine("Hvilken blog vil du ændr? Intast blog ID");
