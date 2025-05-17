@@ -13,6 +13,12 @@ public static class ConsoleInputHelper
             Console.WriteLine(prompt);
             string input = Console.ReadLine().Trim();
 
+            if (string.IsNullOrWhiteSpace(input))
+        {
+            Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+            continue;
+        }
+
             if (int.TryParse(input, out result))
             {
                 return result;
@@ -31,7 +37,7 @@ public static class ConsoleInputHelper
             Console.WriteLine(prompt);
             string input = Console.ReadLine().Trim();
 
-            if (!string.IsNullOrEmpty(input) && input.Length >= 2)
+            if (!string.IsNullOrWhiteSpace(input) && input.Length >= 2)
             {
                 return input;
             }
@@ -49,27 +55,21 @@ public static class ConsoleInputHelper
             Console.WriteLine("\nIndtast køn: Han, Hun, Tvekønnet");
             string sexInput = Console.ReadLine().ToLower().Trim();
 
-            try
+            switch (sexInput)
             {
-                switch (sexInput)
-                {
-                    case "han":
-                        return Sex.male;
-                    case "hun":
-                        return Sex.female;
-
-                    case "tvekønnet":
-                        return Sex.hermaphrodite;
-                    default:
-                        throw new ArgumentException($"Unknown sex value: {sexInput}");
-                }
-            }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("Ugyldigt input. Prøv igen\n");
+                case "han":
+                    return Sex.male;
+                case "hun":
+                    return Sex.female;
+                case "tvekønnet":
+                    return Sex.hermaphrodite;
+                default:
+                    Console.WriteLine("Ugyldigt input. Prøv igen\n");
+                    break;
             }
         }
     }
+
 
     public static bool ReadBoolFromConosle(string prompt)
     {
