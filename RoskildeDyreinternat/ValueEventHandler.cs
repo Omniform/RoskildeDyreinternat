@@ -22,11 +22,10 @@ public static class ValueEventHandler
 
     public static void ValueAnimal(string key)
     {
-        string animal = "";
         switch (key)
         {
             case "se":
-                AnimalEventHandler.Display();
+                AnimalEventHandler.ShowAnimals();
                 break;
             case "tilføj":
                 AnimalEventHandler.Add();
@@ -461,8 +460,8 @@ public static class ValueEventHandler
 
 	private static void EditEvent()
 	{
-		Console.WriteLine("Hvad vil du ændre");
-		string input = Console.ReadLine();
+	Console.WriteLine("Hvad vil du ændre");
+	string input = Console.ReadLine();
 
 		switch (input)
 		{

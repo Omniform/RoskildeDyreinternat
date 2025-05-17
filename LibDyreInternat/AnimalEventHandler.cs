@@ -26,21 +26,24 @@ namespace LibDyreInternat
                     break;
             }
         }
-        public static void Remove()
+        public static void ShowAnimals()
         {
             string animal = "";
-            Console.WriteLine("Hvilket dyr vil du fjerne\n");
+            Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
-                case "hund":
-                    RemoveDog();
+                case "hunde":
+                    Console.WriteLine(AnimalRepo.DogsToString());
                     break;
-                case "cat":
-                    RemoveCat();
+                case "kate":
+                    Console.WriteLine(AnimalRepo.CatsToString());
                     break;
                 case "fisk":
-                    RemoveFish();
+                    Console.WriteLine(AnimalRepo.FishToString());
+                    break;
+                case "alle dyr":
+                    AnimalRepo.AnimalsSortedByType();
                     break;
             }
         }
@@ -62,24 +65,25 @@ namespace LibDyreInternat
                     break;
             }
         }
-        public static void Display()
+        public static void Remove()
         {
             string animal = "";
-            Console.WriteLine("Hvilke dyr vil de se\n");
+            Console.WriteLine("Hvilket dyr vil du fjerne\n");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
                 case "hund":
-                    Console.WriteLine(AnimalRepo.DogsToString());
+                    RemoveDog();
                     break;
-                case "kat":
-                    Console.WriteLine(AnimalRepo.CatsToString());
+                case "cat":
+                    RemoveCat();
                     break;
                 case "fisk":
-                    Console.WriteLine(AnimalRepo.FishToString());
+                    RemoveFish();
                     break;
             }
         }
+        
 
         #region Animal AddMethods
         private static void AddDog()
@@ -120,7 +124,7 @@ namespace LibDyreInternat
             Console.WriteLine("Chipnummer");
             int chipNumber = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("");
+            Console.WriteLine("Børnevenlig Ja/Nej");
             string isChildFriendly = Console.ReadLine();
             bool friendly;
             if (isChildFriendly == "Ja")
@@ -132,7 +136,19 @@ namespace LibDyreInternat
                 friendly = false;
             }
 
-            AnimalRepo.AddDog(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s);
+            Console.WriteLine("Muligehed for adoption");
+            string isUpForAdoption = Console.ReadLine();
+            bool adoptionStatus;
+            if (isUpForAdoption == "Ja")
+            {
+                adoptionStatus = true;
+            }
+            else
+            {
+                adoptionStatus = false;
+            }
+
+            AnimalRepo.AddDog(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
         }
 
@@ -174,7 +190,7 @@ namespace LibDyreInternat
             Console.WriteLine("Chipnummer");
             int chipNumber = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("");
+            Console.WriteLine("Børnevenlig Ja/Nej");
             string isChildFriendly = Console.ReadLine();
             bool friendly;
             if (isChildFriendly == "Ja")
@@ -186,7 +202,19 @@ namespace LibDyreInternat
                 friendly = false;
             }
 
-            AnimalRepo.AddCat(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s);
+            Console.WriteLine("Muligehed for adoption");
+            string isUpForAdoption = Console.ReadLine();
+            bool adoptionStatus;
+            if (isUpForAdoption == "Ja")
+            {
+                adoptionStatus = true;
+            }
+            else
+            {
+                adoptionStatus = false;
+            }
+
+            AnimalRepo.AddCat(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
         }
 
@@ -226,7 +254,19 @@ namespace LibDyreInternat
                     throw new ArgumentException($"Unknown sex value: {sex}");
             }
 
-            AnimalRepo.AddFish(name, species, maintainence, birthYear, weight, s);
+            Console.WriteLine("Muligehed for adoption");
+            string isUpForAdoption = Console.ReadLine();
+            bool adoptionStatus;
+            if (isUpForAdoption == "Ja")
+            {
+                adoptionStatus = true;
+            }
+            else
+            {
+                adoptionStatus = false;
+            }
+
+            AnimalRepo.AddFish(name, species, maintainence, birthYear, weight, s, adoptionStatus);
 
         }
         #endregion
@@ -366,6 +406,20 @@ namespace LibDyreInternat
                                 tempDog.IsChildFriendly = false;
                             }
                             break;
+                            case "adoptions status":
+                            Console.WriteLine("\nAdoptions status");
+                            Console.WriteLine(tempDog.IsUpForAdoption);
+                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
+                            string adoptionInput = Console.ReadLine().ToLower();
+                            if (adoptionInput == "ja")
+                            {
+                                tempDog.IsUpForAdoption = true;
+                            }
+                            else
+                            {
+                                tempDog.IsUpForAdoption = false;
+                            }
+                            break;
                     }
                     Console.WriteLine("\nOpdateret");
                     Console.WriteLine(tempDog);
@@ -460,6 +514,20 @@ namespace LibDyreInternat
                                 tempCat.IsChildFriendly = false;
                             }
                             break;
+                            case "adoptions status":
+                            Console.WriteLine("\nAdoptions status");
+                            Console.WriteLine(tempCat.IsUpForAdoption);
+                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
+                            string adoptionInput = Console.ReadLine().ToLower();
+                            if (adoptionInput == "ja")
+                            {
+                                tempCat.IsUpForAdoption = true;
+                            }
+                            else
+                            {
+                                tempCat.IsUpForAdoption = false;
+                            }
+                            break;
                     }
                     Console.WriteLine("\nOpdateret");
                     Console.WriteLine(tempCat);
@@ -530,6 +598,20 @@ namespace LibDyreInternat
                             else
                             {
                                 Console.WriteLine("Ugyldigt input. Indtast venligst et gyldigt heltal.");
+                            }
+                            break;
+                            case "adoptions status":
+                            Console.WriteLine("\nAdoptions status");
+                            Console.WriteLine(tempFish.IsUpForAdoption);
+                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
+                            string adoptionInput = Console.ReadLine().ToLower();
+                            if (adoptionInput == "ja")
+                            {
+                                tempFish.IsUpForAdoption = true;
+                            }
+                            else
+                            {
+                                tempFish.IsUpForAdoption = false;
                             }
                             break;
                     }

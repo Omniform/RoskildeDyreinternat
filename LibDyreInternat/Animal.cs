@@ -25,16 +25,19 @@ namespace LibDyreInternat
         public int Weight { get; set; }
         public Sex Sex { get; set; }
 
+        public bool IsUpForAdoption{get; set;}
 
-        
 
-        public Animal(string name, int birthYear, int weight, Sex sex)
+
+
+        public Animal(string name, int birthYear, int weight, Sex sex, bool isUpForAdoption)
         {
             Id = idnext++;
             Name = name;
             BirthYear = birthYear;
             Weight = weight;
             Sex = sex;
+            IsUpForAdoption = isUpForAdoption;
         }
 
         //public override string ToString()
