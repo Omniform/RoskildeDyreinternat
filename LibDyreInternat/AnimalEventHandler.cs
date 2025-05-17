@@ -14,131 +14,106 @@ namespace LibDyreInternat
         {
             while (true)
             {
-                string animal = "";
-                try
+                Console.WriteLine("Hvilket dyr vil du tilføje\nHund, Kat, Fisk\n");
+                string animal = ConsoleInputHelper.ReadStringFromConsole("\nIndtast dyr");
+
+                switch (animal.ToLower())
                 {
-                    Console.WriteLine("Hvilket dyr vil du tilføje\nHund, Kat, Fisk\n");
-                    animal = Console.ReadLine();
-                    switch (animal.ToLower())
-                    {
-                        case "hund":
-                            AddDog();
-                            break;
-                        case "kat":
-                            AddCat();
-                            break;
-                        case "fisk":
-                            AddFish();
-                            break;
-                        default:
-                            throw new ArgumentException($"Unkown animal {animal}");
-                    }
-                    break;
+                    case "hund":
+                        AddDog();
+                        break;
+                    case "kat":
+                        AddCat();
+                        break;
+                    case "fisk":
+                        AddFish();
+                        break;
+                    default:
+                        Console.WriteLine("Ugyldigt indput. Prøv igen\n");
+                        continue;
                 }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
-                }
+                break;
             }
         }
         public static void ShowAnimals()
         {
             while (true)
             {
-                string command = "";
-                try
-                {
-                    Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr\n");
-                    command = Console.ReadLine();
-                    switch (command.ToLower())
-                    {
-                        case "hunde":
-                            Console.WriteLine(AnimalRepo.DogsToString());
-                            break;
-                        case "katte":
-                            Console.WriteLine(AnimalRepo.CatsToString());
-                            break;
-                        case "fisk":
-                            Console.WriteLine(AnimalRepo.FishToString());
-                            break;
-                        case "alle dyr":
-                            AnimalRepo.AnimalsSortedByType();
-                            break;
-                        default:
-                            throw new ArgumentException($"Unknown command {command}");
 
-                    }
-                    break;
-                }
-                catch (ArgumentException)
+                Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle dyr\n");
+                string command = ConsoleInputHelper.ReadStringFromConsole("Indtast Hunde, Katte, Fisk eller Alle dyr");
+
+                switch (command.ToLower())
                 {
-                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
+                    case "hunde":
+                        Console.WriteLine(AnimalRepo.DogsToString());
+                        break;
+                    case "katte":
+                        Console.WriteLine(AnimalRepo.CatsToString());
+                        break;
+                    case "fisk":
+                        Console.WriteLine(AnimalRepo.FishToString());
+                        break;
+                    case "alle dyr":
+                        AnimalRepo.AnimalsSortedByType();
+                        break;
+                    default:
+                        Console.WriteLine("Ugyldigt indput. Prøv igen");
+                        continue;
                 }
+                break;
             }
         }
+        
         public static void Update()
         {
             while (true)
             {
+                Console.WriteLine("Hvilket dyr vil du ændre\nHund, Kat, Fisk");
+                string animal = Console.ReadLine();
 
-                string animal = "";
-                try
+                switch (animal.ToLower())
                 {
-                    Console.WriteLine("Hvilket dyr vil du ændre\nHund, Kat, Fisk");
-                    animal = Console.ReadLine();
-                    switch (animal.ToLower())
-                    {
-                        case "hund":
-                            UpdateDog();
-                            break;
-                        case "kat":
-                            UpdateCat();
-                            break;
-                        case "fisk":
-                            UpdateFish();
-                            break;
-                        default:
-                            throw new ArgumentException($"Unknown animal {animal}");
-                    }
-                    break;
+                    case "hund":
+                        UpdateDog();
+                        break;
+                    case "kat":
+                        UpdateCat();
+                        break;
+                    case "fisk":
+                        UpdateFish();
+                        break;
+                    default:
+                        Console.WriteLine("Ugyldigt indput. Prøv igen");
+                        continue;
                 }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
-                }
+                break;
             }
-            
         }
         public static void Remove()
         {
             while (true)
             {
-                string animal = "";
-                try
-                {
-                    Console.WriteLine("Hvilket dyr vil du fjerne\nHund, Kat, Fisk");
-                    animal = Console.ReadLine();
-                    switch (animal.ToLower())
-                    {
-                        case "hund":
-                            RemoveDog();
-                            break;
-                        case "kat":
-                            RemoveCat();
-                            break;
-                        case "fisk":
-                            RemoveFish();
-                            break;
-                        default:
-                            throw new ArgumentException($"Unkown animal input: {animal}");
+                Console.WriteLine("Hvilket dyr vil du fjerne\nHund, Kat, Fisk");
+                string animal = ConsoleInputHelper.ReadStringFromConsole("\nIndtast Hund, Kat, Fisk");
 
-                    }
-                    break;
-                }
-                catch (ArgumentException)
+                switch (animal.ToLower())
                 {
-                    Console.WriteLine("Ugyldigt input. Prøv igen\n");
+                    case "hund":
+                        RemoveDog();
+                        break;
+                    case "kat":
+                        RemoveCat();
+                        break;
+                    case "fisk":
+                        RemoveFish();
+                        break;
+                    default:
+                        Console.WriteLine("Ugyldigt indput.Prøv igen");
+                        continue;
                 }
+                break;
+                
             }
         }
         
