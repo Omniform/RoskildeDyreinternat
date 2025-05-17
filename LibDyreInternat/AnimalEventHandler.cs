@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,77 +12,133 @@ namespace LibDyreInternat
     {
         public static void Add()
         {
-            string animal = "";
-            Console.WriteLine("Hvilket dyr vil du tilføje\nHund, Kat, Fisk\n");
-            animal = Console.ReadLine();
-            switch (animal.ToLower())
+            while (true)
             {
-                case "hund":
-                    AddDog();
+                string animal = "";
+                try
+                {
+                    Console.WriteLine("Hvilket dyr vil du tilføje\nHund, Kat, Fisk\n");
+                    animal = Console.ReadLine();
+                    switch (animal.ToLower())
+                    {
+                        case "hund":
+                            AddDog();
+                            break;
+                        case "kat":
+                            AddCat();
+                            break;
+                        case "fisk":
+                            AddFish();
+                            break;
+                        default:
+                            throw new ArgumentException($"Unkown animal {animal}");
+                    }
                     break;
-                case "kat":
-                    AddCat();
-                    break;
-                case "fisk":
-                    AddFish();
-                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
+                }
             }
         }
         public static void ShowAnimals()
         {
-            string animal = "";
-            Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr\n");
-            animal = Console.ReadLine();
-            switch (animal.ToLower())
+            while (true)
             {
-                case "hunde":
-                    Console.WriteLine(AnimalRepo.DogsToString());
+                string command = "";
+                try
+                {
+                    Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr\n");
+                    command = Console.ReadLine();
+                    switch (command.ToLower())
+                    {
+                        case "hunde":
+                            Console.WriteLine(AnimalRepo.DogsToString());
+                            break;
+                        case "katte":
+                            Console.WriteLine(AnimalRepo.CatsToString());
+                            break;
+                        case "fisk":
+                            Console.WriteLine(AnimalRepo.FishToString());
+                            break;
+                        case "alle dyr":
+                            AnimalRepo.AnimalsSortedByType();
+                            break;
+                        default:
+                            throw new ArgumentException($"Unknown command {command}");
+
+                    }
                     break;
-                case "katte":
-                    Console.WriteLine(AnimalRepo.CatsToString());
-                    break;
-                case "fisk":
-                    Console.WriteLine(AnimalRepo.FishToString());
-                    break;
-                case "alle dyr":
-                    AnimalRepo.AnimalsSortedByType();
-                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
+                }
             }
         }
         public static void Update()
         {
-            string animal = "";
-            Console.WriteLine("Hvilket dyr vil du ændre\nHund, Kat, Fisk");
-            animal = Console.ReadLine();
-            switch (animal.ToLower())
+            while (true)
             {
-                case "hund":
-                    UpdateDog();
+
+                string animal = "";
+                try
+                {
+                    Console.WriteLine("Hvilket dyr vil du ændre\nHund, Kat, Fisk");
+                    animal = Console.ReadLine();
+                    switch (animal.ToLower())
+                    {
+                        case "hund":
+                            UpdateDog();
+                            break;
+                        case "kat":
+                            UpdateCat();
+                            break;
+                        case "fisk":
+                            UpdateFish();
+                            break;
+                        default:
+                            throw new ArgumentException($"Unknown animal {animal}");
+                    }
                     break;
-                case "kat":
-                    UpdateCat();
-                    break;
-                case "fisk":
-                    UpdateFish();
-                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Ugyldigt indput. Prøv igen\n");
+                }
             }
+            
         }
         public static void Remove()
         {
-            string animal = "";
-            Console.WriteLine("Hvilket dyr vil du fjerne\nHund, Kat, Fisk");
-            animal = Console.ReadLine();
-            switch (animal.ToLower())
+            while (true)
             {
-                case "hund":
-                    RemoveDog();
+                string animal = "";
+                try
+                {
+                    Console.WriteLine("Hvilket dyr vil du fjerne\nHund, Kat, Fisk");
+                    animal = Console.ReadLine();
+                    switch (animal.ToLower())
+                    {
+                        case "hund":
+                            RemoveDog();
+                            break;
+                        case "kat":
+                            RemoveCat();
+                            break;
+                        case "fisk":
+                            RemoveFish();
+                            break;
+                        default:
+                            throw new ArgumentException($"Unkown animal input: {animal}");
+
+                    }
                     break;
-                case "kat":
-                    RemoveCat();
-                    break;
-                case "fisk":
-                    RemoveFish();
-                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Ugyldigt input. Prøv igen\n");
+                }
             }
         }
         
@@ -88,183 +146,71 @@ namespace LibDyreInternat
         #region Animal AddMethods
         private static void AddDog()
         {
-            Console.WriteLine("Navn");
-            string name = Console.ReadLine();
+            
+            string name = ConsoleInputHelper.ReadStringFromConsole("\nIndtast navn:");
 
-            Console.WriteLine("Fødselsår");
-            int birthYear = int.Parse(Console.ReadLine());
+            int birthYear = ConsoleInputHelper.ReadIntFromConsole("\nIndtast fødselsår:");
 
-            Console.WriteLine("Weight");
-            int weight = int.Parse(Console.ReadLine());
+            int weight = ConsoleInputHelper.ReadIntFromConsole("\nIndtast vægt:");
 
-            Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-            string sex = Console.ReadLine().ToLower();
-            Sex s;
-            switch (sex)
-            {
-                case "han":
-                    s = Sex.male;
-                    break;
-                case "hun":
-                    s = Sex.female;
-                    break;
-                case "tvekønnet":
-                    s = Sex.hermaphrodite;
-                    break;
-                default:
-                    throw new ArgumentException($"Unknown sex value: {sex}");
-            }
+            Sex s = ConsoleInputHelper.ReadSexFromConsole();
+           
+            string race = ConsoleInputHelper.ReadStringFromConsole("\nIndtast race");
 
-            Console.WriteLine("Race");
-            string race = Console.ReadLine();
+            string foodPrefrences = ConsoleInputHelper.ReadStringFromConsole("\nIndtast foder præferencer");
 
-            Console.WriteLine("Foder præferencer");
-            string foodPrefrences = Console.ReadLine();
+            int chipNumber = ConsoleInputHelper.ReadIntFromConsole("\nChipnummer");
 
-            Console.WriteLine("Chipnummer");
-            int chipNumber = int.Parse(Console.ReadLine());
+            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConosle("\nBørnevenlig Ja/Nej");
 
-            Console.WriteLine("Børnevenlig Ja/Nej");
-            string isChildFriendly = Console.ReadLine().ToLower();
-            bool friendly;
-            if (isChildFriendly == "ja")
-            {
-                friendly = true;
-            }
-            else
-            {
-                friendly = false;
-            }
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
 
-            Console.WriteLine("Muligehed for adoption");
-            string isUpForAdoption = Console.ReadLine().ToLower();
-            bool adoptionStatus;
-            if (isUpForAdoption == "ja")
-            {
-                adoptionStatus = true;
-            }
-            else
-            {
-                adoptionStatus = false;
-            }
-
-            AnimalRepo.AddDog(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
+            AnimalRepo.AddDog(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
         }
 
         private static void AddCat()
         {
-            Console.WriteLine("Navn");
-            string name = Console.ReadLine();
+            
+            string name = ConsoleInputHelper.ReadStringFromConsole("\nIndtast Navn");
 
-            Console.WriteLine("Fødselsår");
-            int birthYear = int.Parse(Console.ReadLine());
+            int birthYear = ConsoleInputHelper.ReadIntFromConsole("\nIndtast fødselsår:");
 
-            Console.WriteLine("Weight");
-            int weight = int.Parse(Console.ReadLine());
+            int weight = ConsoleInputHelper.ReadIntFromConsole("\nIndtast vægt:");
 
-            Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-            string sex = Console.ReadLine().ToLower();
-            Sex s;
-            switch (sex)
-            {
-                case "han":
-                    s = Sex.male;
-                    break;
-                case "hun":
-                    s = Sex.female;
-                    break;
-                case "tvekønnet":
-                    s = Sex.hermaphrodite;
-                    break;
-                default:
-                    throw new ArgumentException($"Unknown sex value: {sex}");
-            }
+            Sex s = ConsoleInputHelper.ReadSexFromConsole();
+           
+            string race = ConsoleInputHelper.ReadStringFromConsole("\nIndtast race");
 
-            Console.WriteLine("Race");
-            string race = Console.ReadLine();
+            string foodPrefrences = ConsoleInputHelper.ReadStringFromConsole("\nIndtast foder præferencer");
 
-            Console.WriteLine("Foder præferencer");
-            string foodPrefrences = Console.ReadLine();
+            int chipNumber = ConsoleInputHelper.ReadIntFromConsole("\nChipnummer");
 
-            Console.WriteLine("Chipnummer");
-            int chipNumber = int.Parse(Console.ReadLine());
+            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConosle("\nBørnevenlig Ja/Nej");
 
-            Console.WriteLine("Børnevenlig Ja/Nej");
-            string isChildFriendly = Console.ReadLine().ToLower();
-            bool friendly;
-            if (isChildFriendly == "ja")
-            {
-                friendly = true;
-            }
-            else
-            {
-                friendly = false;
-            }
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
 
-            Console.WriteLine("Muligehed for adoption");
-            string isUpForAdoption = Console.ReadLine().ToLower();
-            bool adoptionStatus;
-            if (isUpForAdoption == "ja")
-            {
-                adoptionStatus = true;
-            }
-            else
-            {
-                adoptionStatus = false;
-            }
-
-            AnimalRepo.AddCat(race, friendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
+            AnimalRepo.AddCat(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
         }
 
 
         private static void AddFish()
         {
-            Console.WriteLine("Navn");
-            string name = Console.ReadLine();
+            string name = ConsoleInputHelper.ReadStringFromConsole("\nNavn");
 
-            Console.WriteLine("Art");
-            string species = Console.ReadLine();
+            string species = ConsoleInputHelper.ReadStringFromConsole("\nArt");
 
-            Console.WriteLine("Fødselsår");
-            int birthYear = int.Parse(Console.ReadLine());
+            int birthYear = ConsoleInputHelper.ReadIntFromConsole("\nIndtast fødselsår:");
 
-            Console.WriteLine("Vedligeholdelse");
-            string maintainence = Console.ReadLine();
+            string maintainence = ConsoleInputHelper.ReadStringFromConsole("\nVedligeholdelse");
 
-            Console.WriteLine("Weight");
-            int weight = int.Parse(Console.ReadLine());
+            int weight = ConsoleInputHelper.ReadIntFromConsole("\nIndtast vægt:");
 
-            Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-            string sex = Console.ReadLine().ToLower();
-            Sex s;
-            switch (sex)
-            {
-                case "han":
-                    s = Sex.male;
-                    break;
-                case "hun":
-                    s = Sex.female;
-                    break;
-                case "tvekønnet":
-                    s = Sex.hermaphrodite;
-                    break;
-                default:
-                    throw new ArgumentException($"Unknown sex value: {sex}");
-            }
+            Sex s = ConsoleInputHelper.ReadSexFromConsole();
 
-            Console.WriteLine("Muligehed for adoption");
-            string isUpForAdoption = Console.ReadLine();
-            bool adoptionStatus;
-            if (isUpForAdoption == "Ja")
-            {
-                adoptionStatus = true;
-            }
-            else
-            {
-                adoptionStatus = false;
-            }
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
+            
 
             AnimalRepo.AddFish(name, species, maintainence, birthYear, weight, s, adoptionStatus);
 
@@ -273,38 +219,59 @@ namespace LibDyreInternat
         #region Animal RemoveMethods
         private static void RemoveDog()
         {
-            Console.WriteLine("Hvilken hund vil du fjerne indtast (Id)\n\n");
+            Console.WriteLine("Hvilken hund vil du fjerne?");
+            Console.WriteLine();
             Console.WriteLine(AnimalRepo.DogsToString());
-            int id = int.Parse(Console.ReadLine());
-            Dog tempDog;
-            if (AnimalRepo.GetById(id) is Dog)
+
+            int id = ConsoleInputHelper.ReadIntFromConsole("Indtast Id");
+
+            if (AnimalRepo.GetById(id) is Dog tempDog)
             {
-                tempDog = (Dog)AnimalRepo.GetById(id);
+                AnimalRepo.Remove(tempDog);
+                Console.WriteLine("Hunden blev fjernet");
+            }
+            else
+            {
+                Console.WriteLine("Ingen hund med det id blev fundet");
             }
         }
 
 
         private static void RemoveCat()
         {
-            Console.WriteLine("Hvilken  vil du fjerne indtast (Id)\n\n");
+            Console.WriteLine("Hvilken kat vil du fjerne?");
+            Console.WriteLine();
             Console.WriteLine(AnimalRepo.CatsToString());
-            int id = int.Parse(Console.ReadLine());
-            Cat tempCat;
-            if (AnimalRepo.GetById(id) is Cat)
+
+            int id = ConsoleInputHelper.ReadIntFromConsole("Indtast Id");
+
+            if (AnimalRepo.GetById(id) is Cat tempCat)
             {
-                tempCat = (Cat)AnimalRepo.GetById(id);
+                AnimalRepo.Remove(tempCat);
+                Console.WriteLine("Katten blev fjernet");
+            }
+            else
+            {
+                Console.WriteLine("Ingen kat med det id blev fundet");
             }
         }
 
         private static void RemoveFish()
         {
-            Console.WriteLine("Hvilken fisk vil du fjerne indtast (Id)\n\n");
+            Console.WriteLine("Hvilken fisk vil du fjerne?");
+            Console.WriteLine();
             Console.WriteLine(AnimalRepo.FishToString());
-            int id = int.Parse(Console.ReadLine());
-            Fish tempFish;
-            if (AnimalRepo.GetById(id) is Fish)
+
+            int id = ConsoleInputHelper.ReadIntFromConsole("Indtast Id");
+
+            if (AnimalRepo.GetById(id) is Fish tempFish)
             {
-                tempFish = (Fish)AnimalRepo.GetById(id);
+                AnimalRepo.Remove(tempFish);
+                Console.WriteLine("Fisken blev fjernet");
+            }
+            else
+            {
+                Console.WriteLine("Ingen fisk med dette id blev fundet");
             }
         }
         #endregion

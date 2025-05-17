@@ -29,41 +29,29 @@ namespace LibDyreInternat
             animalRepo.Add(new Fish(species, maintainence, name, birthYear, weight, sex, isUpForAdoption));
         }
 
-        public static Animal GetById(int Id)
+        public static Animal GetById(int id)
         {
-            string s = "";
-            Animal animal1 = null;
             foreach (Animal animal in animalRepo)
             {
-                if (animal.Id == Id)
+                if (animal.Id == id)
                 {
-                    s = animal.ToString();
-                    animal1 = animal;
-
+                    return animal;
                 }
             }
-            return animal1;
-
-            //return $"{s}";
+            return null;
         }
+
 
         public static void Remove(Animal animal)
         {
             animalRepo.Remove(animal);
-            //foreach (Animal a in animalRepo)
-            //{
-            //    if (a.Id == Id)
-            //    {
-            //        animalRepo.Remove(a);
-            //    }
-            //}
         }
 
         public static string AllToString()
         {
             string s = "";
             foreach (Animal animal in animalRepo) { s += animal.ToString() + "\n"; }
-            return s + "\n";
+            return s;
         }
 
         public static string DogsToString()
@@ -76,7 +64,7 @@ namespace LibDyreInternat
                     s += animal.ToString() + "\n";
                 }
             }
-            return s + "\n";
+            return s;
         }
         public static string CatsToString()
         {
@@ -88,7 +76,7 @@ namespace LibDyreInternat
                     s += animal.ToString() + "\n";
                 }
             }
-            return s + "\n";
+            return s;
         }
 
         public static string FishToString()
@@ -101,7 +89,7 @@ namespace LibDyreInternat
                     s += animal.ToString() + "\n";
                 }
             }
-            return s + "\n";
+            return s;
         }
 
         public static void AnimalsSortedByType()
