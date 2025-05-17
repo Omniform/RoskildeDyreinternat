@@ -11,14 +11,14 @@ namespace LibDyreInternat
         public static void Add()
         {
             string animal = "";
-            Console.WriteLine("Hvilket dyr vil du tilføje\n");
+            Console.WriteLine("Hvilket dyr vil du tilføje\nHund, Kat, Fisk\n");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
                 case "hund":
                     AddDog();
                     break;
-                case "cat":
+                case "kat":
                     AddCat();
                     break;
                 case "fisk":
@@ -29,14 +29,14 @@ namespace LibDyreInternat
         public static void ShowAnimals()
         {
             string animal = "";
-            Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr");
+            Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle Dyr\n");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
                 case "hunde":
                     Console.WriteLine(AnimalRepo.DogsToString());
                     break;
-                case "kate":
+                case "katte":
                     Console.WriteLine(AnimalRepo.CatsToString());
                     break;
                 case "fisk":
@@ -50,7 +50,7 @@ namespace LibDyreInternat
         public static void Update()
         {
             string animal = "";
-            Console.WriteLine("Hvilket dyr vil du ændre\n");
+            Console.WriteLine("Hvilket dyr vil du ændre\nHund, Kat, Fisk");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
@@ -68,14 +68,14 @@ namespace LibDyreInternat
         public static void Remove()
         {
             string animal = "";
-            Console.WriteLine("Hvilket dyr vil du fjerne\n");
+            Console.WriteLine("Hvilket dyr vil du fjerne\nHund, Kat, Fisk");
             animal = Console.ReadLine();
             switch (animal.ToLower())
             {
                 case "hund":
                     RemoveDog();
                     break;
-                case "cat":
+                case "kat":
                     RemoveCat();
                     break;
                 case "fisk":
@@ -98,17 +98,17 @@ namespace LibDyreInternat
             int weight = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-            string sex = Console.ReadLine();
+            string sex = Console.ReadLine().ToLower();
             Sex s;
             switch (sex)
             {
-                case "Han":
+                case "han":
                     s = Sex.male;
                     break;
-                case "Hun":
+                case "hun":
                     s = Sex.female;
                     break;
-                case "Tvekønnet":
+                case "tvekønnet":
                     s = Sex.hermaphrodite;
                     break;
                 default:
@@ -125,9 +125,9 @@ namespace LibDyreInternat
             int chipNumber = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Børnevenlig Ja/Nej");
-            string isChildFriendly = Console.ReadLine();
+            string isChildFriendly = Console.ReadLine().ToLower();
             bool friendly;
-            if (isChildFriendly == "Ja")
+            if (isChildFriendly == "ja")
             {
                 friendly = true;
             }
@@ -137,9 +137,9 @@ namespace LibDyreInternat
             }
 
             Console.WriteLine("Muligehed for adoption");
-            string isUpForAdoption = Console.ReadLine();
+            string isUpForAdoption = Console.ReadLine().ToLower();
             bool adoptionStatus;
-            if (isUpForAdoption == "Ja")
+            if (isUpForAdoption == "ja")
             {
                 adoptionStatus = true;
             }
@@ -164,17 +164,17 @@ namespace LibDyreInternat
             int weight = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Indtast køn: Han, Hun, Tvekønnet");
-            string sex = Console.ReadLine();
+            string sex = Console.ReadLine().ToLower();
             Sex s;
             switch (sex)
             {
-                case "Han":
+                case "han":
                     s = Sex.male;
                     break;
-                case "Hun":
+                case "hun":
                     s = Sex.female;
                     break;
-                case "Tvekønnet":
+                case "tvekønnet":
                     s = Sex.hermaphrodite;
                     break;
                 default:
@@ -191,9 +191,9 @@ namespace LibDyreInternat
             int chipNumber = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Børnevenlig Ja/Nej");
-            string isChildFriendly = Console.ReadLine();
+            string isChildFriendly = Console.ReadLine().ToLower();
             bool friendly;
-            if (isChildFriendly == "Ja")
+            if (isChildFriendly == "ja")
             {
                 friendly = true;
             }
@@ -203,9 +203,9 @@ namespace LibDyreInternat
             }
 
             Console.WriteLine("Muligehed for adoption");
-            string isUpForAdoption = Console.ReadLine();
+            string isUpForAdoption = Console.ReadLine().ToLower();
             bool adoptionStatus;
-            if (isUpForAdoption == "Ja")
+            if (isUpForAdoption == "ja")
             {
                 adoptionStatus = true;
             }
@@ -322,7 +322,7 @@ namespace LibDyreInternat
                 if (tempDog is Dog)
                 {
                     Console.WriteLine("\nHvad du vil ændre?");
-                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\n");
+                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
                     string prop = Console.ReadLine();
                     switch (prop.ToLower())
                     {
@@ -394,7 +394,7 @@ namespace LibDyreInternat
                             break;
                         case "børnevenlig":
                             Console.WriteLine("\nBørnevenlig");
-                            Console.WriteLine(tempDog.IsChildFriendly);
+                            Console.WriteLine((tempDog.IsChildFriendly)? "Ja" : "Nej");
                             Console.WriteLine("\nBørnevenlig Ja/Nej");
                             string input = Console.ReadLine().ToLower();
                             if (input == "ja")
@@ -406,9 +406,9 @@ namespace LibDyreInternat
                                 tempDog.IsChildFriendly = false;
                             }
                             break;
-                            case "adoptions status":
+                        case "adoptions status":
                             Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine(tempDog.IsUpForAdoption);
+                            Console.WriteLine((tempDog.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
                             Console.WriteLine("\nMulighed for adoption Ja/Nej");
                             string adoptionInput = Console.ReadLine().ToLower();
                             if (adoptionInput == "ja")
@@ -440,7 +440,7 @@ namespace LibDyreInternat
                 if (tempCat is Cat)
                 {
                     Console.WriteLine("\nVælge hvad du vil ændre");
-                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\n");
+                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
                     string prop = Console.ReadLine();
                     switch (prop.ToLower())
                     {
@@ -502,7 +502,7 @@ namespace LibDyreInternat
                             break;
                         case "børnevenlig":
                             Console.WriteLine("\nBørnevenlig");
-                            Console.WriteLine(tempCat.IsChildFriendly);
+                            Console.WriteLine((tempCat.IsChildFriendly)? "Ja" : "Nej");
                             Console.WriteLine("\nBørnevenlig Ja/Nej");
                             string input = Console.ReadLine().ToLower();
                             if (input == "ja")
@@ -514,9 +514,9 @@ namespace LibDyreInternat
                                 tempCat.IsChildFriendly = false;
                             }
                             break;
-                            case "adoptions status":
+                        case "adoptions status":
                             Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine(tempCat.IsUpForAdoption);
+                            Console.WriteLine((tempCat.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
                             Console.WriteLine("\nMulighed for adoption Ja/Nej");
                             string adoptionInput = Console.ReadLine().ToLower();
                             if (adoptionInput == "ja")
@@ -550,7 +550,7 @@ namespace LibDyreInternat
                 if (tempFish is Fish)
                 {
                     Console.WriteLine("\nVælg hvad du vil ændre");
-                    Console.WriteLine("Navn\nFødselsår\nVedligeholdelse\nVægt\n");
+                    Console.WriteLine("Navn\nFødselsår\nVedligeholdelse\nVægt\nAdoptions status\n");
                     string prop = Console.ReadLine();
                     switch (prop.ToLower())
                     {
@@ -602,7 +602,7 @@ namespace LibDyreInternat
                             break;
                             case "adoptions status":
                             Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine(tempFish.IsUpForAdoption);
+                            Console.WriteLine((tempFish.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
                             Console.WriteLine("\nMulighed for adoption Ja/Nej");
                             string adoptionInput = Console.ReadLine().ToLower();
                             if (adoptionInput == "ja")

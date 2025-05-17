@@ -34,7 +34,7 @@ namespace LibDyreInternat
                     sex = "Tvekønnet";
                     break;
             }
-            return $"ID: {Id}\nNavn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nArt: {Species}\nVedligeholdelse: {Maintainence}\nMulighed for adoption: {((IsUpForAdoption)? "Ja" : "Nej")}";
+            return $"ID: {Id}\nNavn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nArt: {Species}\nVedligeholdelse: {Maintainence}\nMulighed for adoption: {((IsUpForAdoption)? "Ja" : "Nej")}\n";
         }
 
     }
