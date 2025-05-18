@@ -18,16 +18,16 @@ namespace LibDyreInternat
         public Activity? Activity {get; set;} = null;
         public string Author {get; set;}
 
-        public Blog(string title, int id, DateTime date, Activity activity, string description, string author) 
+        public Blog(string title, DateTime date, Activity activity, string description, string author) 
         {
-            Id = id;
+            Id = idNext++;
             Title = title;
             Description = description;
             Date = date;
             Activity = activity;
             Author = author;
 
-            idNext++;
+            
         }
         public override string ToString()
         {
