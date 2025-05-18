@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Xml.Linq;
 using static LibDyreInternat.Person;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 public static class ValueEventHandler
@@ -615,6 +616,7 @@ public static class ValueEventHandler
             }
         }
     }
+
     #endregion
     public static void ValuePerson(string key)
     {
@@ -657,6 +659,9 @@ public static class ValueEventHandler
 
         Console.WriteLine("Adgangs niveau\nAdmin = 1\nMedlem = 2\nKunde = 3");
         Person.Acceslevel PersonAccesLevel = (Person.Acceslevel)int.Parse(Console.ReadLine());
+
+
+        PersonRepo.AddPerson(new(Name, Birthday, Address, TelephoneNumber, Email, PersonAccesLevel));
     }
 
     private static void DeletePerson()
@@ -823,9 +828,11 @@ public static class ValueEventHandler
         Console.WriteLine("Activity");
         Activity Activity = ActivityRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
 
-
         Console.WriteLine("Forfatter");
         string Author = Console.ReadLine();
+
+        
+        BlogRepo.AddBlog(new(Title, Date, Activity, Description, Author));
     }
 
     private static void DeleteBlog()
@@ -892,7 +899,7 @@ public static class ValueEventHandler
                 if (input == "ja")
                 {
                     Console.WriteLine("Hvilken egenskab vil du ændre?");
-                    Console.WriteLine("1 - Title\n2 - Description\n3 - Date\n4 - Author");
+                    Console.WriteLine("1 - Title\n2 - Description\n3 - Date\n4 - Author\n5 - Activity");
                     string choice = Console.ReadLine();
 
                     switch (choice)
@@ -926,6 +933,12 @@ public static class ValueEventHandler
                             blog.Author = Console.ReadLine();
                             break;
 
+                        //    // ??
+                        //case "5":
+                        //    Console.WriteLine("Ny Activity:");
+                        //    blog.Activity = ActivityRepo.GetById(Int32.Parse(input));
+                        //    break;
+
                         default:
                             Console.WriteLine("Ugyldigt valg, prøv igen.");
                             break;
@@ -933,6 +946,12 @@ public static class ValueEventHandler
 
                     Console.WriteLine("Blog er ændret!");
                 }
+
+                else
+                {
+                    Console.WriteLine("Intet er ændret.");
+                }
+
             }
             catch (NoSearchResultException ex)
             {
