@@ -18,7 +18,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 public static class ValueEventHandler
 {
 
-	private static bool m_eventSuccess = false;
+    private static bool m_eventSuccess = false;
 
 
     public static void ValueAnimal(string key)
@@ -39,7 +39,7 @@ public static class ValueEventHandler
                 break;
         }
     }
-    
+
     #region MedicalLogHandler
     public static void ValueMedicalLog(string key)
     {
@@ -101,16 +101,16 @@ public static class ValueEventHandler
 				EditEvent();
 				break;
 
-		}
-	}
+        }
+    }
 
-	public static void ValueBlog(string key)
-	{
-		switch (key)
-		{
-			case "se":
-				Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
-				break;
+    public static void ValueBlog(string key)
+    {
+        switch (key)
+        {
+            case "se":
+                Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
+                break;
 
 			case "tilføj":
                 BlogEventHandler.CreateNewBlog();
@@ -126,78 +126,119 @@ public static class ValueEventHandler
 		}
 	}
 
-	private static void AddEvent()
-	{
-		Console.WriteLine("Navn");
-		string name = FormattingService.RemoveSpaces(Console.ReadLine());
+    private static void AddEvent()
+    {
+        Console.WriteLine("Navn");
+        string name = FormattingService.RemoveSpaces(Console.ReadLine());
 
-		Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
-		DateOnly date = DateOnly.Parse(Console.ReadLine());
+        Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
+        DateOnly date = DateOnly.Parse(Console.ReadLine());
 
-		Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
-		TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
+        Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
+        TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
 
-		Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
-		TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
+        Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
+        TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
 
-		Console.WriteLine("Vælg koordinator ved deres id");
-		bool personFound = false;
-		int id = int.Parse(Console.ReadLine());
-		Person? coordinator = null;
-		while (!personFound)
-		{
-			foreach (var person in PersonRepo.AllPersons)
-			{
-				if (person.Id == id)
-				{
-					coordinator = person;
-					personFound = true;
-				}
-			}
-			if (coordinator == null)
-			{
-				Console.WriteLine("Ingen person med dette id");
-			}
-		}
-		EventRepo.Add(new Event(name, date, startTime, endTime, coordinator));
+        Console.WriteLine("Vælg koordinator ved deres id");
+        bool personFound = false;
+        int id = int.Parse(Console.ReadLine());
+        Person? coordinator = null;
+        while (!personFound)
+        {
+            foreach (var person in PersonRepo.AllPersons)
+            {
+                if (person.Id == id)
+                {
+                    coordinator = person;
+                    personFound = true;
+                }
+            }
+            if (coordinator == null)
+            {
+                Console.WriteLine("Ingen person med dette id");
+            }
+        }
+        EventRepo.Add(new Event(name, date, startTime, endTime, coordinator));
 
-		Console.WriteLine("Person er blevet tilføjet");
-	}
+        Console.WriteLine("Person er blevet tilføjet");
+    }
 
-	private static void RemoveEvent()
-	{
-		Console.WriteLine("Vælg id på aktivitet");
-		bool validID = false;
-		int id = 0;
-		string input = "";
-		while (!validID)
-		{
-			input = Console.ReadLine();
-			if (!int.TryParse(input, out id))
-			{
-				if (input == "se")
-				{
-					ShowEvent();
-				}
-			}
-			else
-			{
-				validID = true;
-			}
-		}
-		EventRepo.Remove(id);
-		Console.WriteLine("Aktivitet er fjernet");
-	}
+    private static void RemoveEvent()
+    {
+        Console.WriteLine("Vælg id på aktivitet");
+        bool validID = false;
+        int id = 0;
+        string input = "";
+        while (!validID)
+        {
+            input = Console.ReadLine();
+            if (!int.TryParse(input, out id))
+            {
+                if (input == "se")
+                {
+                    ShowEvent();
+                }
+            }
+            else
+            {
+                validID = true;
+            }
+        }
+        EventRepo.Remove(id);
+        Console.WriteLine("Aktivitet er fjernet");
+    }
 
-	private static void EditEvent()
-	{
-	Console.WriteLine("Hvad vil du ændre");
-	string input = Console.ReadLine();
+    private static void EditEvent()
+    {
+        Console.WriteLine("Vælg id på aktivitet");
 
-		switch (input)
-		{
-			
-		}
-	}
+        int id;
+        int.TryParse(Console.ReadLine(), out id);
+
+        Console.WriteLine("Hvad vil du ændre");
+        string input = Console.ReadLine();
+
+        switch (input)
+        {
+            case "navn":
+                EventRepo.GetById(id).Name = input;
+                break;
+
+            case "dato":
+                ChangeDateAndTime(id);
+                break;
+            case "koordinator":
+                ChangeCoordinator(id);
+                break;
+        }
+    }
+
+    private static void ChangeDateAndTime(in int id)
+    {
+        DateOnly date;
+        TimeOnly startTime;
+        TimeOnly endTime;
+        Console.WriteLine("Vælg dag\nformatering: 24-05-2025");
+        DateOnly.TryParse(Console.ReadLine(), out date);
+
+        Console.WriteLine("Vælg start tid\nformatering: 09-30");
+        TimeOnly.TryParse(Console.ReadLine(), out startTime);
+
+        Console.WriteLine("Vælg slut tid\nformatering: 15-14");
+        TimeOnly.TryParse(Console.ReadLine(), out endTime);
+
+        EventRepo.GetById(id).ChangeDateAndTime(date, startTime, endTime);
+    }
+
+    private static void ChangeCoordinator(in int id)
+    {
+        Console.WriteLine(PersonRepo.ReturnListAsString());
+        Console.WriteLine("Vælg koordinator ved personens id");
+        int coordinatorID;
+        int.TryParse(Console.ReadLine(), out coordinatorID);
+
+        EventRepo.GetById(id).Coordinator = PersonRepo.GetById(coordinatorID);
+    }
 }
  
