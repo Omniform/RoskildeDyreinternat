@@ -18,20 +18,19 @@ namespace LibDyreInternat
         public Event? Activity {get; set;} = null;
         public string Author {get; set;}
 
-        public Blog(string title, int id, DateTime date, Event activity, string description, string author) 
+        public Blog(string title, DateTime date, Event activity, string description, string author) 
         {
-            Id = id;
+            Id = idNext++;
             Title = title;
             Description = description;
             Date = date;
             Activity = activity;
             Author = author;
-
-            idNext++;
         }
+
         public override string ToString()
         {
-            return $"ID: {Id}\nTitle: {Title}\nDescription: {Description}\nDate: {Date}\nActivity: {Activity}\nAuthor: {Author}";
+            return $"ID: {Id}\nTitel: {Title}\nBeskrivelse: {Description}\nDato: {Date}\nAktivitet: {Activity}\nForfatter: {Author}";
         }
     }
 }

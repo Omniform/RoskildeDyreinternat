@@ -124,7 +124,7 @@ namespace LibDyreInternat
             
             string name = ConsoleInputHelper.ReadStringFromConsole("\nIndtast navn:");
 
-            int birthYear = ConsoleInputHelper.ReadIntFromConsole("\nIndtast fødselsår:");
+            int birthYear = ConsoleInputHelper.ReadIntFromConsole("\nIndtast Fødselsår");
 
             int weight = ConsoleInputHelper.ReadIntFromConsole("\nIndtast vægt:");
 
