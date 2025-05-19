@@ -397,17 +397,39 @@ public static class ValueEventHandler
 
     private static void AddEvent()
     {
+        bool succeed = false;
+        DateOnly date = default;
+        TimeOnly startTime = default;
+        TimeOnly endTime = default;
+        
         Console.WriteLine("Navn");
         string name = FormattingService.RemoveSpaces(Console.ReadLine());
+        while (!succeed)
+        {
+            Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
 
-        Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
-        DateOnly date = DateOnly.Parse(Console.ReadLine());
+            if (!DateOnly.TryParse(Console.ReadLine(), out date))
+            {
+                Console.WriteLine("Invalid formatering af dato");
+                continue;
+            }
 
-        Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
-        TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
+            Console.WriteLine("Start Tid\nFormaterings exemple 13:53");
+            if (!TimeOnly.TryParse(Console.ReadLine(), out startTime))
+            {
+                Console.WriteLine("Invalid formatering af start tid");
+                continue;
+            }
 
-        Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
-        TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
+            Console.WriteLine("Slut Tid\nFormaterings exemple 13:53");
+            if (!TimeOnly.TryParse(Console.ReadLine(), out endTime))
+            {
+                Console.WriteLine("Invalid formatering af slut tid");
+                continue;
+            }
+
+            succeed = true;
+        }
 
         Console.WriteLine("Vælg koordinator ved deres id");
         bool personFound = false;
@@ -421,6 +443,7 @@ public static class ValueEventHandler
                 {
                     coordinator = person;
                     personFound = true;
+                    break;
                 }
             }
             if (coordinator == null)
@@ -428,7 +451,7 @@ public static class ValueEventHandler
                 Console.WriteLine("Ingen person med dette id");
             }
         }
-        EventRepo.Add(new Event(name, date, startTime, endTime, coordinator));
+        EventRepo.Add(new Event(name, date, startTime, endTime, coordinator!));
 
         Console.WriteLine("Person er blevet tilføjet");
     }
@@ -460,54 +483,121 @@ public static class ValueEventHandler
 
     private static void EditEvent()
     {
+        Event? selectedEvent = null;
+        bool succeed = false;
         Console.WriteLine("Vælg id på aktivitet");
-
         int id;
-        int.TryParse(Console.ReadLine(), out id);
 
-        Console.WriteLine("Hvad vil du ændre");
-        string input = Console.ReadLine();
-
-        switch (input)
+        while (!succeed)
         {
-            case "navn":
-                EventRepo.GetById(id).Name = input;
-                break;
+            int.TryParse(Console.ReadLine(), out id);
 
-            case "dato":
-                ChangeDateAndTime(id);
-                break;
-            case "koordinator":
-                ChangeCoordinator(id);
-                break;
+            selectedEvent = EventRepo.GetById(id);
+
+            if (selectedEvent == null)
+            {
+                Console.WriteLine("Aktivitet med det given id ikke fundet");
+                continue;
+            }
+            succeed = true;
+        }
+        succeed = false;
+        Console.WriteLine("Hvad vil du ændre-----------\n-----------navn\n-----------dato\n-----------koordinator");
+        while (!succeed)
+        {
+            string input = Console.ReadLine();
+
+            switch (input.ToLower())
+            {
+                case "navn":
+                    selectedEvent!.Name = input;
+                    break;
+
+                case "dato":
+                    ChangeDateAndTime(selectedEvent);
+                    break;
+                case "koordinator":
+                    ChangeCoordinator(selectedEvent);
+                    break;
+                default:
+                    Console.WriteLine("Ugyldigt input prøv igen");
+                    succeed = false;
+                    break;
+            }
+            succeed = true;
         }
     }
 
-    private static void ChangeDateAndTime(in int id)
+    private static void ChangeDateAndTime(Event selectedEvent)
     {
         DateOnly date;
         TimeOnly startTime;
         TimeOnly endTime;
-        Console.WriteLine("Vælg dag\nformatering: 24-05-2025");
-        DateOnly.TryParse(Console.ReadLine(), out date);
+        string dateS = "";
+        string startTimeS = "";
+        string endTimeS = "";
 
-        Console.WriteLine("Vælg start tid\nformatering: 09-30");
-        TimeOnly.TryParse(Console.ReadLine(), out startTime);
+        bool succeed = false;
 
-        Console.WriteLine("Vælg slut tid\nformatering: 15-14");
-        TimeOnly.TryParse(Console.ReadLine(), out endTime);
+        while (!succeed)
+        {
+            Console.WriteLine("Vælg dag\nformatering: 24-05-2025");
+            dateS = Console.ReadLine();
 
-        EventRepo.GetById(id).ChangeDateAndTime(date, startTime, endTime);
+            Console.WriteLine("Vælg start tid\nformatering: 09-30");
+            startTimeS = Console.ReadLine();
+
+            Console.WriteLine("Vælg slut tid\nformatering: 15-14");
+            endTimeS = Console.ReadLine();
+
+            if (DateOnly.TryParse(dateS, out date) == false)
+            {
+                Console.WriteLine("Dato formatering forkert");
+                continue;
+            }
+            if (TimeOnly.TryParse(startTimeS, out startTime) == false)
+            {
+                Console.WriteLine("Start tid formatering forkert");
+                continue;
+            }
+            if (TimeOnly.TryParse(endTimeS, out endTime) == false)
+            {
+                Console.WriteLine("Slut tid formatering forkert");
+                continue;
+            }
+            selectedEvent.ChangeDateAndTime(date, startTime, endTime);
+
+            succeed = true;
+        }
     }
 
-    private static void ChangeCoordinator(in int id)
+    private static void ChangeCoordinator(Event selectedEvent)
     {
-        Console.WriteLine(PersonRepo.ReturnListAsString());
-        Console.WriteLine("Vælg koordinator ved personens id");
+        Person? coordinator;
         int coordinatorID;
-        int.TryParse(Console.ReadLine(), out coordinatorID);
+        bool succeed = false;
 
-        EventRepo.GetById(id).Coordinator = PersonRepo.GetById(coordinatorID);
+        while (!succeed)
+        {
+            Console.WriteLine(PersonRepo.ReturnListAsString());
+            Console.WriteLine("Vælg koordinator ved personens id");
+            if (int.TryParse(Console.ReadLine(), out coordinatorID))
+            {
+                Console.WriteLine("Du skal give en tal værdi");
+                continue;
+            }
+
+            coordinator = PersonRepo.GetById(coordinatorID);
+
+            if (coordinator == null)
+            {
+                Console.WriteLine("Person med det given id ikke fundet");
+                continue;
+            }
+
+            selectedEvent.Coordinator = coordinator;
+            succeed = true;
+        }
     }
 }
  
