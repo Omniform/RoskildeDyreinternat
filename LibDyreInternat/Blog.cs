@@ -15,10 +15,10 @@ namespace LibDyreInternat
         public string Title { get; set;}
         public string Description {get; set;}
         public DateTime Date {get; set;}
-        public Activity? Activity {get; set;} = null;
+        public Event? Activity {get; set;} = null;
         public string Author {get; set;}
 
-        public Blog(string title, DateTime date, Activity activity, string description, string author) 
+        public Blog(string title, DateTime date, Event activity, string description, string author) 
         {
             Id = idNext++;
             Title = title;
@@ -26,9 +26,8 @@ namespace LibDyreInternat
             Date = date;
             Activity = activity;
             Author = author;
-
-            
         }
+
         public override string ToString()
         {
             return $"ID: {Id}\nTitle: {Title}\nDescription: {Description}\nDate: {Date}\nActivity: {Activity}\nAuthor: {Author}";
