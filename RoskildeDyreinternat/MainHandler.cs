@@ -23,7 +23,8 @@ namespace RoskildeDyreinternat
 
             while (m_run)
             {
-                Console.WriteLine("Indtast en kommando (eller 'exit' for at afslutte):\n------------");
+                Console.WriteLine("Indtast en kommando:\n" +
+                    "Indput Hjælp for liste med kommandoer\n------------");
                 string? input = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(input))
@@ -31,8 +32,13 @@ namespace RoskildeDyreinternat
 
                 if (input.ToLower() == "hjælp")
                 {
-                    Console.WriteLine("Indtast en af følgend\n------------\nSe\nTilfoj\nRediger\nFjern\n------------\nEfterfulgt af følgende\n------------\nBåd\nMedlem\nBegivenhed\nBlog\nBooking\n------------");
+                    Console.WriteLine("Indtast en af følgend\n------------\nSe\nTilfoj\nFjern\nÆndr\n------------\nEfterfulgt af følgende\n------------\nDyr\nMedlem\nBegivenhed\nBlog\nBooking\n------------\nKommandoerne Ryd og Exit\nRyder consolen eller slutter programmet\n------------");
                     continue;
+                }
+
+                if (input.ToLower() == "Ryd")
+                {
+                    Console.Clear();
                 }
 
                 if (input.ToLower() == "exit")
@@ -42,6 +48,7 @@ namespace RoskildeDyreinternat
                 }
                 FindKeyValuePair(input);
                 FindKey();
+                Console.WriteLine();
             }
             //FindKeyValuePair(Console.ReadLine());
             //FindKey();
@@ -69,7 +76,7 @@ namespace RoskildeDyreinternat
                         ValueEventHandler.ValuePerson(keyValuePair.Key);
                         break;
                     case "aktivitet":
-                        ValueEventHandler.ValueActivity(keyValuePair.Key);
+                        ValueEventHandler.ValueEvent(keyValuePair.Key);
                         break;
                     case "blog":
                         ValueEventHandler.ValueBlog(keyValuePair.Key);
@@ -127,3 +134,4 @@ namespace RoskildeDyreinternat
     }
 
 }
+
