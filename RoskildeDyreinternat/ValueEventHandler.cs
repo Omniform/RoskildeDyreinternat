@@ -261,9 +261,9 @@ public static class ValueEventHandler
 
     private static void ChangeDateAndTime(Event selectedEvent)
     {
-        DateOnly date;
-        TimeOnly startTime;
-        TimeOnly endTime;
+        DateOnly date = default;
+        TimeOnly startTime = default;
+        TimeOnly endTime = default;
         string dateS = "";
         string startTimeS = "";
         string endTimeS = "";
@@ -296,10 +296,10 @@ public static class ValueEventHandler
                 Console.WriteLine("Slut tid formatering forkert");
                 continue;
             }
-            selectedEvent.ChangeDateAndTime(date, startTime, endTime);
 
             succeed = true;
         }
+        selectedEvent.ChangeDateAndTime(date, startTime, endTime);
     }
 
     private static void ChangeCoordinator(Event selectedEvent)

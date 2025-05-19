@@ -8,7 +8,6 @@ public static class ConsoleInputHelper
 //Metoder der flytter logikken fra animal even handler til denne klasse for nemmere readblity i animal event handler, samt samler alle konsol indput handeling i en klasse
     public static int ReadIntFromConsole(string prompt)
     {
-
         while (true)
         {
             Console.WriteLine(prompt);
