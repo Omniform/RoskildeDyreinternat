@@ -30,7 +30,7 @@ namespace LibDyreInternat
 
         public override string ToString()
         {
-            return $"ID: {Id}\nTitle: {Title}\nDescription: {Description}\nDate: {Date}\nActivity: {Activity}\nAuthor: {Author}";
+            return $"ID: {Id}\nTitel: {Title}\nBeskrivelse: {Description}\nDato: {Date}\nAktivitet: {Activity}\nForfatter: {Author}";
         }
     }
 }
