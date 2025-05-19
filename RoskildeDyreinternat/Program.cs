@@ -8,10 +8,15 @@ namespace RoskildeDyreinternat
     {
         static void Main(string[] args)
         {
-            AnimalRepo.AddDog("bulldog", true, "everything", 123456, "bent", 2020, 55, Sex.male);
+            AnimalRepo.AddDog("bulldog", true, "everything", 123456, "Alex", 2020, 55, Sex.male, false);
             MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00),AnimalRepo.GetById(1),"Gert");
-            AnimalRepo.AddCat("bulldog", true, "everything", 123456, "bent", 2020, 55, Sex.male);
-            AnimalRepo.AddFish("bulldog", "everything", "bent", 2020, 55, Sex.male);
+            AnimalRepo.AddCat("bulldog", true, "everything", 123456, "Adam", 2020, 55, Sex.male, true);
+            AnimalRepo.AddFish("bulldog", "everything", "Dorry", 2020, 55, Sex.male, true);
+            AnimalRepo.AddDog("bulldog", true, "everything", 123456, "Bent", 2020, 55, Sex.male, false);
+            MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00),AnimalRepo.GetById(1),"Gert");
+            AnimalRepo.AddCat("bulldog", true, "everything", 123456, "Anette", 2020, 55, Sex.male, false);
+            AnimalRepo.AddFish("bulldog", "everything", "Nemo", 2020, 55, Sex.male, true); 
+
             //Dog dog1 = new Dog("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
 
             //Cat cat1 = new Cat("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
