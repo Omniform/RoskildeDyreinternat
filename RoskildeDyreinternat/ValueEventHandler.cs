@@ -560,14 +560,13 @@ public static class ValueEventHandler
                 Console.WriteLine(MedicalLogRepo.AllToString());
                 break;
             case "tilfoj":
-                //AddMedicalLog();
                 MedicalLogEventHandler.Add();
                 break;
             case "fjern":
-                RemoveMedicalLog();
+                MedicalLogEventHandler.Remove();
                 break;
             case "ændr":
-                UpdateMedicalLog();
+                MedicalLogEventHandler.Update();
                 break;
         }
     }
