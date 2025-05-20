@@ -49,7 +49,6 @@ public static class ValueEventHandler
                 Console.WriteLine(MedicalLogRepo.AllToString());
                 break;
             case "tilfoj":
-                //AddMedicalLog();
                 MedicalLogEventHandler.Add();
                 break;
             case "fjern":
