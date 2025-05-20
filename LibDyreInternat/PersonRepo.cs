@@ -20,7 +20,19 @@ namespace LibDyreInternat
 
         private static List<Person> filteredPerson = new List<Person>();
 
+        public static void AddPerson(Person person) { AllPersons.Add(person); }
+
         public static void ReturnListAsString(Person person) { AllPersons.Add(person); }
+
+        public static string ReturnListAsString()
+        {
+            string s = "";
+            foreach (Person person in AllPersons)
+            {
+                s += person.ToString();
+            }
+            return s;
+        }
 
         // Delete (Remove) an id from person.
         public static bool Delete(int id)

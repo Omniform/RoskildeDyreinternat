@@ -37,6 +37,7 @@ namespace LibDyreInternat
                 m_email = value;
             }
         }
+
         public Acceslevel PersonAccesLevel { get; set; }
 
         public enum Acceslevel

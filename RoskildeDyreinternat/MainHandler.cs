@@ -23,7 +23,7 @@ namespace RoskildeDyreinternat
 
             while (m_run)
             {
-                Console.WriteLine("Indtast en kommand:\n" +
+                Console.WriteLine("Indtast en kommando:\n" +
                     "Indput Hjælp for liste med kommandoer\n------------");
                 string? input = Console.ReadLine();
 
@@ -134,3 +134,4 @@ namespace RoskildeDyreinternat
     }
 
 }
+

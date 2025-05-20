@@ -47,7 +47,7 @@ namespace LibDyreInternat
 
         public override string ToString()
         {
-            return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinator {Coordinator}";
+            return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinatorId: {Coordinator.Id}\nKordinatorNavn: {Coordinator.Name}";
         }
 
         public void AddMember(in Person member)
