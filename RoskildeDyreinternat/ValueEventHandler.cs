@@ -12,17 +12,17 @@ using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Xml.Linq;
 using static LibDyreInternat.Person;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 public static class ValueEventHandler
 {
 
-	private static bool m_eventSuccess = false;
+    private static bool m_eventSuccess = false;
 
 
     public static void ValueAnimal(string key)
     {
-        string animal = "";
         switch (key)
         {
             case "se":
@@ -39,7 +39,7 @@ public static class ValueEventHandler
                 break;
         }
     }
-    
+
     #region MedicalLogHandler
     public static void ValueMedicalLog(string key)
     {
@@ -71,147 +71,16 @@ public static class ValueEventHandler
                 break;
 
 			case "tilføj":
-				CreateNewPerson();
-				break;
+				PersonEventHandler.CreateNewPerson();
+                break;
 
 			case "fjern":
-				DeletePerson();
+                PersonEventHandler.DeletePerson();
 				break;
 
 			case "ændr":
-				UpdateInfo();
+                PersonEventHandler.UpdateInfo();
 				break;
-		}
-	}
-
-	private static void CreateNewPerson()
-	{
-		Console.WriteLine("Navn");
-		string Name = Console.ReadLine();
-
-		Console.WriteLine("Birthday");
-		string Birthday = Console.ReadLine();
-
-		Console.WriteLine("Address");
-		string Address = Console.ReadLine();
-
-		Console.WriteLine("TelephoneNumber");
-		string TelephoneNumber = Console.ReadLine();
-
-		Console.WriteLine("Email");
-		string Email = Console.ReadLine();
-
-		Console.WriteLine("Adgangs niveau\nAdmin = 1\nMedlem = 2\nKunde = 3");
-		Person.Acceslevel PersonAccesLevel = (Person.Acceslevel)int.Parse(Console.ReadLine());
-	}
-
-	private static void DeletePerson()
-	{
-		Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
-		Console.WriteLine("Hvilken person vil du slette? Intast persons ID");
-		m_eventSuccess = false;
-		Person person = null;
-		while (!m_eventSuccess)
-		{
-			string input = Console.ReadLine();
-			if (input == "fortryd")
-			{
-				break;
-			}
-			try
-			{
-				person = PersonRepo.GetById(Int32.Parse(input));
-				m_eventSuccess = true;
-				Console.WriteLine("\nEr du sikker på at du vil slette denne person? (ja/nej) ");
-				Console.WriteLine("\n" + person);
-				input = Console.ReadLine();
-				switch (input)
-				{
-					case "ja":
-						PersonRepo.Delete(person.Id);
-						Console.WriteLine("Person er fjernet");
-						break;
-
-					case "nej":
-						break;
-				}
-			}
-			catch (NoSearchResultException ex)
-			{
-				Console.WriteLine(ex.Message);
-				Console.WriteLine("prov igen, eller skriv fortryd");
-			}
-		}
-	}
-
-	private static void UpdateInfo()
-	{
-		Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
-		Console.WriteLine("Hvilken person vil du ændre? Indtast persons ID");
-		m_eventSuccess = false;
-		Person person = null;
-
-		while (!m_eventSuccess)
-		{
-			string input = Console.ReadLine();
-			if (input == "fortryd")
-			{
-				break;
-			}
-			try
-			{
-				person = PersonRepo.GetById(Int32.Parse(input));
-				m_eventSuccess = true;
-				Console.WriteLine("\nEr du sikker på at du vil ændre denne person? (ja/nej)");
-				Console.WriteLine("\n" + person);
-				input = Console.ReadLine();
-
-				if (input == "ja")
-				{
-					Console.WriteLine("Hvilken egenskab vil du ændre?");
-					Console.WriteLine("1 - Navn\n2 - Fødselsdag\n3 - Adresse\n4 - Telefonnummer\n5 - E-mail");
-					string choice = Console.ReadLine();
-
-					switch (choice)
-					{
-						case "1":
-							Console.WriteLine("Nyt Navn:");
-							person.Name = Console.ReadLine();
-							break;
-
-						case "2":
-							Console.WriteLine("Ny Fødselsdag (DD-MM-YYYY):");
-							person.Birthday = Console.ReadLine();
-							break;
-
-						case "3":
-							Console.WriteLine("Ny Adresse:");
-							person.Address = Console.ReadLine();
-							break;
-
-						case "4":
-							Console.WriteLine("Nyt Telefonnummer:");
-							person.TelephoneNumber = Console.ReadLine();
-							break;
-
-						case "5":
-							Console.WriteLine("Ny E-mail:");
-							person.Email = Console.ReadLine();
-							break;
-
-						default:
-							Console.WriteLine("Ugyldigt valg, prøv igen.");
-							break;
-					}
-
-					Console.WriteLine("Person er ændret!");
-				}
-			}
-			catch (NoSearchResultException ex)
-			{
-				Console.WriteLine(ex.Message);
-				Console.WriteLine("Prøv igen, eller skriv fortryd");
-			}
 		}
 	}
 
@@ -232,242 +101,234 @@ public static class ValueEventHandler
 				EditEvent();
 				break;
 
-		}
-	}
+        }
+    }
 
-	public static void ValueBlog(string key)
-	{
-		switch (key)
-		{
-			case "se":
-				Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
-				break;
+    public static void ValueBlog(string key)
+    {
+        switch (key)
+        {
+            case "se":
+                Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
+                break;
 
 			case "tilføj":
-				CreateNewBlog();
+                BlogEventHandler.CreateNewBlog();
 				break;
-
+				
 			case "fjern":
-				DeleteBlog();
+                BlogEventHandler.DeleteBlog();
 				break;
 
 			case "ændr":
-				UpdateBlog();
+                BlogEventHandler.UpdateBlog();
 				break;
 		}
 	}
 
-	private static void CreateNewBlog()
-	{
-		Console.WriteLine("Title");
-		string Title = Console.ReadLine();
+    private static void AddEvent()
+    {
+        bool succeed = false;
+        DateOnly date = default;
+        TimeOnly startTime = default;
+        TimeOnly endTime = default;
+        
+        Console.WriteLine("Navn");
+        string name = FormattingService.RemoveSpaces(Console.ReadLine());
+        while (!succeed)
+        {
+            Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
 
-		Console.WriteLine("Beskrivelse");
-		string Description = Console.ReadLine();
+            if (!DateOnly.TryParse(Console.ReadLine(), out date))
+            {
+                Console.WriteLine("Invalid formatering af dato");
+                continue;
+            }
 
-		DateTime Date = DateTime.Now;
-		Console.WriteLine("Dato er sat til " + Date.ToString());
+            Console.WriteLine("Start Tid\nFormaterings exemple 13:53");
+            if (!TimeOnly.TryParse(Console.ReadLine(), out startTime))
+            {
+                Console.WriteLine("Invalid formatering af start tid");
+                continue;
+            }
 
-		Console.WriteLine("Activity");
-		Event Activity = EventRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
+            Console.WriteLine("Slut Tid\nFormaterings exemple 13:53");
+            if (!TimeOnly.TryParse(Console.ReadLine(), out endTime))
+            {
+                Console.WriteLine("Invalid formatering af slut tid");
+                continue;
+            }
 
+            succeed = true;
+        }
 
-		Console.WriteLine("Forfatter");
-		string Author = Console.ReadLine();
-	}
+        Console.WriteLine("Vælg koordinator ved deres id");
+        bool personFound = false;
+        int id = int.Parse(Console.ReadLine());
+        Person? coordinator = null;
+        while (!personFound)
+        {
+            foreach (var person in PersonRepo.AllPersons)
+            {
+                if (person.Id == id)
+                {
+                    coordinator = person;
+                    personFound = true;
+                    break;
+                }
+            }
+            if (coordinator == null)
+            {
+                Console.WriteLine("Ingen person med dette id");
+            }
+        }
+        EventRepo.Add(new Event(name, date, startTime, endTime, coordinator!));
 
-	private static void DeleteBlog()
-	{
-		Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
-		Console.WriteLine("Hvilken blog vil du slette? Intast blog ID");
-		m_eventSuccess = false;
-		Blog blog = null;
-		while (!m_eventSuccess)
-		{
-			string input = Console.ReadLine();
-			if (input == "fortryd")
-			{
-				break;
-			}
-			try
-			{
-				blog = BlogRepo.GetById(Int32.Parse(input));
-				m_eventSuccess = true;
-				Console.WriteLine("\nEr du sikker på at du vil slette denne blog? (ja/nej) ");
-				Console.WriteLine("\n" + blog);
-				input = Console.ReadLine();
-				switch (input)
-				{
-					case "ja":
-						BlogRepo.Delete(blog.Id);
-						Console.WriteLine("Blog er fjernet");
-						break;
+        Console.WriteLine("Person er blevet tilføjet");
+    }
 
-					case "nej":
-						break;
-				}
-			}
-			catch (NoSearchResultException ex)
-			{
-				Console.WriteLine(ex.Message);
-				Console.WriteLine("prov igen, eller skriv fortryd");
-			}
-		}
-	}
+    private static void RemoveEvent()
+    {
+        Console.WriteLine("Vælg id på aktivitet");
+        bool validID = false;
+        int id = 0;
+        string input = "";
+        while (!validID)
+        {
+            input = Console.ReadLine();
+            if (!int.TryParse(input, out id))
+            {
+                if (input == "se")
+                {
+                    ShowEvent();
+                }
+            }
+            else
+            {
+                validID = true;
+            }
+        }
+        EventRepo.Remove(id);
+        Console.WriteLine("Aktivitet er fjernet");
+    }
 
-	private static void UpdateBlog()
-	{
-		Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs) + "\n");
-		Console.WriteLine("Hvilken blog vil du ændre? Indtast blog ID");
-		m_eventSuccess = false;
-		Blog blog = null;
+    private static void EditEvent()
+    {
+        Event? selectedEvent = null;
+        bool succeed = false;
+        Console.WriteLine("Vælg id på aktivitet");
+        int id;
 
-		while (!m_eventSuccess)
-		{
-			string input = Console.ReadLine();
-			if (input == "fortryd")
-			{
-				m_eventSuccess = true;
-				break;
-			}
-			try
-			{
-				blog = BlogRepo.GetById(Int32.Parse(input));
-				m_eventSuccess = true;
-				Console.WriteLine("\nEr du sikker på at du vil ændre denne blog? (ja/nej)");
-				Console.WriteLine("\n" + blog);
-				input = Console.ReadLine();
+        while (!succeed)
+        {
+            int.TryParse(Console.ReadLine(), out id);
 
-				if (input == "ja")
-				{
-					Console.WriteLine("Hvilken egenskab vil du ændre?");
-					Console.WriteLine("1 - Title\n2 - Description\n3 - Date\n4 - Author");
-					string choice = Console.ReadLine();
+            selectedEvent = EventRepo.GetById(id);
 
-					switch (choice)
-					{
-						case "1":
-							Console.WriteLine("Ny Title:");
-							blog.Title = Console.ReadLine();
-							break;
+            if (selectedEvent == null)
+            {
+                Console.WriteLine("Aktivitet med det given id ikke fundet");
+                continue;
+            }
+            succeed = true;
+        }
+        succeed = false;
+        Console.WriteLine("Hvad vil du ændre-----------\n-----------navn\n-----------dato\n-----------koordinator");
+        while (!succeed)
+        {
+            string input = Console.ReadLine();
 
-						case "2":
-							Console.WriteLine("Ny Description:");
-							blog.Description = Console.ReadLine();
-							break;
+            switch (input.ToLower())
+            {
+                case "navn":
+                    selectedEvent!.Name = input;
+                    break;
 
-						case "3":
-							Console.WriteLine("Indtast en dato og tidspunkt (dd-MM-yyyy HH:mm):");
-							string inputDateTime = Console.ReadLine();
+                case "dato":
+                    ChangeDateAndTime(selectedEvent);
+                    break;
+                case "koordinator":
+                    ChangeCoordinator(selectedEvent);
+                    break;
+                default:
+                    Console.WriteLine("Ugyldigt input prøv igen");
+                    succeed = false;
+                    break;
+            }
+            succeed = true;
+        }
+    }
 
-							if (DateTime.TryParseExact(inputDateTime, "dd-MM-yyyy HH:mm", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDateTime))
-							{
-								Console.WriteLine("Gemmer dato og tid: " + parsedDateTime.ToString("dd-MM-yyyy HH:mm"));
-							}
-							else
-							{
-								Console.WriteLine("Ugyldigt format. Prøv igen.");
-							}
-							break;
+    private static void ChangeDateAndTime(Event selectedEvent)
+    {
+        DateOnly date = default;
+        TimeOnly startTime = default;
+        TimeOnly endTime = default;
+        string dateS = "";
+        string startTimeS = "";
+        string endTimeS = "";
 
-						case "4":
-							Console.WriteLine("Ny Author:");
-							blog.Author = Console.ReadLine();
-							break;
+        bool succeed = false;
 
-						default:
-							Console.WriteLine("Ugyldigt valg, prøv igen.");
-							break;
-					}
+        while (!succeed)
+        {
+            Console.WriteLine("Vælg dag\nformatering: 24-05-2025");
+            dateS = Console.ReadLine();
 
-					Console.WriteLine("Blog er ændret!");
-				}
-			}
-			catch (NoSearchResultException ex)
-			{
-				Console.WriteLine(ex.Message);
-				Console.WriteLine("Prøv igen, eller skriv fortryd");
-			}
-		}
-	}
+            Console.WriteLine("Vælg start tid\nformatering: 09-30");
+            startTimeS = Console.ReadLine();
 
-	private static void ShowEvent()
-	{
-		Console.WriteLine(EventRepo.ReturnListAsString());
-	}
+            Console.WriteLine("Vælg slut tid\nformatering: 15-14");
+            endTimeS = Console.ReadLine();
 
-	private static void AddEvent()
-	{
-		Console.WriteLine("Navn");
-		string name = FormattingService.RemoveSpaces(Console.ReadLine());
+            if (DateOnly.TryParse(dateS, out date) == false)
+            {
+                Console.WriteLine("Dato formatering forkert");
+                continue;
+            }
+            if (TimeOnly.TryParse(startTimeS, out startTime) == false)
+            {
+                Console.WriteLine("Start tid formatering forkert");
+                continue;
+            }
+            if (TimeOnly.TryParse(endTimeS, out endTime) == false)
+            {
+                Console.WriteLine("Slut tid formatering forkert");
+                continue;
+            }
 
-		Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
-		DateOnly date = DateOnly.Parse(Console.ReadLine());
+            succeed = true;
+        }
+        selectedEvent.ChangeDateAndTime(date, startTime, endTime);
+    }
 
-		Console.WriteLine("Start Tid\nFormaterings exemple 13-53");
-		TimeOnly startTime = TimeOnly.Parse(Console.ReadLine());
+    private static void ChangeCoordinator(Event selectedEvent)
+    {
+        Person? coordinator;
+        int coordinatorID;
+        bool succeed = false;
 
-		Console.WriteLine("Slut Tid\nFormaterings exemple 13-53");
-		TimeOnly endTime = TimeOnly.Parse(Console.ReadLine());
+        while (!succeed)
+        {
+            Console.WriteLine(PersonRepo.ReturnListAsString());
+            Console.WriteLine("Vælg koordinator ved personens id");
+            if (int.TryParse(Console.ReadLine(), out coordinatorID))
+            {
+                Console.WriteLine("Du skal give en tal værdi");
+                continue;
+            }
 
-		Console.WriteLine("Vælg koordinator ved deres id");
-		bool personFound = false;
-		int id = int.Parse(Console.ReadLine());
-		Person? coordinator = null;
-		while (!personFound)
-		{
-			foreach (var person in PersonRepo.AllPersons)
-			{
-				if (person.Id == id)
-				{
-					coordinator = person;
-					personFound = true;
-				}
-			}
-			if (coordinator == null)
-			{
-				Console.WriteLine("Ingen person med dette id");
-			}
-		}
-		EventRepo.Add(new Event(name, date, startTime, endTime, coordinator));
+            coordinator = PersonRepo.GetById(coordinatorID);
 
-		Console.WriteLine("Person er blevet tilføjet");
-	}
+            if (coordinator == null)
+            {
+                Console.WriteLine("Person med det given id ikke fundet");
+                continue;
+            }
 
-	private static void RemoveEvent()
-	{
-		Console.WriteLine("Vælg id på aktivitet");
-		bool validID = false;
-		int id = 0;
-		string input = "";
-		while (!validID)
-		{
-			input = Console.ReadLine();
-			if (!int.TryParse(input, out id))
-			{
-				if (input == "se")
-				{
-					ShowEvent();
-				}
-			}
-			else
-			{
-				validID = true;
-			}
-		}
-		EventRepo.Remove(id);
-		Console.WriteLine("Aktivitet er fjernet");
-	}
-
-	private static void EditEvent()
-	{
-		Console.WriteLine("Hvad vil du ændre");
-		string input = Console.ReadLine();
-
-		switch (input)
-		{
-			
-		}
-	}
+            selectedEvent.Coordinator = coordinator;
+            succeed = true;
+        }
+    }
 }
  

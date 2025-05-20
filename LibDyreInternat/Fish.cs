@@ -13,7 +13,7 @@ namespace LibDyreInternat
         public string Maintainence { get; set; }
 
 
-        public Fish(string species, string maintainence, string name, int birthYear, int weight, Sex sex) : base (name, birthYear, weight, sex)
+        public Fish(string species, string maintainence, string name, int birthYear, int weight, Sex sex, bool isUpForAdoption) : base (name, birthYear, weight, sex, isUpForAdoption)
         {
             Species = species;
             Maintainence = maintainence;
@@ -34,7 +34,7 @@ namespace LibDyreInternat
                     sex = "Tvekønnet";
                     break;
             }
-            return $"ID: {Id}\nNavn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nArt: {Species}\nVedligeholdelse: {Maintainence}";
+            return $"ID: {Id}\nNavn: {Name}\nFødselsår: {BirthYear}\nWeight: {Weight}Kg\nKøn: {sex}\nArt: {Species}\nVedligeholdelse: {Maintainence}\nMulighed for adoption: {((IsUpForAdoption)? "Ja" : "Nej")}\n";
         }
 
     }
