@@ -62,7 +62,7 @@ namespace LibDyreInternat
                     break;
             }
         }
-        public static void Display()
+        public static void ShowAnimals()
         {
             string animal = "";
             Console.WriteLine("Hvilke dyr vil de se\n");

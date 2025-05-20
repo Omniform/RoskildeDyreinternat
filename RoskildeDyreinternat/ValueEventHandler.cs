@@ -26,7 +26,7 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
-                AnimalEventHandler.Display();
+                AnimalEventHandler.ShowAnimals();
                 break;
             case "tilføj":
                 AnimalEventHandler.Add();
