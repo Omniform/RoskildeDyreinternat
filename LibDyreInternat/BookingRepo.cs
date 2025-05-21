@@ -44,6 +44,7 @@ namespace LibDyreInternat
                     break;
                 case "dato":
                     booking.Date = DateOnly.Parse(change);
+                    booking.TimeEnd = booking.TimeBegin.AddHours(1);
                     break;
                 case "person":
                     booking.Person = PersonRepo.GetById(int.Parse(change));

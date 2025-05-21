@@ -1,4 +1,5 @@
 using LibDyreInternat;
+using RoskildeDyreinternat;
 
 public static class ValueEventHandler
 {
@@ -11,7 +12,7 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
-                AnimalEventHandler.ShowAnimals();
+                AnimalEventHandler.Show();
                 break;
             case "tilføj":
                 AnimalEventHandler.Add();
@@ -109,5 +110,26 @@ public static class ValueEventHandler
 				break;
 		}
 	}
+    public static void ValueBooking(string key)
+    {
+        switch (key)
+        {
+            case "se":
+                BookingEventHandler.Show();
+                break;
+
+            case "tilfoj":
+                BookingEventHandler.Add();
+                break;
+
+            case "fjern":
+                BookingEventHandler.Remove();
+                break;
+
+            case "ændr":
+                BookingEventHandler.Update();
+                break;
+        }
+    }
 }
  

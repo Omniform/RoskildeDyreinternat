@@ -12,8 +12,8 @@ namespace LibDyreInternat
     {
         public static List<Blog> AllBlogs { get; private set; } = new List<Blog>()
         {
-            new Blog("Tokes blog", 1, new DateTime(), new Event("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), PersonRepo.GetByName("Toke").ElementAt(0)),"Tokes Blog", "Bob"),
-            new Blog("Esti's blog", 2, new DateTime(), new Event("Esti's aktivitet", new DateOnly (2018, 05, 18), new TimeOnly(18,00), new TimeOnly(19,00), PersonRepo.GetByName("Esti").ElementAt(0)),"Esti's Blog", "Rover")
+            new Blog("Tokes blog", new DateTime(), new Event("Tokes aktivitet", new DateOnly (2002, 11, 20), new TimeOnly(14,00), new TimeOnly(15,00), PersonRepo.GetById(2)),"Tokes Blog", "Bob"),
+            new Blog("Esti's blog", new DateTime(), new Event("Esti's aktivitet", new DateOnly (2018, 05, 18), new TimeOnly(18,00), new TimeOnly(19,00), PersonRepo.GetById(1)),"Esti's Blog", "Rover")
         };
 
         private static List<Blog> filteredBlog = new List<Blog>();
