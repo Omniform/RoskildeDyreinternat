@@ -1,5 +1,6 @@
 using LibDyreInternat;
 using Library;
+using RoskildeDyreinternat;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -46,7 +47,7 @@ public static class ValueEventHandler
         switch (key)
         {
             case "se":
-                Console.WriteLine(MedicalLogRepo.AllToString());
+                MedicalLogEventHandler.Show();
                 break;
             case "tilfoj":
                 MedicalLogEventHandler.Add();
@@ -124,6 +125,24 @@ public static class ValueEventHandler
 				break;
 		}
 	}
+
+    public static void ValueBooking(string key)
+    {
+        switch (key)
+        {
+            case "se":
+                BookingEventHandler.Show();
+                break;
+            case "tilføj":
+                BookingEventHandler.Add();
+                break;
+            case "fjern":
+                BookingEventHandler.Remove();
+                break;
+            case "ændr":
+                BookingEventHandler.Update();
+                break;
+        }
 
     private static void AddEvent()
     {
@@ -309,7 +328,7 @@ public static class ValueEventHandler
 
         while (!succeed)
         {
-            Console.WriteLine(PersonRepo.ReturnListAsString());
+            Console.WriteLine(PersonRepo.AllToString());
             Console.WriteLine("Vælg koordinator ved personens id");
             if (int.TryParse(Console.ReadLine(), out coordinatorID))
             {
@@ -329,5 +348,6 @@ public static class ValueEventHandler
             succeed = true;
         }
     }
+
 }
  

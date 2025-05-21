@@ -35,7 +35,7 @@ namespace LibDyreInternat
                 break;
             }
         }
-        public static void ShowAnimals()
+        public static void Show()
         {
             while (true)
             {

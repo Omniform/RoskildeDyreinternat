@@ -1,43 +1,46 @@
-﻿using Library;
+﻿using LibDyreInternat;
+using Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibDyreInternat
+namespace RoskildeDyreinternat
 {
-    public class MedicalLogEventHandler : IEventHandler
+    public class BookingEventHandler : IEventHandler
     {
         public static bool eventSuccess = false;
-
         public static void Show()
         {
-            Console.WriteLine(MedicalLogRepo.AllToString());
+            Console.WriteLine(BookingRepo.AllToString());
         }
+
         public static void Add()
         {
-            Console.WriteLine("Hvilket dyr vil du tilføje en log til?");
+            Console.WriteLine("Hvilket dye vil du besøge?");
             Console.WriteLine(AnimalRepo.AllToString());
             Console.WriteLine("Indtast dyrets ID");
             int selectedId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
-            string description = Console.ReadLine();
-            Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");
-            DateTime dateTime = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy HH:mm", null);
-            Console.WriteLine("Hvem har foretaget undersogelsen?");
-            string nameOfDoctor = Console.ReadLine();
+            Console.WriteLine("Hvilken dato kommer du? (dd - MM - ÅÅÅÅ)");
+            DateOnly date = DateOnly.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
+            Console.WriteLine("Hvornår kommer du? (HH:mm)");
+            TimeOnly timeBegin = TimeOnly.ParseExact(Console.ReadLine(), "HH:mm", null);
+            Console.WriteLine("Hvem kommer?");
+            Console.WriteLine(PersonRepo.AllToString());
+            Console.WriteLine("Indtast dit ID");
+            int selectedId2 = int.Parse(Console.ReadLine());
 
 
-            MedicalLogRepo.Add(description, dateTime, AnimalRepo.GetById(selectedId), nameOfDoctor);
+            BookingRepo.Add(date, timeBegin, AnimalRepo.GetById(selectedId), PersonRepo.GetById(selectedId2));
         }
 
         public static void Remove()
         {
             eventSuccess = false;
-            MedicalLog medicalLog = null;
-            Console.WriteLine(MedicalLogRepo.AllToString());
-            Console.WriteLine("Hvilken log vil du fjerne? (Indtast ID)");
+            Booking booking = null;
+            Console.WriteLine(BookingRepo.AllToString());
+            Console.WriteLine("Hvilken booking vil du fjerne? (Indtast ID)");
             while (!eventSuccess)
             {
                 string input = Console.ReadLine();
@@ -47,16 +50,16 @@ namespace LibDyreInternat
                 }
                 try
                 {
-                    medicalLog = MedicalLogRepo.GetById(int.Parse(input));
+                    booking = BookingRepo.GetById(int.Parse(input));
                     eventSuccess = true;
-                    Console.WriteLine("\nEr du sikker på at du vil slette denne log? (ja/nej) ");
-                    Console.WriteLine("\n" + medicalLog);
+                    Console.WriteLine("\nEr du sikker på at du vil slette denne booking? (ja/nej) ");
+                    Console.WriteLine("\n" + booking);
                     input = Console.ReadLine();
                     switch (input)
                     {
                         case "ja":
-                            MedicalLogRepo.Remove(medicalLog);
-                            Console.WriteLine("Loggen er fjernet");
+                            BookingRepo.Remove(booking);
+                            Console.WriteLine("Bookingen er fjernet");
                             break;
                         case "nej":
                             break;
@@ -77,9 +80,9 @@ namespace LibDyreInternat
         public static void Update()
         {
             eventSuccess = false;
-            MedicalLog medicalLog = null;
-            Console.WriteLine(MedicalLogRepo.AllToString());
-            Console.WriteLine("Hvilken log vil du ændre? (Indtast ID)");
+            Booking booking = null;
+            Console.WriteLine(BookingRepo.AllToString());
+            Console.WriteLine("Hvilken booking vil du ændre? (Indtast ID)");
             string input = Console.ReadLine();
             while (!eventSuccess)
             {
@@ -90,36 +93,38 @@ namespace LibDyreInternat
                 }
                 try
                 {
-                    medicalLog = MedicalLogRepo.GetById(int.Parse(input));
+                    booking = BookingRepo.GetById(int.Parse(input));
 
 
-                    Console.WriteLine("\n" + medicalLog);
+                    Console.WriteLine("\n" + booking);
                     while (!eventSuccess)
                     {
                         Console.WriteLine("\nHvad vil du gerne ændre?");
                         input = Console.ReadLine();
                         switch (input)
                         {
+                            case "starttid":
+                                Console.WriteLine("Hvad vil du ændre tiden til? (HH:mm)");
+                                break;
                             case "dyr":
                                 Console.WriteLine(AnimalRepo.AllToString() +
-                                    "\nHvilket er det nye dyr du vil tilknytte loggen? (Indtast ID)");
+                                    "\nHvilket dyr vil du besøge i stedet for? (Indtast ID)");
                                 Console.WriteLine();
                                 break;
                             case "dato":
-                                Console.WriteLine("Hvad vil du ændre datoen og tiden til? (dd-MM-ÅÅÅÅ HH:mm)");
+                                Console.WriteLine("Hvad vil du ændre datoen til? (dd - MM - ÅÅÅÅ)");
                                 break;
-                            case "læge":
-                                Console.WriteLine("Hvad er navnet på den nye dyrlæge du vil tilknytte?");
-                                break;
-                            case "beskrivelse":
-                                Console.WriteLine("Indtast ned nye beskrivelse");
+                            case "person":
+                                Console.WriteLine(PersonRepo.AllToString() + 
+                                    "\nHvem kommer i stedet for? (Indtast ID)");
+                                Console.WriteLine();
                                 break;
                         }
 
                         string inputChange = Console.ReadLine();
                         try
                         {
-                            MedicalLogRepo.Update(medicalLog, input, inputChange);
+                            BookingRepo.Update(booking, input, inputChange);
 
                             Console.WriteLine("Vil du ændre andet?");
                             string inputConfirm = Console.ReadLine();
