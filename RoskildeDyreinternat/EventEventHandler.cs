@@ -21,7 +21,8 @@ public class EventEventHandler : IEventHandler
         while (!nameSucces)
         {
             Console.WriteLine("Navn");
-            name = Console.ReadLine().Trim();
+            name = Console.ReadLine();
+            FormattingService.RemoveSpacesRef(ref name);
             if (!string.IsNullOrWhiteSpace(name))
             {
                 nameSucces = true;
@@ -65,7 +66,8 @@ public class EventEventHandler : IEventHandler
         Person? coordinator = null;
         while (!personFound)
         {
-            Console.WriteLine("Vælg koordinator ved deres id");
+            Console.WriteLine($"\n{PersonRepo.AllToString}");
+            Console.WriteLine("\nVælg koordinator ved deres id");
             int.TryParse(Console.ReadLine().Trim(), out int id);
             foreach (var person in PersonRepo.AllPersons)
             {
@@ -78,22 +80,22 @@ public class EventEventHandler : IEventHandler
             }
             if (coordinator == null)
             {
-                Console.WriteLine("Ingen person med dette id");
+                Console.WriteLine("\nIngen person med dette id");
             }
         }
         EventRepo.Add(new Event(name, date, startTime, endTime, coordinator!));
 
-        Console.WriteLine("Person er blevet tilføjet");
+        Console.WriteLine("\nPerson er blevet tilføjet");
     }
 
     public static void Remove()
     {
-        Console.WriteLine("Vælg id på aktivitet");
         bool validID = false;
         int id = 0;
         string input = "";
         while (!validID)
         {
+            Console.WriteLine("Vælg id på aktivitet\nSkriv 'se' for at se alle aktiviteter");
             input = Console.ReadLine();
             FormattingService.RemoveSpacesRef(ref input);
             if (!int.TryParse(input, out id))
@@ -142,6 +144,8 @@ public class EventEventHandler : IEventHandler
             {
                 continue;
             }
+
+            FormattingService.RemoveSpacesRef(ref input);
 
             switch (input.ToLower())
             {
