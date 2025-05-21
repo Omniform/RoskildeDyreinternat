@@ -30,6 +30,7 @@ namespace RazorDyreInternat
                .WithStaticAssets();
 
             app.Run();
+
         }
     }
 }

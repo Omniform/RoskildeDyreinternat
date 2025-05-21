@@ -1,0 +1,45 @@
+﻿body {
+}
+
+.banner {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slides {
+    display: flow;
+    width: 400%; /* Adjust based on the number of images */
+    animation: slideShow 60s infinite; /* Change timing if needed */
+}
+
+    .slides img {
+        
+        height: 35vw;
+        width: auto; /* Each image takes full viewport width */
+    }
+
+@keyframes slideShow {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-1vw);
+    }
+
+    40% {
+        transform: translateX(-52vw);
+    }
+
+    60% {
+        transform: translateX(-82vw);
+    }
+
+    80% {
+        transform: translateX(-136vw);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
