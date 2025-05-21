@@ -75,7 +75,7 @@ public static class ValueEventHandler
 			case "se":
 				EventEventHandler.Show();
 				break;
-			case "tilføj":
+			case "tilfoj":
 				EventEventHandler.Add();
 				break;
 			case "fjern":

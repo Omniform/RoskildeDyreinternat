@@ -12,12 +12,22 @@ public class EventEventHandler : IEventHandler
     public static void Add()
     {
         bool succeed = false;
+        bool nameSucces = false;
+        string name = "";
         DateOnly date = default;
         TimeOnly startTime = default;
         TimeOnly endTime = default;
 
-        Console.WriteLine("Navn");
-        string name = Console.ReadLine().Trim();
+        while (!nameSucces)
+        {
+            Console.WriteLine("Navn");
+            name = Console.ReadLine().Trim();
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                nameSucces = true;
+            }
+        }
+
         while (!succeed)
         {
             Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
@@ -121,6 +131,11 @@ public class EventEventHandler : IEventHandler
         while (!succeed)
         {
             string input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                continue;
+            }
 
             switch (input.ToLower())
             {
