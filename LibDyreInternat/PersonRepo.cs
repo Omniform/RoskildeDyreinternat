@@ -18,18 +18,15 @@ namespace LibDyreInternat
                 new Person("Stefan", "01-01-01", "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
             };
 
-        private static List<Person> filteredPerson = new List<Person>();
 
         public static void AddPerson(Person person) { AllPersons.Add(person); }
 
-        public static void ReturnListAsString(Person person) { AllPersons.Add(person); }
-
-        public static string ReturnListAsString()
+        public static string AllToString()
         {
             string s = "";
             foreach (Person person in AllPersons)
             {
-                s += person.ToString();
+                s += person.ToString() + "\n";
             }
             return s;
         }
@@ -37,6 +34,7 @@ namespace LibDyreInternat
         // Delete (Remove) an id from person.
         public static bool Delete(int id)
         {
+
             foreach (Person p in AllPersons)
             {
                 if (p.Id.Equals(id))
@@ -45,25 +43,6 @@ namespace LibDyreInternat
                 }
             }
             return false;
-        }
-
-        // filter an person by name in list.
-        public static List<Person> FilterPersonByName(string Name)
-        {
-            filteredPerson.Clear();
-            foreach (Person p in AllPersons)
-            {
-                if (p.Name.ToLower().Equals(Name.ToLower()))
-                {
-                    filteredPerson.Add(p);
-                }
-            }
-            if (filteredPerson == null || filteredPerson.Count <= 0)
-            {
-                string msg = $"Din søgning gav ingen resultater. Vi fandt ingen med det angivne navn";
-                //throw new NoSearhResultException(msg);
-            }
-            return filteredPerson;
         }
 
         // find id in person.

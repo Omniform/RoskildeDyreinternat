@@ -81,6 +81,9 @@ namespace RoskildeDyreinternat
                     case "blog":
                         ValueEventHandler.ValueBlog(keyValuePair.Key);
                         break;
+                    case "booking":
+                        ValueEventHandler.ValueBooking(keyValuePair.Key);
+                        break;
                 }
             }
 

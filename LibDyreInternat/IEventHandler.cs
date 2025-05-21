@@ -9,6 +9,7 @@ namespace LibDyreInternat
 {
     public interface IEventHandler
     {
+        public static abstract void Show();
         public static abstract void Add();
         public static abstract void Remove();
         public static abstract void Update();

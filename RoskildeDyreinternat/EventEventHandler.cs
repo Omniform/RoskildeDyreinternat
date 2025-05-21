@@ -209,7 +209,7 @@ public class EventEventHandler : IEventHandler
 
         while (!succeed)
         {
-            Console.WriteLine(PersonRepo.ReturnListAsString());
+            Console.WriteLine(PersonRepo.AllToString());
             Console.WriteLine("Vælg koordinator ved personens id");
             if (!int.TryParse(Console.ReadLine(), out coordinatorID))
             {
