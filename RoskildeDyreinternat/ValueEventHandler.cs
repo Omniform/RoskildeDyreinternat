@@ -49,7 +49,6 @@ public static class ValueEventHandler
                 Console.WriteLine(MedicalLogRepo.AllToString());
                 break;
             case "tilfoj":
-                //AddMedicalLog();
                 MedicalLogEventHandler.Add();
                 break;
             case "fjern":
@@ -216,11 +215,11 @@ public static class ValueEventHandler
     {
         Event? selectedEvent = null;
         bool succeed = false;
-        Console.WriteLine("Vælg id på aktivitet");
         int id;
 
         while (!succeed)
         {
+            Console.WriteLine("Vælg id på aktivitet");
             int.TryParse(Console.ReadLine(), out id);
 
             selectedEvent = EventRepo.GetById(id);
@@ -281,17 +280,17 @@ public static class ValueEventHandler
             Console.WriteLine("Vælg slut tid\nformatering: 15-14");
             endTimeS = Console.ReadLine();
 
-            if (DateOnly.TryParse(dateS, out date) == false)
+            if (!DateOnly.TryParse(dateS, out date))
             {
                 Console.WriteLine("Dato formatering forkert");
                 continue;
             }
-            if (TimeOnly.TryParse(startTimeS, out startTime) == false)
+            if (!TimeOnly.TryParse(startTimeS, out startTime))
             {
                 Console.WriteLine("Start tid formatering forkert");
                 continue;
             }
-            if (TimeOnly.TryParse(endTimeS, out endTime) == false)
+            if (!TimeOnly.TryParse(endTimeS, out endTime))
             {
                 Console.WriteLine("Slut tid formatering forkert");
                 continue;
@@ -312,7 +311,7 @@ public static class ValueEventHandler
         {
             Console.WriteLine(PersonRepo.ReturnListAsString());
             Console.WriteLine("Vælg koordinator ved personens id");
-            if (int.TryParse(Console.ReadLine(), out coordinatorID))
+            if (!int.TryParse(Console.ReadLine(), out coordinatorID))
             {
                 Console.WriteLine("Du skal give en tal værdi");
                 continue;
