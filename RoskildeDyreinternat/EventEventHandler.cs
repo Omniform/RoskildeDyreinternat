@@ -55,6 +55,7 @@ public class EventEventHandler : IEventHandler
             if (endTime.CompareTo(startTime) != 1)
             {
                 Console.WriteLine("\nSlut tid skal være efter start tid");
+                continue;
             }
 
             succeed = true;
