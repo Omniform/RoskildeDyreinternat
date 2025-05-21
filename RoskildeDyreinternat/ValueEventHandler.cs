@@ -89,7 +89,7 @@ public static class ValueEventHandler
 		switch (key)
 		{
 			case "se":
-				ShowEvent();
+				//ShowEvent();
 				break;
 			case "tilføj":
 				AddEvent();
@@ -200,7 +200,7 @@ public static class ValueEventHandler
             {
                 if (input == "se")
                 {
-                    ShowEvent();
+                    //ShowEvent();
                 }
             }
             else
