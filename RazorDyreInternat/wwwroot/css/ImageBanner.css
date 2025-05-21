@@ -1,6 +1,15 @@
 ﻿body {
 }
 
+.banner-title {
+    text-align: center;
+    font-family: Arial Rounded MT;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #7E0D00;
+    margin-bottom: 20px;
+}
+
 .banner {
     width: 100%;
     overflow: hidden;
@@ -8,13 +17,13 @@
 
 .slides {
     display: flow;
-    width: 400%; /* Adjust based on the number of images */
-    animation: slideShow 60s infinite; /* Change timing if needed */
+    width: 800%; /* Adjust based on the number of images */
+    animation: slideShow 50s infinite; /* timing*/
 }
 
     .slides img {
         
-        height: 35vw;
+        height: 30vw;
         width: auto; /* Each image takes full viewport width */
     }
 
@@ -24,22 +33,26 @@
     }
 
     20% {
-        transform: translateX(-1vw);
+        transform: translateX(-4vw);
     }
 
     40% {
-        transform: translateX(-52vw);
+        transform: translateX(-40vw);
     }
 
     60% {
-        transform: translateX(-82vw);
+        transform: translateX(-70vw);
     }
 
     80% {
-        transform: translateX(-136vw);
+        transform: translateX(-120vw);
     }
 
     100% {
+        transform: translateX(-150vw);
+    }
+
+    120% {
         transform: translateX(0);
     }
 }
