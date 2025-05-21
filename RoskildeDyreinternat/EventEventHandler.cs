@@ -30,25 +30,31 @@ public class EventEventHandler : IEventHandler
 
         while (!succeed)
         {
-            Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
+            Console.WriteLine("\nDato\nFormaterings exemple 12-02-2024");
 
             if (!DateOnly.TryParse(Console.ReadLine(), out date))
             {
-                Console.WriteLine("Invalid formatering af dato");
+                Console.WriteLine("\nInvalid formatering af dato");
                 continue;
             }
 
-            Console.WriteLine("Start Tid\nFormaterings exemple 13:53");
+            Console.WriteLine("\nStart tid\nFormaterings exemple 13:53");
             if (!TimeOnly.TryParse(Console.ReadLine(), out startTime))
             {
-                Console.WriteLine("Invalid formatering af start tid");
+                Console.WriteLine("\nInvalid formatering af start tid");
                 continue;
             }
 
-            Console.WriteLine("Slut Tid\nFormaterings exemple 13:53");
+            Console.WriteLine("\nSlut tid\nFormaterings exemple 13:53");
             if (!TimeOnly.TryParse(Console.ReadLine(), out endTime))
             {
-                Console.WriteLine("Invalid formatering af slut tid");
+                Console.WriteLine("\nInvalid formatering af slut tid");
+                continue;
+            }
+
+            if (endTime.CompareTo(startTime) != 1)
+            {
+                Console.WriteLine("\nSlut tid skal være efter start tid");
                 continue;
             }
 
