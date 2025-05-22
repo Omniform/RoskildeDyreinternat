@@ -39,9 +39,8 @@ namespace LibDyreInternat
         {
             while (true)
             {
-
-                Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle dyr\n");
-                string command = ConsoleInputHelper.ReadStringFromConsole("Indtast Hunde, Katte, Fisk eller Alle dyr");
+                Console.WriteLine("Hvilke dyr vil de se\nMuligheder: Hunde, Katte, Fisk, Alle dyr");
+                string command = ConsoleInputHelper.ReadStringFromConsole("");
 
                 switch (command.ToLower())
                 {
