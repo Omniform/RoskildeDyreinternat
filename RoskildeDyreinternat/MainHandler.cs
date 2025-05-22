@@ -36,7 +36,7 @@ namespace RoskildeDyreinternat
                     continue;
                 }
 
-                if (input.ToLower() == "Ryd")
+                if (input.ToLower() == "ryd")
                 {
                     Console.Clear();
                 }
