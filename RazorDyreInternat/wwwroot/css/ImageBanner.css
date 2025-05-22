@@ -1,0 +1,58 @@
+﻿body {
+}
+
+.banner-title {
+    text-align: center;
+    font-family: Arial Rounded MT;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #7E0D00;
+    margin-bottom: 20px;
+}
+
+.banner {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slides {
+    display: flow;
+    width: 800%; /* Adjust based on the number of images */
+    animation: slideShow 50s infinite; /* timing*/
+}
+
+    .slides img {
+        
+        height: 30vw;
+        width: auto; /* Each image takes full viewport width */
+    }
+
+@keyframes slideShow {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4vw);
+    }
+
+    40% {
+        transform: translateX(-40vw);
+    }
+
+    60% {
+        transform: translateX(-70vw);
+    }
+
+    80% {
+        transform: translateX(-120vw);
+    }
+
+    100% {
+        transform: translateX(-150vw);
+    }
+
+    120% {
+        transform: translateX(0);
+    }
+}

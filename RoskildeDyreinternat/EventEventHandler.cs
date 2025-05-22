@@ -21,7 +21,8 @@ public class EventEventHandler : IEventHandler
         while (!nameSucces)
         {
             Console.WriteLine("Navn");
-            name = Console.ReadLine().Trim();
+            name = Console.ReadLine();
+            FormattingService.RemoveSpacesRef(ref name);
             if (!string.IsNullOrWhiteSpace(name))
             {
                 nameSucces = true;
@@ -30,25 +31,31 @@ public class EventEventHandler : IEventHandler
 
         while (!succeed)
         {
-            Console.WriteLine("Dato\nFormaterings exemple 12-02-2024");
+            Console.WriteLine("\nDato\nFormaterings exemple 12-02-2024");
 
             if (!DateOnly.TryParse(Console.ReadLine(), out date))
             {
-                Console.WriteLine("Invalid formatering af dato");
+                Console.WriteLine("\nInvalid formatering af dato");
                 continue;
             }
 
-            Console.WriteLine("Start Tid\nFormaterings exemple 13:53");
+            Console.WriteLine("\nStart tid\nFormaterings exemple 13:53");
             if (!TimeOnly.TryParse(Console.ReadLine(), out startTime))
             {
-                Console.WriteLine("Invalid formatering af start tid");
+                Console.WriteLine("\nInvalid formatering af start tid");
                 continue;
             }
 
-            Console.WriteLine("Slut Tid\nFormaterings exemple 13:53");
+            Console.WriteLine("\nSlut tid\nFormaterings exemple 13:53");
             if (!TimeOnly.TryParse(Console.ReadLine(), out endTime))
             {
-                Console.WriteLine("Invalid formatering af slut tid");
+                Console.WriteLine("\nInvalid formatering af slut tid");
+                continue;
+            }
+
+            if (endTime.CompareTo(startTime) != 1)
+            {
+                Console.WriteLine("\nSlut tid skal være efter start tid");
                 continue;
             }
 
@@ -59,7 +66,8 @@ public class EventEventHandler : IEventHandler
         Person? coordinator = null;
         while (!personFound)
         {
-            Console.WriteLine("Vælg koordinator ved deres id");
+            Console.WriteLine($"\n{PersonRepo.AllToString}");
+            Console.WriteLine("\nVælg koordinator ved deres id");
             int.TryParse(Console.ReadLine().Trim(), out int id);
             foreach (var person in PersonRepo.AllPersons)
             {
@@ -72,22 +80,22 @@ public class EventEventHandler : IEventHandler
             }
             if (coordinator == null)
             {
-                Console.WriteLine("Ingen person med dette id");
+                Console.WriteLine("\nIngen person med dette id");
             }
         }
         EventRepo.Add(new Event(name, date, startTime, endTime, coordinator!));
 
-        Console.WriteLine("Person er blevet tilføjet");
+        Console.WriteLine("\nPerson er blevet tilføjet");
     }
 
     public static void Remove()
     {
-        Console.WriteLine("Vælg id på aktivitet");
         bool validID = false;
         int id = 0;
         string input = "";
         while (!validID)
         {
+            Console.WriteLine("Vælg id på aktivitet\nSkriv 'se' for at se alle aktiviteter");
             input = Console.ReadLine();
             FormattingService.RemoveSpacesRef(ref input);
             if (!int.TryParse(input, out id))
@@ -136,6 +144,8 @@ public class EventEventHandler : IEventHandler
             {
                 continue;
             }
+
+            FormattingService.RemoveSpacesRef(ref input);
 
             switch (input.ToLower())
             {
