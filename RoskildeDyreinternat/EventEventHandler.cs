@@ -22,7 +22,7 @@ public class EventEventHandler : IEventHandler
         {
             Console.WriteLine("Navn");
             name = Console.ReadLine();
-            FormattingService.RemoveSpacesRef(ref name);
+            FormattingService.RemoveSpaces(ref name);
             if (!string.IsNullOrWhiteSpace(name))
             {
                 nameSucces = true;
@@ -64,11 +64,19 @@ public class EventEventHandler : IEventHandler
 
         bool personFound = false;
         Person? coordinator = null;
+        string coordinatorId = "";
         while (!personFound)
         {
-            Console.WriteLine($"\n{PersonRepo.AllToString}");
-            Console.WriteLine("\nVælg koordinator ved deres id");
-            int.TryParse(Console.ReadLine().Trim(), out int id);
+            Console.WriteLine("\nVælg koordinator ved deres id (for at se deres id indtast 'se')");
+            coordinatorId = Console.ReadLine().Trim().ToLower();
+            int.TryParse(coordinatorId, out int id);
+
+            if (coordinatorId == "se")
+            {
+                Console.WriteLine($"\n{PersonRepo.AllToString()}");
+                continue;
+            }
+
             foreach (var person in PersonRepo.AllPersons)
             {
                 if (person.Id == id)
@@ -96,8 +104,8 @@ public class EventEventHandler : IEventHandler
         while (!validID)
         {
             Console.WriteLine("Vælg id på aktivitet\nSkriv 'se' for at se alle aktiviteter");
-            input = Console.ReadLine();
-            FormattingService.RemoveSpacesRef(ref input);
+            input = Console.ReadLine().ToLower();
+            FormattingService.RemoveSpaces(ref input);
             if (!int.TryParse(input, out id))
             {
                 if (input == "se")
@@ -107,11 +115,17 @@ public class EventEventHandler : IEventHandler
             }
             else
             {
-                validID = true;
+                validID = EventRepo.Remove(id);
+                if (validID)
+                {
+                    Console.WriteLine("\nAktivitet er fjernet");
+                }
+                else
+                {
+                    Console.WriteLine("\nId'et er ikke valid");
+                }
             }
         }
-        EventRepo.Remove(id);
-        Console.WriteLine("Aktivitet er fjernet");
     }
 
     public static void Update()
@@ -138,14 +152,14 @@ public class EventEventHandler : IEventHandler
         Console.WriteLine("Hvad vil du ændre-----------\n-----------navn\n-----------dato\n-----------koordinator");
         while (!succeed)
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(input))
             {
                 continue;
             }
 
-            FormattingService.RemoveSpacesRef(ref input);
+            FormattingService.RemoveSpaces(ref input);
 
             switch (input.ToLower())
             {
@@ -173,9 +187,9 @@ public class EventEventHandler : IEventHandler
         DateOnly date = default;
         TimeOnly startTime = default;
         TimeOnly endTime = default;
-        string dateS = "";
-        string startTimeS = "";
-        string endTimeS = "";
+        string? dateS = "";
+        string? startTimeS = "";
+        string? endTimeS = "";
 
         bool succeed = false;
 
