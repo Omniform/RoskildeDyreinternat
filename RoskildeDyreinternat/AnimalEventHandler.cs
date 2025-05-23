@@ -136,9 +136,9 @@ namespace LibDyreInternat
 
             int chipNumber = ConsoleInputHelper.ReadIntFromConsole("\nChipnummer");
 
-            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConosle("\nBørnevenlig Ja/Nej");
+            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConsole("\nBørnevenlig Ja/Nej");
 
-            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConsole("\nMulighed for adoption");
 
             AnimalRepo.AddDog(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
@@ -161,9 +161,9 @@ namespace LibDyreInternat
 
             int chipNumber = ConsoleInputHelper.ReadIntFromConsole("\nChipnummer");
 
-            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConosle("\nBørnevenlig Ja/Nej");
+            bool isChildFriendly = ConsoleInputHelper.ReadBoolFromConsole("\nBørnevenlig Ja/Nej");
 
-            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConsole("\nMulighed for adoption");
 
             AnimalRepo.AddCat(race, isChildFriendly, foodPrefrences, chipNumber, name, birthYear, weight, s, adoptionStatus);
 
@@ -184,7 +184,7 @@ namespace LibDyreInternat
 
             Sex s = ConsoleInputHelper.ReadSexFromConsole();
 
-            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConosle("\nMulighed for adoption");
+            bool adoptionStatus = ConsoleInputHelper.ReadBoolFromConsole("\nMulighed for adoption");
             
 
             AnimalRepo.AddFish(name, species, maintainence, birthYear, weight, s, adoptionStatus);
@@ -253,313 +253,133 @@ namespace LibDyreInternat
         #region Animal UpdateMethods
         private static void UpdateDog()
         {
-            Console.WriteLine("Hvilken hund vil du ændre indtast (Id)\n");
-            Console.WriteLine(AnimalRepo.DogsToString());
-            string hIdInput = Console.ReadLine();
-            int hId;
+            int hId = ConsoleInputHelper.ReadIntFromConsole("Hvilken hund vil du ændre indtast (Id)\n" + AnimalRepo.DogsToString());
 
-            if (int.TryParse(hIdInput, out hId) && AnimalRepo.GetById(hId) is Dog)
+            if (AnimalRepo.GetById(hId) is Dog)
             {
                 Dog tempDog = (Dog)AnimalRepo.GetById(hId);
-                if (tempDog is Dog)
+                
+                string prop = ConsoleInputHelper.ReadStringFromConsole("\nHvad du vil ændre?\nNavn\npræference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
+                switch (prop.ToLower())
                 {
-                    Console.WriteLine("\nHvad du vil ændre?");
-                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
-                    string prop = Console.ReadLine();
-                    switch (prop.ToLower())
-                    {
-                        case "navn":
-                            Console.WriteLine($"\nNuværende Navn:");
-                            Console.WriteLine(tempDog.Name);
-                            Console.WriteLine("\nIndtast nyt navn");
-                            string newName = Console.ReadLine();
-                            tempDog.Name = newName;
+                    case "navn":
+                        tempDog.Name = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende Navn: {tempDog.Name}\nIndtast nyt navn");
+                        break;
 
-                            break;
-                        case "foder præference":
-                            Console.WriteLine("\nNuværende Foder:");
-                            Console.WriteLine(tempDog.FoodPrefrences);
-                            Console.WriteLine("\nIndtast ny foder Infomation");
-                            string newFoodInfo = Console.ReadLine();
-                            tempDog.FoodPrefrences = newFoodInfo;
-                            break;
-                        case "chipnummer":
-                            Console.WriteLine("\nNuværende chip nummer:");
-                            Console.WriteLine(tempDog.ChipNumber);
-                            Console.WriteLine("\nIndtast nyt chip nummer:");
-                            string chipInput = Console.ReadLine();
-                            int newChipNumber;
+                    case "foder præference":
+                        tempDog.FoodPrefrences = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende Foder: {tempDog.FoodPrefrences}\nIndtast ny foder Infomation");
+                        break;
 
-                            if (int.TryParse(chipInput, out newChipNumber))
-                            {
-                                tempDog.ChipNumber = newChipNumber;
-                                Console.WriteLine("Chipnummer opdateret.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ugyldigt chipnummer. Indtast venligst et gyldigt heltal.");
-                            }
-                            break;
-                        case "fødselsår":
-                            Console.WriteLine("\nNuværende Fødselsår:");
-                            Console.WriteLine(tempDog.BirthYear);
-                            Console.WriteLine("\nIndtast nyt fødselsår");
-                            string fødselsInput = Console.ReadLine();
-                            int newBirthYear;
+                    case "chipnummer":
+                        tempDog.ChipNumber = ConsoleInputHelper.ReadIntFromConsole($"\nNuværende chip nummer: {tempDog.ChipNumber}\nIndtast nyt chip nummer");
+                        break;
 
-                            if (int.TryParse(fødselsInput, out newBirthYear))
-                            {
-                                tempDog.BirthYear = newBirthYear;
-                                Console.WriteLine("Fødselsår opdateret");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ugyldit fødselsår. Indtast venligst et gyldigt heltal.");
-                            }
-                            break;
-                        case "vægt":
-                            Console.WriteLine("\nGamle Vægt:");
-                            Console.WriteLine(tempDog.Weight);
-                            Console.WriteLine("\nIndtast nuværende vægt");
-                            string weightInput = Console.ReadLine();
-                            int newWeight;
+                    case "fødselsår":
+                        tempDog.BirthYear = ConsoleInputHelper.ReadIntFromConsole($"\nNuværende Fødselsår: {tempDog.BirthYear}\nIndtast nyt fødselsår");
+                        break;
 
-                            if (int.TryParse(weightInput, out newWeight))
-                            {
-                                tempDog.Weight = newWeight;
-                                Console.WriteLine("Vægt opdateret");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ugyldig vægt. Indtast venligst et gyldigt heltal.");
-                            }
-                            break;
-                        case "børnevenlig":
-                            Console.WriteLine("\nBørnevenlig");
-                            Console.WriteLine((tempDog.IsChildFriendly)? "Ja" : "Nej");
-                            Console.WriteLine("\nBørnevenlig Ja/Nej");
-                            string input = Console.ReadLine().ToLower();
-                            if (input == "ja")
-                            {
-                                tempDog.IsChildFriendly = true;
-                            }
-                            else
-                            {
-                                tempDog.IsChildFriendly = false;
-                            }
-                            break;
-                        case "adoptions status":
-                            Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine((tempDog.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
-                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
-                            string adoptionInput = Console.ReadLine().ToLower();
-                            if (adoptionInput == "ja")
-                            {
-                                tempDog.IsUpForAdoption = true;
-                            }
-                            else
-                            {
-                                tempDog.IsUpForAdoption = false;
-                            }
-                            break;
-                    }
-                    Console.WriteLine("\nOpdateret");
-                    Console.WriteLine(tempDog);
+                    case "vægt":
+                        tempDog.Weight = ConsoleInputHelper.ReadIntFromConsole($"\nGamle vægt {tempDog.Weight}\nIndtast nuværende vægt");
+                        break;
+
+                    case "børnevenlig":
+                        tempDog.IsChildFriendly = ConsoleInputHelper.ReadBoolFromConsole($"\nBørnevenlig: {(tempDog.IsChildFriendly? "Ja" : "Nej")}\nBørnevenlig Ja/Nej");
+                        break;
+
+                    case "adoptions status":
+                        tempDog.IsUpForAdoption = ConsoleInputHelper.ReadBoolFromConsole($"\nAdoptions status: {(tempDog.IsUpForAdoption? "Ja" : "Nej")}\nMulighed for adoption Ja/Nej");
+                        break;
                 }
+                Console.WriteLine("\nOpdateret");
+                Console.WriteLine(tempDog);
             }
             else Console.WriteLine("Ingen hund med dette id eksistere");
         }
 
+
         private static void UpdateCat()
         {
-            Console.WriteLine("Hvilken kat vil du ændre indtast (Id)\n");
-            Console.WriteLine(AnimalRepo.CatsToString());
-            string cIdInput = Console.ReadLine();
-            int cId;
-            if (int.TryParse(cIdInput, out cId) && AnimalRepo.GetById(cId) is Cat)
+            int cId = ConsoleInputHelper.ReadIntFromConsole("Hvilken kat vil du ændre indtast (Id)\n" + AnimalRepo.CatsToString());
+
+            if (AnimalRepo.GetById(cId) is Cat)
             {
                 Cat tempCat = (Cat)AnimalRepo.GetById(cId);
-                if (tempCat is Cat)
+
+                string prop = ConsoleInputHelper.ReadStringFromConsole("\nHvad du vil ændre?\nNavn\npræference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
+                switch (prop.ToLower())
                 {
-                    Console.WriteLine("\nVælge hvad du vil ændre");
-                    Console.WriteLine("Navn\nFoder præference\nChipnummer\nFødselsår\nBørnevenlig\nAdoptions status\n");
-                    string prop = Console.ReadLine();
-                    switch (prop.ToLower())
-                    {
-                        case "navn":
-                            Console.WriteLine("\nNuværende Navn:");
-                            Console.WriteLine(tempCat.Name);
-                            Console.WriteLine("\nIndtast nyt navn");
-                            string newName = Console.ReadLine();
-                            tempCat.Name = newName;
-                            break;
-                        case "foder præference":
-                            Console.WriteLine("\nNuværende Foder:");
-                            Console.WriteLine(tempCat.FoodPrefrences);
-                            Console.WriteLine("\nIndtast nye Foder Infomation");
-                            string newFoodInfo = Console.ReadLine();
-                            tempCat.FoodPrefrences = newFoodInfo;
-                            break;
-                        case "chipnummer":
-                            Console.WriteLine("\nNuværende Chip nummer:");
-                            Console.WriteLine(tempCat.ChipNumber);
-                            Console.WriteLine("\nIndtast nyt chip nummer");
-                            string chipInput = Console.ReadLine();
-                            int newChipNumber;
+                    case "navn":
+                        tempCat.Name = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende Navn: {tempCat.Name}\nIndtast nyt navn");
+                        break;
 
-                            if (int.TryParse(chipInput, out newChipNumber))
-                            {
-                                tempCat.ChipNumber = newChipNumber;
-                                Console.WriteLine("Chipnummer Opdateret");
-                            }
-                            else Console.WriteLine("Ugyldigt chip nummer");
-                            break;
-                        case "Fødselsår":
-                            Console.WriteLine("\nNuværende Fødselsår:");
-                            Console.WriteLine(tempCat.BirthYear);
-                            Console.WriteLine("\nIndtast nyt fødselsår");
-                            string birthInput = Console.ReadLine();
-                            int newBirthYear;
+                    case "foder præference":
+                        tempCat.FoodPrefrences = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende Foder: {tempCat.FoodPrefrences}\nIndtast ny foder Infomation");
+                        break;
 
-                            if (int.TryParse(birthInput, out newBirthYear))
-                            {
-                                tempCat.BirthYear = newBirthYear;
-                                Console.WriteLine("Fødselsår opdateret");
-                            }
-                            else Console.WriteLine("Ugyldigt fødselsår");
-                            break;
-                        case "vægt":
-                            Console.WriteLine("\nGamle Vægt:");
-                            Console.WriteLine(tempCat.Weight);
-                            Console.WriteLine("\nIndtast nuværende vægt");
-                            string weightInput = Console.ReadLine();
-                            int newWeight;
+                    case "chipnummer":
+                        tempCat.ChipNumber = ConsoleInputHelper.ReadIntFromConsole($"\nNuværende chip nummer: {tempCat.ChipNumber}\nIndtast nyt chip nummer");
+                        break;
 
-                            if (int.TryParse(weightInput, out newWeight))
-                            {
-                                tempCat.Weight = newWeight;
-                                Console.WriteLine("Vægt opdateret");
-                            }
-                            else Console.WriteLine("Ugyldigt vægt");
-                            break;
-                        case "børnevenlig":
-                            Console.WriteLine("\nBørnevenlig");
-                            Console.WriteLine((tempCat.IsChildFriendly)? "Ja" : "Nej");
-                            Console.WriteLine("\nBørnevenlig Ja/Nej");
-                            string input = Console.ReadLine().ToLower();
-                            if (input == "ja")
-                            {
-                                tempCat.IsChildFriendly = true;
-                            }
-                            else
-                            {
-                                tempCat.IsChildFriendly = false;
-                            }
-                            break;
-                        case "adoptions status":
-                            Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine((tempCat.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
-                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
-                            string adoptionInput = Console.ReadLine().ToLower();
-                            if (adoptionInput == "ja")
-                            {
-                                tempCat.IsUpForAdoption = true;
-                            }
-                            else
-                            {
-                                tempCat.IsUpForAdoption = false;
-                            }
-                            break;
-                    }
-                    Console.WriteLine("\nOpdateret");
-                    Console.WriteLine(tempCat);
+                    case "fødselsår":
+                        tempCat.BirthYear = ConsoleInputHelper.ReadIntFromConsole($"\nNuværende Fødselsår: {tempCat.BirthYear}\nIndtast nyt fødselsår");
+                        break;
+
+                    case "vægt":
+                        tempCat.Weight = ConsoleInputHelper.ReadIntFromConsole($"\nGamle vægt {tempCat.Weight}\nIndtast nuværende vægt");
+                        break;
+
+                    case "børnevenlig":
+                        tempCat.IsChildFriendly = ConsoleInputHelper.ReadBoolFromConsole($"\nBørnevenlig: {(tempCat.IsChildFriendly ? "Ja" : "Nej")}\nBørnevenlig Ja/Nej");
+                        break;
+
+                    case "adoptions status":
+                        tempCat.IsUpForAdoption = ConsoleInputHelper.ReadBoolFromConsole($"\nAdoptions status: {(tempCat.IsUpForAdoption ? "Ja" : "Nej")}\nMulighed for adoption Ja/Nej");
+                        break;
                 }
-
+                Console.WriteLine("\nOpdateret");
+                Console.WriteLine(tempCat);
             }
             else Console.WriteLine("Ingen kat med dette id eksistere");
         }
 
         private static void UpdateFish()
         {
-            Console.WriteLine("Hvilken fisk vil du ændre indtast (Id)\n");
-            Console.WriteLine(AnimalRepo.FishToString());
-            string fIdInput = Console.ReadLine();
-            int fId;
+            int fId = ConsoleInputHelper.ReadIntFromConsole("Hvilken fisk vil du ændre indtast (Id)\n" + AnimalRepo.FishToString());
 
-            if (int.TryParse(fIdInput, out fId) && AnimalRepo.GetById(fId) is Fish)
+            if (AnimalRepo.GetById(fId) is Fish)
             {
                 Fish tempFish = (Fish)AnimalRepo.GetById(fId);
-                if (tempFish is Fish)
+
+                string prop = ConsoleInputHelper.ReadStringFromConsole("\nHvad du vil ændre?\nNavn\nArt\nFødselsår\nVedligeholdelse\nAdoptions status\nVægt");
+                switch (prop.ToLower())
                 {
-                    Console.WriteLine("\nVælg hvad du vil ændre");
-                    Console.WriteLine("Navn\nFødselsår\nVedligeholdelse\nVægt\nAdoptions status\n");
-                    string prop = Console.ReadLine();
-                    switch (prop.ToLower())
-                    {
-                        case "navn":
-                            Console.WriteLine("\nNuværende Navn:");
-                            Console.WriteLine(tempFish.Name);
-                            Console.WriteLine("\nIndtast nyt navn");
-                            string newName = Console.ReadLine();
-                            tempFish.Name = newName;
-                            break;
-                        case "fødselsår":
-                            Console.WriteLine("\nFødselsår:");
-                            Console.WriteLine(tempFish.BirthYear);
-                            Console.WriteLine("\nIndtast nyt fødselsår");
-                            string birthInput = Console.ReadLine();
-                            int newBirthYear;
+                    case "navn":
+                        tempFish.Name = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende Navn: {tempFish.Name}\nIndtast nyt navn");
+                        break;
 
-                            if (int.TryParse(birthInput, out newBirthYear))
-                            {
-                                tempFish.BirthYear = newBirthYear;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ugyldigt input. Indtast venligst et gyldigt heltal.");
-                            }
-                            break;
-                        case "vedligeholdelse":
-                            Console.WriteLine("\nVedligeholdelse:");
-                            Console.WriteLine(tempFish.Maintainence);
-                            Console.WriteLine("\nIndtast Maintainence");
-                            string newMaintainence = Console.ReadLine();
-                            tempFish.Maintainence = newMaintainence;
-                            break;
-                        case "vægt":
-                            Console.WriteLine("\nGamle vægt:");
-                            Console.WriteLine(tempFish.Weight);
-                            Console.WriteLine("\nIndtast nuværende vægt");
-                            string weightInput = Console.ReadLine();
-                            int newWeight;
+                    case "art":
+                        tempFish.Species = ConsoleInputHelper.ReadStringFromConsole($"\nNuværende art: {tempFish.Species}\nIndtast ny art Infomation");
+                        break;
 
-                            if (int.TryParse(weightInput, out newWeight))
-                            {
-                                tempFish.Weight = newWeight;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Ugyldigt input. Indtast venligst et gyldigt heltal.");
-                            }
-                            break;
-                            case "adoptions status":
-                            Console.WriteLine("\nAdoptions status");
-                            Console.WriteLine((tempFish.IsUpForAdoption)? "Adopteret" : "Ikke adopteret");
-                            Console.WriteLine("\nMulighed for adoption Ja/Nej");
-                            string adoptionInput = Console.ReadLine().ToLower();
-                            if (adoptionInput == "ja")
-                            {
-                                tempFish.IsUpForAdoption = true;
-                            }
-                            else
-                            {
-                                tempFish.IsUpForAdoption = false;
-                            }
-                            break;
-                    }
-                    Console.WriteLine("\nOpdateret");
-                    Console.WriteLine(tempFish);
+                    case "vedligeholdelse":
+                        tempFish.Maintainence = ConsoleInputHelper.ReadStringFromConsole($"\nVedligeholdelse: {tempFish.Maintainence}\nIndtast Vedligeholdelses information");
+                        break;
+
+                    case "fødselsår":
+                        tempFish.BirthYear = ConsoleInputHelper.ReadIntFromConsole($"\nNuværende Fødselsår: {tempFish.BirthYear}\nIndtast nyt fødselsår");
+                        break;
+
+                    case "vægt":
+                        tempFish.Weight = ConsoleInputHelper.ReadIntFromConsole($"\nGamle vægt {tempFish.Weight}\nIndtast nuværende vægt");
+                        break;
+
+                    case "adoptions status":
+                        tempFish.IsUpForAdoption = ConsoleInputHelper.ReadBoolFromConsole($"\nAdoptions status: {(tempFish.IsUpForAdoption ? "Ja" : "Nej")}\nMulighed for adoption Ja/Nej");
+                        break;
+                        
                 }
+                Console.WriteLine("\nOpdateret");
+                Console.WriteLine(tempFish);
             }
             else Console.WriteLine("Ingen fisk med dette id eksistere");
         }

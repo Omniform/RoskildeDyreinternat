@@ -14,7 +14,7 @@ public static class ValueEventHandler
             case "se":
                 AnimalEventHandler.Show();
                 break;
-            case "tilføj":
+            case "tilfoj":
                 AnimalEventHandler.Add();
                 break;
             case "fjern":
@@ -76,7 +76,7 @@ public static class ValueEventHandler
 			case "se":
 				EventEventHandler.Show();
 				break;
-			case "tilføj":
+			case "tilfoj":
 				EventEventHandler.Add();
 				break;
 			case "fjern":
@@ -97,7 +97,7 @@ public static class ValueEventHandler
                 Console.WriteLine(BlogRepo.ReturnListAsString(BlogRepo.AllBlogs));
                 break;
 
-			case "tilføj":
+			case "tilfoj":
                 BlogEventHandler.CreateNewBlog();
 				break;
 				

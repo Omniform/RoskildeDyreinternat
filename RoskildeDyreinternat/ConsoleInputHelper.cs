@@ -51,7 +51,7 @@ public static class ConsoleInputHelper
         }
     }
 
-    public static bool ReadBoolFromConosle(string prompt)
+    public static bool ReadBoolFromConsole(string prompt)
     {
         while (true)
         {
