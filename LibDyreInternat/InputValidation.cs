@@ -98,6 +98,60 @@ namespace LibDyreInternat
             }
         }
 
+        public static bool TryParseDateTime(string input, out DateTime result, out string errorMessage)
+        {
+            result = new DateTime();
+            errorMessage = "";
 
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                errorMessage = "Input må ikke være tomt.";
+                return false;
+            }
+
+            if (!DateTime.TryParse(input, out result))
+            {
+                errorMessage = "Ikke Gyldigt";
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryParseDateOnly(string input, out DateOnly result, out string errorMessage)
+        {
+            result = new DateOnly();
+            errorMessage = "";
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                errorMessage = "Input må ikke være tomt.";
+                return false;
+            }
+
+            if (!DateOnly.TryParse(input, out result))
+            {
+                errorMessage = "Ikke Gyldigt";
+                return false;
+            }
+            return true;
+        }
+        public static bool TryParseTimeOnly(string input, out TimeOnly result, out string errorMessage)
+        {
+            result = new TimeOnly();
+            errorMessage = "";
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                errorMessage = "Input må ikke være tomt.";
+                return false;
+            }
+
+            if (!TimeOnly.TryParse(input, out result))
+            {
+                errorMessage = "Ikke Gyldigt";
+                return false;
+            }
+            return true;
+        }
     }
 }

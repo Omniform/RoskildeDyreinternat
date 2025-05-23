@@ -17,10 +17,18 @@ namespace LibDyreInternat
         }
         public static void Add()
         {
-            Console.WriteLine("Hvilket dyr vil du tilføje en log til?");
-            Console.WriteLine(AnimalRepo.AllToString());
-            Console.WriteLine("Indtast dyrets ID");
-            int selectedId = int.Parse(Console.ReadLine());
+            bool validId = false;
+            
+            while (!validId)
+            {
+                int selectedId = ConsoleInputHelper.ReadIntFromConsole("Hvilket dyr vil du tilføje en log til?" + AnimalRepo.AllToString() + "Indtast dyrets ID");
+                if (AnimalRepo.GetById(selectedId) == null)
+                {
+                    Console.WriteLine("Et dyr med dette ID findes ikke");
+                    continue;
+                }
+            }
+            
             Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
             string description = Console.ReadLine();
             Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");

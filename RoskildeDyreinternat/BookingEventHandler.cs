@@ -18,20 +18,12 @@ namespace RoskildeDyreinternat
 
         public static void Add()
         {
-            Console.WriteLine("Hvilket dye vil du besøge?");
-            Console.WriteLine(AnimalRepo.AllToString());
-            Console.WriteLine("Indtast dyrets ID");
-            int selectedId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Hvilken dato kommer du? (dd - MM - ÅÅÅÅ)");
-            DateOnly date = DateOnly.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
-            Console.WriteLine("Hvornår kommer du? (HH:mm)");
-            TimeOnly timeBegin = TimeOnly.ParseExact(Console.ReadLine(), "HH:mm", null);
-            Console.WriteLine("Hvem kommer?");
-            Console.WriteLine(PersonRepo.AllToString());
-            Console.WriteLine("Indtast dit ID");
-            int selectedId2 = int.Parse(Console.ReadLine());
+            int selectedId = ConsoleInputHelper.ReadIntFromConsole("Hvilket dye vil du besøge?\n" + AnimalRepo.AllToString() + "\nIndtast dyrets ID");
+            DateOnly date = ConsoleInputHelper.ReadDateFromConsole("Hvilken dato kommer du? (dd - MM - ÅÅÅÅ)");
+            TimeOnly timeBegin = ConsoleInputHelper.ReadTimeFromConsole("Hvornår kommer du? (HH:mm)");
+            int selectedId2 = ConsoleInputHelper.ReadIntFromConsole("Hvem kommer?\n" + PersonRepo.AllToString() + "Indtast dit ID");
 
-
+            
             BookingRepo.Add(date, timeBegin, AnimalRepo.GetById(selectedId), PersonRepo.GetById(selectedId2));
         }
 
