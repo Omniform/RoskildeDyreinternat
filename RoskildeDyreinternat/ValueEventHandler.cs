@@ -56,15 +56,15 @@ public static class ValueEventHandler
                 break;
 
 			case "tilføj":
-				PersonEventHandler.CreateNewPerson();
+				PersonEventHandler.Add();
                 break;
 
 			case "fjern":
-                PersonEventHandler.DeletePerson();
+                PersonEventHandler.Remove();
 				break;
 
 			case "ændr":
-                PersonEventHandler.UpdateInfo();
+                PersonEventHandler.Update();
 				break;
 		}
 	}

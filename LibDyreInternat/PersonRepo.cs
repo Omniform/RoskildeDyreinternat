@@ -12,14 +12,14 @@ namespace LibDyreInternat
         // Add an new person in list.
         public static List<Person> AllPersons { get; private set; } = new List<Person>()
             {
-                new Person("Toke", "01-01-01", "Holte", "12345678", "Toke@toke.dk", Person.Acceslevel.admin),
-                new Person("Esti",  "18-05-97", "Jyllinge", "65561475", "esti@gmail.com", Person.Acceslevel.kunde),
-                new Person("Lars", "01-01-01",  "Husum", "45678912", "LarsLars@larslars.dk", Person.Acceslevel.admin),
-                new Person("Stefan", "01-01-01", "Denmark", "65465456", "stefan@stefan.dk", Person.Acceslevel.medlem)
+                new Person("Toke", "01-01-01", "Holte", "12345678", "Toke@toke.dk", Acceslevel.admin),
+                new Person("Esti",  "18-05-97", "Jyllinge", "65561475", "esti@gmail.com", Acceslevel.kunde),
+                new Person("Lars", "01-01-01",  "Husum", "45678912", "LarsLars@larslars.dk", Acceslevel.admin),
+                new Person("Stefan", "01-01-01", "Denmark", "65465456", "stefan@stefan.dk", Acceslevel.medlem)
             };
 
 
-        public static void AddPerson(Person person) { AllPersons.Add(person); }
+        public static void Add(Person person) { AllPersons.Add(person); }
 
         public static string AllToString()
         {
