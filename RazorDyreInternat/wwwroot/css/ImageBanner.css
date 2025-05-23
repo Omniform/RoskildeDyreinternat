@@ -3,17 +3,15 @@
 
 .container-text {
     display: flex;
-    justify-content: space-between; /* Spreads the boxes apart */
-    margin: 0 auto; /* Centers the container on the page */
     width: 100%;
 }
 
 .text-box,
 .text-box-right {
     flex: 1; /* Each box will take equal available space */
-    width: 600px; /* Limit each box to a maximum width */
+    width: 600px; 
     padding: 35px; /* Inner spacing */
-    text-align: left; /* Left-align text */
+    text-align: left; 
     font-family: Arial, sans-serif;
     font-weight: 400;
     letter-spacing: 0.3px;
@@ -28,8 +26,8 @@
 }
 
 .text-box-right {
-    color: #000000; /* Black text on the right box */
-    background-color: transparent; /* No background color */
+    color: #000000; 
+    background-color: transparent;
 }
 
 .footer {
@@ -40,7 +38,7 @@
 }
 
 .spacer {
-    height: 70px; /* Extra scroll space */
+    height: 70px; /* Extra scroll space at the bottom of the page so footer dont merge whit the text boxes */
 }
 
 .banner-title2 {
