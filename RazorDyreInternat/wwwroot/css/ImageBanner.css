@@ -7,18 +7,29 @@
 }
 
 .text-box,
-.text-box-right {
+.text-box-right,
+.text-info {
     flex: 1; /* Each box will take equal available space */
-    width: 600px; 
+    width: 600px;
     padding: 35px; /* Inner spacing */
-    text-align: left; 
+    text-align: left;
     font-family: Arial, sans-serif;
     font-weight: 400;
     letter-spacing: 0.3px;
     font-size: 16px;
     line-height: 1.5;
     color: #F5F0E6;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+.h3-center {
+    text-align: left;
+}
+
+.text-info {
+    background-color: #f8f8f8;
+    color: #000000;
+    color: inherit !important;
 }
 
 .text-box {
@@ -42,7 +53,7 @@
 }
 
 .banner-title2 {
-    text-align: center;
+    text-align: left;
     font-family: Arial Rounded MT;
     font-weight: bold;
     font-size: 30px;
@@ -52,7 +63,7 @@
 }
 
 .banner-title {
-    text-align: center;
+    text-align: left;
     font-family: Arial Rounded MT;
     font-weight: bold;
     font-size: 30px;
