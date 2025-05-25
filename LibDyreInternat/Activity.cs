@@ -12,10 +12,12 @@ namespace LibDyreInternat
         public DateOnly Date { get; private set; }
         public TimeOnly StartTime { get; private set; }
         public TimeOnly EndTime { get; private set; }
-        public List<Person>? Members { get; private set; } = null;
+        public List<Person> Members { get; private set; } = new List<Person>();
         private Person m_coordinator;
-        public Person Coordinator { get { return m_coordinator; }
-            set 
+        public Person Coordinator
+        {
+            get { return m_coordinator; }
+            set
             {
                 if (PersonExist(value))
                 {
@@ -50,34 +52,82 @@ namespace LibDyreInternat
             return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinatorId: {Coordinator.Id}\nKordinatorNavn: {Coordinator.Name}";
         }
 
-        public void AddMember(in Person member)
+        public bool AddMember(in Person member)
         {
-            if (PersonExist(member))
+            if (member == null)
             {
-                Members.Add(member);
-                return;
+                Console.WriteLine("Denne person findes ikke");
+                return false;
             }
-            PersonNotFound();
+
+            foreach (Person person in Members)
+            {
+                if (person.Id == member.Id)
+                {
+                    Console.WriteLine("\nDenne person er allerede en del af aktiviteten");
+                    return false;
+                }
+            }
+
+            if (!PersonExist(member))
+            {
+                Console.WriteLine("\nDer er ingen med dette id");
+                return false;
+            }
+
+            Members.Add(member);
+            return true;
         }
 
-        public void RemoveMember(in Person person)
+        public bool RemoveMember(in Person? person)
         {
-            if (Members == null)
+            if (person == null)
             {
-                throw new NullReferenceException("Der er ikke nogle medlemmer i aktiviteten");
+                return false;
             }
 
-            if (!Members.Remove(person))
+            for (int i = 0; i < Members.Count; i++)
             {
-                Console.WriteLine("Personen er ikke en del af aktiviteten");
+                if (person.Id == Members.ElementAt(i).Id)
+                {
+                    Members.RemoveAt(i);
+                    return true;
+                }
             }
+            Console.WriteLine("Personen er ikke en del af aktiviteten");
+            return false;
         }
 
-        private bool PersonExist(in Person person)
+        public Person? GetMemberById(in int id)
         {
-            if (PersonRepo.AllPersons.Contains(person))
+            foreach (Person person in Members)
             {
-                return true;
+                if (person.Id == id)
+                {
+                    return person;
+                }
+            }
+            return null;
+        }
+
+        public string AllMembersToString()
+        {
+            string s = "";
+            foreach (Person members in Members)
+            {
+                s += $"Id: {members.Id}\nNavn: {members.Name}\nEmail: {members.Email}\n";
+            }
+            return s;
+        }
+
+        private bool PersonExist(Person person)
+        {
+            foreach (Person p in PersonRepo.AllPersons)
+            {
+                if (p.Id == person.Id)
+                {
+                    return true;
+                }
             }
             return false;
         }

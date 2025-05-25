@@ -71,20 +71,30 @@ public static class ValueEventHandler
 
 	public static void ValueEvent(in string key)
 	{
-		switch (key)
-		{
-			case "se":
-				EventEventHandler.Show();
+        switch (key)
+        {
+            case "se":
+                EventEventHandler.Show();
+                break;
+            case "semedmedlem":
+                EventEventHandler.ShowWithMembers();
+                break;
+            case "tilfoj":
+                EventEventHandler.Add();
+                break;
+            case "fjern":
+                EventEventHandler.Remove();
+                break;
+            case "ændr":
+                EventEventHandler.Update();
+                break;
+            case "tilfojmedlem":
+                EventEventHandler.AddMember();
+                break;
+            case "fjernmedlem":
+				EventEventHandler.RemoveMember();
 				break;
-			case "tilfoj":
-				EventEventHandler.Add();
-				break;
-			case "fjern":
-				EventEventHandler.Remove();
-				break;
-			case "ændr":
-				EventEventHandler.Update();
-				break;
+
 
         }
     }

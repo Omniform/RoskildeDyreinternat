@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using LibDyreInternat;
 
@@ -7,6 +9,12 @@ public class EventEventHandler : IEventHandler
     public static void Show()
     {
         Console.WriteLine(EventRepo.ReturnListAsString());
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ShowWithMembers()
+    {
+        Console.WriteLine(EventRepo.ReturnListWithMembersAsString());
     }
 
     public static void Add()
@@ -250,6 +258,132 @@ public class EventEventHandler : IEventHandler
             }
 
             selectedEvent.Coordinator = coordinator;
+            succeed = true;
+        }
+    }
+
+    public static void AddMember()
+    {
+        bool succeed = false;
+        int eventId = 0;
+        int personId = 0;
+        Person? selectedPerson = null;
+        string input = "";
+
+        Event selectedEvent = GetEvent();
+
+        while (!succeed)
+        {
+            Console.WriteLine("\nvælg id på person skriv 'se' for at se alle person");
+
+            input = Console.ReadLine();
+
+            FormattingService.RemoveSpaces(ref input);
+
+            if (!int.TryParse(input, out personId))
+            {
+                if (input == "se")
+                {
+                    Console.WriteLine($"\n{PersonRepo.AllToString()}");
+                }
+                else
+                {
+                    Console.WriteLine("Skal være et tal");
+                }
+                continue;
+            }
+
+            selectedPerson = PersonRepo.GetById(personId);
+
+            if (!selectedEvent.AddMember(selectedPerson))
+            {
+                continue;
+            }
+            succeed = true;
+        }
+    }
+
+    public static Event GetEvent()
+    {
+        bool succeed = false;
+        int eventId = 0;
+        Event? selectedEvent = null;
+        string input = "";
+
+        while (!succeed)
+        {
+            Console.WriteLine("\nvælg id på aktivitet skriv 'se' for at se alle aktiviteter");
+            input = Console.ReadLine().ToLower();
+
+            FormattingService.RemoveSpaces(ref input);
+
+            if (!int.TryParse(input, out eventId))
+            {
+                if (input == "se")
+                {
+                    Console.WriteLine($"\n{EventRepo.ReturnListAsString()}");
+                }
+                else
+                {
+                    Console.WriteLine("Skal være et tal");
+                }
+                continue;
+            }
+
+            selectedEvent = EventRepo.GetById(eventId);
+
+            if (selectedEvent == null)
+            {
+                Console.WriteLine("Der er ingen med dette id");
+                continue;
+            }
+            succeed = true;
+        }
+        return selectedEvent;
+    }
+
+    public static void RemoveMember()
+    {
+        int memberId = 0;
+        bool succeed = false;
+        string input = "";
+        Event selectedEvent = GetEvent();
+        Person? selectedMember = null;
+
+        if (!selectedEvent.Members.Any())
+        {
+            Console.WriteLine("\nDer er ikke nogle medlemer i denne aktivitet");
+            return;
+        }
+
+        while (!succeed)
+        {
+            Console.WriteLine("\nvælg id på person skriv 'se' for at se alle person");
+
+            input = Console.ReadLine();
+
+            FormattingService.RemoveSpaces(ref input);
+
+            if (!int.TryParse(input, out memberId))
+            {
+                if (input == "se")
+                {
+                    Console.WriteLine($"\n{selectedEvent.AllMembersToString()}");
+                }
+                else
+                {
+                    Console.WriteLine("Skal være et tal");
+                }
+                continue;
+            }
+
+            selectedMember = selectedEvent.GetMemberById(memberId);
+
+            if (!selectedEvent.RemoveMember(selectedMember))
+            {
+                Console.WriteLine("Der er ingen med dette id");
+                continue;
+            }
             succeed = true;
         }
     }

@@ -15,7 +15,8 @@ namespace RoskildeDyreinternat
             AnimalRepo.AddDog("bulldog", true, "everything", 123456, "Bent", 2020, 55, Sex.male, false);
             MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00),AnimalRepo.GetById(1),"Gert");
             AnimalRepo.AddCat("bulldog", true, "everything", 123456, "Anette", 2020, 55, Sex.male, false);
-            AnimalRepo.AddFish("bulldog", "everything", "Nemo", 2020, 55, Sex.male, true); 
+            AnimalRepo.AddFish("bulldog", "everything", "Nemo", 2020, 55, Sex.male, true);
+            EventRepo.Add(new Event("søren", new DateOnly(2002, 12, 13), new TimeOnly(20, 42), new TimeOnly(22, 43), PersonRepo.GetById(1)));
 
             //Dog dog1 = new Dog("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
 
