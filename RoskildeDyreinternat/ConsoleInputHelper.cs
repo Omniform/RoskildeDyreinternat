@@ -68,5 +68,47 @@ public static class ConsoleInputHelper
 
 
     }
+    public static DateTime ReadDateTimeFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
 
+            if (InputValidation.TryParseDateTime(input, out DateTime result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
+
+    public static DateOnly ReadDateFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
+
+            if (InputValidation.TryParseDateOnly(input, out DateOnly result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
+    public static TimeOnly ReadTimeFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
+
+            if (InputValidation.TryParseTimeOnly(input, out TimeOnly result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
 }

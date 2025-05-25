@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace LibDyreInternat
 {
-    public class PersonEventHandler
+    public class PersonEventHandler : IEventHandler
     {
         private static bool m_eventSuccess = false;
 
-        public static void CreateNewPerson()
+        public static void Show()
+        {
+            Console.WriteLine(PersonRepo.AllToString());
+        }
+        public static void Add()
         {
             Console.WriteLine("Navn");
             string name = Console.ReadLine();
@@ -29,13 +33,13 @@ namespace LibDyreInternat
             string email = Console.ReadLine();
 
             Console.WriteLine("Adgangs niveau\nAdmin = 1\nMedlem = 2\nKunde = 3");
-            Person.Acceslevel personAccesLevel = (Person.Acceslevel)int.Parse(Console.ReadLine());
+            Acceslevel personAccesLevel = (Acceslevel)int.Parse(Console.ReadLine());
 
 
-            PersonRepo.AddPerson(new(name, birthday, address, telephoneNumber, email, personAccesLevel));
+            PersonRepo.Add(new(name, birthday, address, telephoneNumber, email, personAccesLevel));
         }
 
-        public static void DeletePerson()
+        public static void Remove()
         {
             Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
             Console.WriteLine("Hvilken person vil du slette? Intast persons ID");
@@ -74,7 +78,7 @@ namespace LibDyreInternat
             }
         }
 
-        public static void UpdateInfo()
+        public static void Update()
         {
             Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons) + "\n");
             Console.WriteLine("Hvilken person vil du ændre? Indtast persons ID");
