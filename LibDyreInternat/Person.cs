@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace LibDyreInternat
 {
+    public enum Acceslevel
+    {
+        admin = 1,
+        medlem,
+        kunde
+    }
     public class Person
     {
         private static int idNext = 1;
@@ -40,12 +46,7 @@ namespace LibDyreInternat
 
         public Acceslevel PersonAccesLevel { get; set; }
 
-        public enum Acceslevel
-        {
-            admin = 1,
-            medlem,
-            kunde
-        }
+        
 
         public Person(in string name, in string birthday, in string address, in string telephoneNumber, in string email, Acceslevel personAccesLevel)
         {

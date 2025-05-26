@@ -2,60 +2,34 @@ namespace LibDyreInternat
 {    
     public static class FormattingService
     {
-        public static void RemoveSpacesRef(ref string s)
+        public static void RemoveSpaces(ref string s)
         {
-            if (s.StartsWith(' '))
+            if (s.StartsWith(' ') || s.EndsWith(' '))
             {
-                for (int i = 0; i < s.Length; i++)
+                int i = 0;
+                int y = s.Length - 1;
+
+                while (i < s.Length)
                 {
                     if (s.ElementAt(i) != ' ')
                     {
-                        s = s[i..];
                         break;
                     }
+                    i++;
                 }
-            }
 
-            if (s.EndsWith(' '))
-            {
-                for (int i = s.Length - 1; i > -1; i--)
+
+                while (y > -1)
                 {
-                    if (s.ElementAt(i) != ' ')
+                    if (s.ElementAt(y) != ' ')
                     {
-                        s = s[..(i + 1)];
                         break;
                     }
+                    y--;
                 }
+                y = s.Length - (y + 1);
+                s = s.Substring(i, s.Length - i - y);
             }
-        }
-
-        public static string RemoveSpaces(string s)
-        {
-            if (s.StartsWith(' '))
-            {
-                for (int i = 0; i < s.Length; i++)
-                {
-                    if (s.ElementAt(i) != ' ')
-                    {
-                        s = s[i..];
-                        break;
-                    }
-                }
-            }
-
-            if (s.EndsWith(' '))
-            {
-                for (int i = s.Length - 1; i > -1; i--)
-                {
-                    if (s.ElementAt(i) != ' ')
-                    {
-                        s = s[..(i + 1)];
-                        break;
-                    }
-                }
-            }
-
-            return s;
         }
     }
 }

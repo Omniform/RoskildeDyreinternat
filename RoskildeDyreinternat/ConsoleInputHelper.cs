@@ -8,7 +8,6 @@ public static class ConsoleInputHelper
 //Metoder der flytter logikken fra animal even handler til denne klasse for nemmere readblity i animal event handler, samt samler alle konsol indput handeling i en klasse
     public static int ReadIntFromConsole(string prompt)
     {
-
         while (true)
         {
             Console.WriteLine(prompt);
@@ -52,7 +51,7 @@ public static class ConsoleInputHelper
         }
     }
 
-    public static bool ReadBoolFromConosle(string prompt)
+    public static bool ReadBoolFromConsole(string prompt)
     {
         while (true)
         {
@@ -69,5 +68,47 @@ public static class ConsoleInputHelper
 
 
     }
+    public static DateTime ReadDateTimeFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
 
+            if (InputValidation.TryParseDateTime(input, out DateTime result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
+
+    public static DateOnly ReadDateFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
+
+            if (InputValidation.TryParseDateOnly(input, out DateOnly result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
+    public static TimeOnly ReadTimeFromConsole(string prompt)
+    {
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            string input = Console.ReadLine().Trim();
+
+            if (InputValidation.TryParseTimeOnly(input, out TimeOnly result, out string errorMessage))
+            {
+                return result;
+            }
+            else Console.WriteLine(errorMessage);
+        }
+    }
 }

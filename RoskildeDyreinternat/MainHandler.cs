@@ -36,7 +36,7 @@ namespace RoskildeDyreinternat
                     continue;
                 }
 
-                if (input.ToLower() == "Ryd")
+                if (input.ToLower() == "ryd")
                 {
                     Console.Clear();
                 }
@@ -50,8 +50,6 @@ namespace RoskildeDyreinternat
                 FindKey();
                 Console.WriteLine();
             }
-            //FindKeyValuePair(Console.ReadLine());
-            //FindKey();
         }
 
         public static Person JSonRead(string filePath)
@@ -80,6 +78,9 @@ namespace RoskildeDyreinternat
                         break;
                     case "blog":
                         ValueEventHandler.ValueBlog(keyValuePair.Key);
+                        break;
+                    case "booking":
+                        ValueEventHandler.ValueBooking(keyValuePair.Key);
                         break;
                 }
             }

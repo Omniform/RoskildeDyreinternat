@@ -38,7 +38,9 @@ namespace LibDyreInternat
                     return animal;
                 }
             }
+
             return null;
+
         }
 
 
@@ -130,7 +132,7 @@ namespace LibDyreInternat
                 Console.WriteLine($"\nType: {type}({typeDictionaries[type].Count})");
                 foreach (Animal a in typeDictionaries[type])
                 {
-                    Console.WriteLine(a.Name);
+                    Console.WriteLine(a);
                 }   
             }
 

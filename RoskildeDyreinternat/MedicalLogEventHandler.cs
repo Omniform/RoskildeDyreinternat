@@ -10,12 +10,27 @@ namespace LibDyreInternat
     public class MedicalLogEventHandler : IEventHandler
     {
         public static bool eventSuccess = false;
+
+        public static void Show()
+        {
+            Console.WriteLine(MedicalLogRepo.AllToString());
+        }
         public static void Add()
         {
-            Console.WriteLine("Hvilket dye vil du tilføje en log til?");
-            Console.WriteLine(AnimalRepo.AllToString());
-            Console.WriteLine("Indtast dyrets ID");
-            int selectedId = int.Parse(Console.ReadLine());
+            bool validId = false;
+
+            int selectedId = 0;
+            
+            while (!validId)
+            {
+                selectedId = ConsoleInputHelper.ReadIntFromConsole("Hvilket dyr vil du tilføje en log til?" + AnimalRepo.AllToString() + "Indtast dyrets ID");
+                if (AnimalRepo.GetById(selectedId) == null)
+                {
+                    Console.WriteLine("Et dyr med dette ID findes ikke");
+                    continue;
+                }
+            }
+            
             Console.WriteLine("Hvad er blevet undersøgt og/eller løst?");
             string description = Console.ReadLine();
             Console.WriteLine("Hvornår er undersøgelsen el.lign foretaget? (dd-MM-ÅÅÅÅ HH:mm)");
@@ -77,7 +92,7 @@ namespace LibDyreInternat
                         {
                             case "dyr":
                                 Console.WriteLine(AnimalRepo.AllToString() +
-                                    "\nHvilket er det nye dyr du vil tilknytte loggen?");
+                                    "\nHvilket er det nye dyr du vil tilknytte loggen? (Indtast ID)");
                                 Console.WriteLine();
                                 break;
                             case "dato":
