@@ -18,10 +18,12 @@ namespace LibDyreInternat
         public static void Add()
         {
             bool validId = false;
+
+            int selectedId = 0;
             
             while (!validId)
             {
-                int selectedId = ConsoleInputHelper.ReadIntFromConsole("Hvilket dyr vil du tilføje en log til?" + AnimalRepo.AllToString() + "Indtast dyrets ID");
+                selectedId = ConsoleInputHelper.ReadIntFromConsole("Hvilket dyr vil du tilføje en log til?" + AnimalRepo.AllToString() + "Indtast dyrets ID");
                 if (AnimalRepo.GetById(selectedId) == null)
                 {
                     Console.WriteLine("Et dyr med dette ID findes ikke");
