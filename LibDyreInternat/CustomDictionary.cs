@@ -1,5 +1,6 @@
 using System;
 
+// Dictionary that can have multiple of the same key
 public class CustomDictionary<TKey, TValue>
 {
     private List<KeyValuePair<TKey, TValue>> m_list = new List<KeyValuePair<TKey, TValue>>();

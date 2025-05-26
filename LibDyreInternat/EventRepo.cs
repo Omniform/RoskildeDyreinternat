@@ -3,7 +3,7 @@ namespace LibDyreInternat
     public static class EventRepo
     {
         public static List<Event> AllEvents { get; private set; } = new List<Event>();
-        private static List<Event> filteredActivities = new List<Event>();
+        private static List<Event> filteredEvents = new List<Event>();
 
         public static void Add(Event activity)
         {
@@ -51,6 +51,7 @@ namespace LibDyreInternat
             return s;
         }
 
+        // Takes all events and members in the event and returns it as a string
         public static string ReturnListWithMembersAsString()
         {
             string s = "";
@@ -59,35 +60,28 @@ namespace LibDyreInternat
 
             for (int i = 0; i < AllEvents.Count; i++)
             {
-                // person = AllActivities.ElementAt(i).Members.ElementAt(i);
-                // if (person != null)
-                // {
-                //     s += $"{AllActivities.ElementAt(i)}\n{AllActivities.ElementAt(i).Members.ElementAt(i).Id}"
-                // }
                 for (int y = 0; y < AllEvents.ElementAt(i).Members.Count; y++)
                 {
+                    // Gets the member in the event list
                     person = AllEvents.ElementAt(i).Members.ElementAt(y);
                     memberS += $"\n\nMedlem: {AllEvents.ElementAt(i).Id}\nId: {person.Id}\nNavn: {person.Name}\nEmail: {person.Email}";
                 }
                 s += AllEvents.ElementAt(i).ToString() + memberS;
             }
-            // foreach (Event activity in AllActivities)
-                // {
-                //     s += $"{activity}\n{activity.Members}";
-                // }
-                return s;
+            return s;
         }
 
-        public static List<Event> FilterActivitiesByName(string name)
+        // Adds event to (filteredEvents) if event name contains parameter
+        public static List<Event> FilterEventsByName(string name)
         {
             foreach (Event activity in AllEvents)
             {
                 if (activity.Name.ToLower().Contains(name.ToLower()))
                 {
-                    filteredActivities.Add(activity);
+                    filteredEvents.Add(activity);
                 }
             }
-            return filteredActivities;
+            return filteredEvents;
         }
     }
 }

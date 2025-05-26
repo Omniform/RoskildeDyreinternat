@@ -52,6 +52,7 @@ namespace LibDyreInternat
             return $"Id: {Id}\nNavn: {Name}\nDato: {Date} {StartTime} - {EndTime}\nKordinatorId: {Coordinator.Id}\nKordinatorNavn: {Coordinator.Name}";
         }
 
+        // Adds a person from PersonRepo to the list of members
         public bool AddMember(in Person member)
         {
             if (member == null)

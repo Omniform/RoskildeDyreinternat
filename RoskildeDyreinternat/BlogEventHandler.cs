@@ -23,7 +23,7 @@ namespace LibDyreInternat
             Console.WriteLine("Dato er sat til " + date.ToString());
 
             Console.WriteLine("Activity");
-            Event activity = EventRepo.FilterActivitiesByName(Console.ReadLine()).ElementAt(0);
+            Event activity = EventRepo.FilterEventsByName(Console.ReadLine()).ElementAt(0);
 
             Console.WriteLine("Forfatter");
             string author = Console.ReadLine();
