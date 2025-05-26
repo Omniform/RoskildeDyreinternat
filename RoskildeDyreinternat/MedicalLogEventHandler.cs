@@ -32,42 +32,22 @@ namespace LibDyreInternat
             eventSuccess = false;
             MedicalLog medicalLog = null;
             Console.WriteLine(MedicalLogRepo.AllToString());
-            Console.WriteLine("Hvilken log vil du fjerne? (Indtast ID)");
-            while (!eventSuccess)
+            int id = ConsoleInputHelper.ReadIntFromConsole("Hvilken log vil du fjerne? (Indtast ID)");
+            
+            medicalLog = MedicalLogRepo.GetById(id);
+            Console.WriteLine("\nEr du sikker på at du vil slette denne log? (ja/nej) ");
+            Console.WriteLine("\n" + medicalLog);
+            string input = Console.ReadLine();
+            switch (input)
             {
-                string input = Console.ReadLine();
-                if (input == "fortryd")
-                {
+                case "ja":
+                    MedicalLogRepo.Remove(medicalLog);
+                    Console.WriteLine("Loggen er fjernet");
                     break;
-                }
-                try
-                {
-                    medicalLog = MedicalLogRepo.GetById(int.Parse(input));
-                    eventSuccess = true;
-                    Console.WriteLine("\nEr du sikker på at du vil slette denne log? (ja/nej) ");
-                    Console.WriteLine("\n" + medicalLog);
-                    input = Console.ReadLine();
-                    switch (input)
-                    {
-                        case "ja":
-                            MedicalLogRepo.Remove(medicalLog);
-                            Console.WriteLine("Loggen er fjernet");
-                            break;
-                        case "nej":
-                            break;
-                    }
-                }
-                catch (NoSearchResultException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("prov igen, eller skriv fortryd");
-                }
-                catch (FormatException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("prov igen, eller skriv fortryd");
-                }
+                case "nej":
+                    break;
             }
+                
         }
         public static void Update()
         {
