@@ -26,6 +26,7 @@ namespace LibDyreInternat
             {
                 if (mLog.ID == id) medicalLog = mLog;
             }
+            //throws exeption if tried to find a MedLog not in list
             if (medicalLog == null)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen lægelogs med det angivne ID";

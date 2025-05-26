@@ -28,7 +28,7 @@ namespace LibDyreInternat
 
         public override string ToString() 
         {
-            return $"ID: {ID}\nDato: {Date}\n tidspunkt: {TimeBegin} til {TimeEnd}\nHvem får besøg: {Animal.Name}\nHvem besøger: {Person.Name}\n";
+            return $"ID: {ID}\nDyr: {Animal.Name}\nTid: {TimeBegin} til {TimeEnd}\nDato: {Date}\nPerson: {Person.Name}\n";
         }
     }
 }

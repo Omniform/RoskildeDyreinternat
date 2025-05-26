@@ -25,6 +25,7 @@ namespace LibDyreInternat
             {
                 if (b.ID == id) booking = b;
             }
+            //Throws exeption if tried to fint booking not in list
             if (booking == null)
             {
                 string msg = $"Din søgning gav ingen resultater. Vi fandt ingen booking med det angivne ID";

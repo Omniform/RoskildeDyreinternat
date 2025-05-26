@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Library
 {
+    /// <summary>
+    /// Throw if no result found when seaching for an object (in a list)
+    /// </summary>
     public class NoSearchResultException : Exception
     {
         public NoSearchResultException(string msg)

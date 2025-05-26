@@ -19,6 +19,9 @@ namespace RoskildeDyreinternat
             MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00), AnimalRepo.GetById(2), "Gert");
             MedicalLogRepo.Add("Broken leg", new(2025, 05, 20, 10, 00, 00), AnimalRepo.GetById(1), "Gert");
 
+            BookingRepo.Add(new DateOnly(2025, 05, 20), new TimeOnly(10, 00), AnimalRepo.GetById(2), PersonRepo.GetById(1));
+            BookingRepo.Add(new DateOnly(2025, 06, 30), new TimeOnly(13, 00), AnimalRepo.GetById(5), PersonRepo.GetById(3));
+
             PersonRepo.Add(new Person("Toke", "01-01-01", "Holte", "12345678", "Toke@toke.dk", Acceslevel.admin));
 
             EventRepo.Add("Åbent hus", new DateOnly(2025, 11, 24), new TimeOnly(13, 00), new TimeOnly(15, 30), PersonRepo.GetById(1));
