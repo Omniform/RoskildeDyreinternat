@@ -21,13 +21,7 @@ namespace RoskildeDyreinternat
 
             PersonRepo.Add(new Person("Toke", "01-01-01", "Holte", "12345678", "Toke@toke.dk", Acceslevel.admin));
 
-            //Dog dog1 = new Dog("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
-
-            //Cat cat1 = new Cat("Golden Retriver", true, "Korn fri", 25, "Bobby", 2024, 25, Sex.male);
-
-            //Fish fish1 = new Fish("Golden Retriver", "nem at vedligeholde", "Bobby", 2024, 25, Sex.hermaphrodite);
-
-            //Console.WriteLine(fish1);
+            EventRepo.Add("Åbent hus", new DateOnly(2025, 11, 24), new TimeOnly(13, 00), new TimeOnly(15, 30), PersonRepo.GetById(1));
 
             MainHandler handler = new MainHandler();
 

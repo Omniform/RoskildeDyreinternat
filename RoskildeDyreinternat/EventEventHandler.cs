@@ -270,6 +270,12 @@ public class EventEventHandler : IEventHandler
         Person? selectedPerson = null;
         string input = "";
 
+        if (!EventRepo.AllEvents.Any())
+        {
+            Console.WriteLine("\nDer er ikke nogle aktiviteter");
+            return;
+        }
+
         Event selectedEvent = GetEvent();
 
         while (!succeed)

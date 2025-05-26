@@ -50,8 +50,6 @@ namespace RoskildeDyreinternat
                 FindKey();
                 Console.WriteLine();
             }
-            //FindKeyValuePair(Console.ReadLine());
-            //FindKey();
         }
 
         public static Person JSonRead(string filePath)
