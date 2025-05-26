@@ -32,7 +32,9 @@ namespace RoskildeDyreinternat
 
                 if (input.ToLower() == "hjælp")
                 {
-                    Console.WriteLine("Indtast en af følgend\n------------\nSe\nTilfoj\nFjern\nÆndr\n------------\nEfterfulgt af følgende\n------------\nDyr\nMedlem\nBegivenhed\nBlog\nBooking\n------------\nKommandoerne Ryd og Exit\nRyder consolen eller slutter programmet\n------------");
+                    Console.WriteLine("Indtast en af følgend\n------------\nSe\nTilfoj\nFjern\nÆndr\n------------\nEfterfulgt af følgende\n------------\nDyr" +
+                    "\nMedlem\nBegivenhed\nBlog\nBooking\n------------\nekstra aktivitets kommandoer\n------------\nTilfojmedlem\nFjernmedlem\nSemedmedlem\n------------" +
+                    "\nKommandoerne Ryd og Exit\nRyder consolen eller slutter programmet\n------------");
                     continue;
                 }
 
@@ -88,6 +90,7 @@ namespace RoskildeDyreinternat
             m_dictionary.ToList().Clear();
         }
 
+        // Finds the key and value pair in a string separated by a space and adds it to the CustomDictionary (m_dictionary)
         public void FindKeyValuePair(string input)
         {
             int keyStart = 0;
@@ -100,6 +103,7 @@ namespace RoskildeDyreinternat
 
             for (int i = 0; i < input.Count(); i++)
             {
+                // Finds key
                 if (input.ElementAt(i) != ' ' && checkForValue == false)
                 {
                     keyStart = i;
@@ -115,6 +119,7 @@ namespace RoskildeDyreinternat
                     i = keyEnd;
                 }
 
+                // Finds value and adds key and value to (m_dictionary)
                 if (input.ElementAt(i) != ' ' && checkForValue == true)
                 {
                     valueStart = i;
