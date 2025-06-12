@@ -55,7 +55,7 @@ public static class ValueEventHandler
                 Console.WriteLine(PersonRepo.ReturnListAsString(PersonRepo.AllPersons));
                 break;
 
-			case "tilføj":
+			case "tilfoj":
 				PersonEventHandler.Add();
                 break;
 

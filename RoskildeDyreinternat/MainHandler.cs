@@ -72,7 +72,7 @@ namespace RoskildeDyreinternat
                     case "log":
                         ValueEventHandler.ValueMedicalLog(keyValuePair.Key);
                         break;
-                    case "person":
+                    case "medlem":
                         ValueEventHandler.ValuePerson(keyValuePair.Key);
                         break;
                     case "aktivitet":
